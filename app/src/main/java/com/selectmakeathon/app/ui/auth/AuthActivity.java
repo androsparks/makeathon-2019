@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.ui.auth.login.LoginFragment;
@@ -34,6 +35,9 @@ public class AuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefEditor = prefs.edit();
 
         updateFragment(LOGIN);
     }
@@ -77,5 +81,15 @@ public class AuthActivity extends AppCompatActivity {
                 .addNextIntentWithParentStack(new Intent(AuthActivity.this, MainActivity.class))
                 .startActivities();
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }

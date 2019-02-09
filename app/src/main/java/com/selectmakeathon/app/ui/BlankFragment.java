@@ -1,5 +1,4 @@
-package com.selectmakeathon.app.ui.auth.login;
-
+package com.selectmakeathon.app.ui;
 
 import android.os.Bundle;
 
@@ -11,22 +10,22 @@ import android.view.ViewGroup;
 
 import com.selectmakeathon.app.R;
 
-public class LoginFragment extends Fragment {
+public class BlankFragment extends Fragment {
 
-    public LoginFragment() {
+
+    public BlankFragment() {
         // Required empty public constructor
     }
 
-
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
+    public static BlankFragment newInstance() {
+        return new BlankFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_blank, container, false);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.selectmakeathon.app.ui.home;
+package com.selectmakeathon.app.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -34,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
 
                 Intent intent;
-                if (prefs.getBoolean(Constants.PREF_IS_FIRST_TIME, true)) {
+                if (prefs.getBoolean(Constants.PREF_IS_LOGGED_IN, true)) {
                     intent = new Intent(SplashActivity.this, AuthActivity.class);
                 } else {
                     intent = new Intent(SplashActivity.this, MainActivity.class);

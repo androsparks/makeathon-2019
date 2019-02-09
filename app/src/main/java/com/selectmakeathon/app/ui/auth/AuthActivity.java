@@ -75,7 +75,7 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     public void startMainActivity() {
-        prefEditor.putBoolean(Constants.PREF_IS_FIRST_TIME, false).apply();
+        prefEditor.putBoolean(Constants.PREF_IS_LOGGED_IN, false).apply();
 
         TaskStackBuilder.create(AuthActivity.this)
                 .addNextIntentWithParentStack(new Intent(AuthActivity.this, MainActivity.class))

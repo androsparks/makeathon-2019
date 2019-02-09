@@ -7,13 +7,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.ui.auth.login.LoginFragment;
 import com.selectmakeathon.app.ui.auth.otp.OtpFragment;
 import com.selectmakeathon.app.ui.auth.signup.SignupFragment;
 import com.selectmakeathon.app.ui.main.MainActivity;
+import com.selectmakeathon.app.util.Constants;
 
 import static com.selectmakeathon.app.ui.auth.AuthActivity.AuthFragment.*;
 
@@ -25,15 +28,21 @@ public class AuthActivity extends AppCompatActivity {
         SIGNUP
     }
 
+    SharedPreferences prefs;
+    SharedPreferences.Editor prefEditor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefEditor = prefs.edit();
+
         updateFragment(LOGIN);
     }
 
-    private void updateFragment(AuthFragment authFragment) {
+    public void updateFragment(AuthFragment authFragment) {
         Fragment fragment;
 
         switch (authFragment) {
@@ -66,9 +75,21 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     public void startMainActivity() {
+        prefEditor.putBoolean(Constants.PREF_IS_FIRST_TIME, false).apply();
+
         TaskStackBuilder.create(AuthActivity.this)
                 .addNextIntentWithParentStack(new Intent(AuthActivity.this, MainActivity.class))
                 .startActivities();
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }

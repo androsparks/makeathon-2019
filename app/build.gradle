@@ -38,6 +38,9 @@ dependencies {
 
     // OTP Pin View
     implementation 'com.chaos.view:pinview:1.4.2'
+
+    // Countdown View
+    implementation 'com.github.iwgang:countdownview:2.1.6'
 }
 
 apply plugin: 'com.google.gms.google-services'

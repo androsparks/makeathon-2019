@@ -35,6 +35,9 @@ dependencies {
 
     // Android MDC
     implementation 'com.google.android.material:material:1.1.0-alpha03'
+
+    // OTP Pin View
+    implementation 'com.chaos.view:pinview:1.4.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

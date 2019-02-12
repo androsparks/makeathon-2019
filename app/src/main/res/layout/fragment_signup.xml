@@ -32,6 +32,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:animateLayoutChanges="true"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +42,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
 
@@ -81,7 +83,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email id" />
+                    android:hint="Email id"
+                    android:inputType="textWebEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -117,12 +120,14 @@
                 android:textColorHint="@color/colorAccent"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/colorAccent"
-                app:hintTextColor="@color/colorAccent">
+                app:hintTextColor="@color/colorAccent"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password" />
+                    android:hint="Password"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -137,12 +142,14 @@
                 android:textColorHint="@color/colorAccent"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/colorAccent"
-                app:hintTextColor="@color/colorAccent">
+                app:hintTextColor="@color/colorAccent"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirm password" />
+                    android:hint="Confirm password"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -162,13 +169,15 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="WhatsApp number" />
+                    android:hint="WhatsApp number"
+                    android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -248,6 +257,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
                 android:textColorHint="@color/colorAccent"
+                android:visibility="gone"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/colorAccent"
                 app:hintTextColor="@color/colorAccent">
@@ -259,14 +269,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/layout_vitian_yes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:animateLayoutChanges="true"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:animateLayoutChanges="true"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -288,6 +302,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:animateLayoutChanges="true"
                         android:orientation="horizontal">
 
                         <TextView
@@ -337,9 +352,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_hosteler_yes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:animateLayoutChanges="true"
+                    android:visibility="gone">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/input_hostel_block"
@@ -380,7 +398,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Room no" />
+                            android:hint="Room no"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -410,6 +429,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -431,6 +451,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:animateLayoutChanges="true"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal">
 
@@ -482,6 +503,7 @@
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_skillset"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -495,7 +517,6 @@
                 app:hintTextColor="@color/colorAccent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_skillset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Skillset (comma seperated)" />
@@ -507,7 +528,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="24dp"
+                android:background="@drawable/bg_yellow_curve"
+                android:foreground="@drawable/bg_ripple"
                 android:text="register"
+                android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/imageView8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.872"

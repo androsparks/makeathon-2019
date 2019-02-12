@@ -8,13 +8,18 @@
 
     <Button
         android:id="@+id/main_button_logout"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="logout"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/bg_yellow_curve"
+        android:foreground="@drawable/bg_ripple"
+        android:text="sign out"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -31,42 +36,84 @@
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_long_logo" />
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="91dp"
-        android:layout_height="17dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="117dp"
+        android:layout_height="21dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
         android:text="Event starts in"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toTopOf="@+id/countdownView"
         app:layout_constraintEnd_toEndOf="@+id/countdownView"
         app:layout_constraintStart_toStartOf="@+id/countdownView" />
 
     <cn.iwgang.countdownview.CountdownView
         android:id="@+id/countdownView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="175dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:isHideTimeBackground="true"
-        app:isShowDay="true"
-        app:isShowHour="true"
+        app:isHideTimeBackground="false"
+        app:isShowDay="false"
+        app:isShowHour="false"
         app:isShowMillisecond="true"
         app:isShowMinute="true"
         app:isShowSecond="true"
-        app:isTimeTextBold="true"
-        app:layout_constraintBottom_toTopOf="@+id/imageView9"
+        app:layout_constraintBottom_toTopOf="@+id/main_button_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView10"
-        app:suffixGravity="bottom"
-        app:suffixTextColor="#000000"
-        app:suffixTextSize="12sp"
-        app:timeTextColor="#000000"
-        app:timeTextSize="22sp" />
+        app:suffixGravity="center"
+        app:suffixTextColor="#FFC500"
+        app:suffixTextSize="30sp"
+        app:timeBgColor="#FFC500"
+        app:timeBgDivisionLineSize="1dp"
+        app:timeBgRadius="3dp"
+        app:timeBgSize="50dp"
+        app:timeTextSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="Thank you for registering"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countdownView" />
+
+    <TextView
+        android:id="@+id/main_button_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:foreground="@drawable/bg_ripple"
+        android:padding="16dp"
+        android:text="Click here to see more info"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/main_button_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,7 @@ public class HashUtil {
 
     private static final String salt = "Make-A-Thon";
 
-    public String get_SHA_512_SecurePassword(String passwordToHash) {
+    public static String get_SHA_512_SecurePassword(String passwordToHash) {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");

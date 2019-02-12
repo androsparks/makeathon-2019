@@ -1,6 +1,7 @@
 package com.selectmakeathon.app.ui.auth.otp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.util.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -45,6 +48,9 @@ public class OtpFragment extends Fragment {
     private PinView otpPinView;
     private EditText phoneNumberEditText;
     private View phoneNumberEditTextLayout;
+
+    SharedPreferences prefs;
+    SharedPreferences.Editor prefEditor;
 
     public OtpFragment() {
         // Required empty public constructor
@@ -91,6 +97,9 @@ public class OtpFragment extends Fragment {
 
             }
         });
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefEditor = prefs.edit();
 
         return view;
     }
@@ -197,7 +206,9 @@ public class OtpFragment extends Fragment {
 
     void proceedWithLogin(){
         //Perform next sequence of actions
+        prefEditor.putString(Constants.PREF_PHONE_NUMBER, phoneNumber).commit();
         Toast.makeText(getContext(), "Successfully Authenticated", Toast.LENGTH_SHORT).show();
+        ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.SIGNUP);
     }
 
 }

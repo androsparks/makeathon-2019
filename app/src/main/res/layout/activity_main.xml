@@ -10,8 +10,8 @@
         android:id="@+id/main_button_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="240dp"
+        android:layout_marginBottom="24dp"
         android:text="logout"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -68,5 +68,18 @@
         app:suffixTextSize="12sp"
         app:timeTextColor="#000000"
         app:timeTextSize="22sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infButton"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        android:text="Info"
+        app:layout_constraintStart_toEndOf="@+id/main_button_logout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

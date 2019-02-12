@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.ui.main.info.InfoActivity;
 import com.selectmakeathon.app.util.Constants;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor prefEditor;
 
     private Button logoutButton;
-
+    private Button infoButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
                 startAuthActivity();
             }
         });
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inf=new Intent(MainActivity.this, InfoActivity.class);
+                startActivity(inf);
+            }
+        });
     }
 
     public void startAuthActivity() {
@@ -50,5 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         logoutButton = findViewById(R.id.main_button_logout);
+        infoButton=findViewById(R.id.infButton);
     }
 }

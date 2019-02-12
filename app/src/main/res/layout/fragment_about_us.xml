@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="35dp"
-                android:text="About Make-a-thon "
+                android:text="About Make-A-Thon "
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />

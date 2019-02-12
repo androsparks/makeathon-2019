@@ -166,7 +166,7 @@ public class SignupFragment extends Fragment {
 
                     userModel.setName(nameInput.getEditText().getText().toString());
                     userModel.setEmail(emailId.getEditText().getText().toString());
-                    userModel.setRegNo(regNo.getEditText().getText().toString());
+                    userModel.setRegNo(regNo.getEditText().getText().toString().trim().toUpperCase());
 
                     String hashPassword = HashUtil.get_SHA_512_SecurePassword(password.getEditText().getText().toString());
                     userModel.setHashPassword(hashPassword);

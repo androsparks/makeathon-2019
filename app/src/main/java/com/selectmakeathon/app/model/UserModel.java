@@ -17,18 +17,22 @@ public class UserModel {
     private String roomNo;
     private String branch;
     private String gender;
-    private ArrayList<String> skillSet;
+    private String skillSet;
     private boolean isLeader;
     private boolean isJoined;
 
     public UserModel() {
 
+        setLeader(false);
+        setJoined(false);
+        setGender("Not preferred to say");
+
     }
 
     public UserModel(
             String name, String email, String regNo, String hashPassword, String whatsNo,
-            String phNo, boolean isVitian, String collegeName, boolean isHosteler, String roomNo,
-            String hostelBlock, String branch, String gender, ArrayList<String> skillSet,
+            String phNo, boolean isVitian, String collegeName, boolean isHosteler,
+            String hostelBlock, String roomNo, String branch, String gender, String skillSet,
             boolean isLeader, boolean isJoined
     ) {
         this.name = name;
@@ -40,8 +44,8 @@ public class UserModel {
         this.isVitian = isVitian;
         this.collegeName = collegeName;
         this.isHosteler = isHosteler;
-        this.roomNo = roomNo;
         this.hostelBlock = hostelBlock;
+        this.roomNo = roomNo;
         this.branch = branch;
         this.gender = gender;
         this.skillSet = skillSet;
@@ -73,14 +77,6 @@ public class UserModel {
         this.regNo = regNo;
     }
 
-    public String getWhatsNo() {
-        return whatsNo;
-    }
-
-    public void setWhatsNo(String whatsNo) {
-        this.whatsNo = whatsNo;
-    }
-
     public String getHashPassword() {
         return hashPassword;
     }
@@ -89,12 +85,12 @@ public class UserModel {
         this.hashPassword = hashPassword;
     }
 
-    public String getCollegeName() {
-        return collegeName;
+    public String getWhatsNo() {
+        return whatsNo;
     }
 
-    public void setCollegeName(String collegeName) {
-        this.collegeName = collegeName;
+    public void setWhatsNo(String whatsNo) {
+        this.whatsNo = whatsNo;
     }
 
     public String getPhNo() {
@@ -113,6 +109,14 @@ public class UserModel {
         isVitian = vitian;
     }
 
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
     public boolean isHosteler() {
         return isHosteler;
     }
@@ -121,20 +125,20 @@ public class UserModel {
         isHosteler = hosteler;
     }
 
-    public String getRoomNo() {
-        return roomNo;
-    }
-
-    public void setRoomNo(String roomNo) {
-        this.roomNo = roomNo;
-    }
-
     public String getHostelBlock() {
         return hostelBlock;
     }
 
     public void setHostelBlock(String hostelBlock) {
         this.hostelBlock = hostelBlock;
+    }
+
+    public String getRoomNo() {
+        return roomNo;
+    }
+
+    public void setRoomNo(String roomNo) {
+        this.roomNo = roomNo;
     }
 
     public String getBranch() {
@@ -153,11 +157,11 @@ public class UserModel {
         this.gender = gender;
     }
 
-    public ArrayList<String> getSkillSet() {
+    public String getSkillSet() {
         return skillSet;
     }
 
-    public void setSkillSet(ArrayList<String> skillSet) {
+    public void setSkillSet(String skillSet) {
         this.skillSet = skillSet;
     }
 

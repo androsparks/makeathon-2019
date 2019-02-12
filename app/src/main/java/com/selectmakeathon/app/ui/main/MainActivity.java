@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try {
-            String dateStop = "03/25/2019 18:00:00";
+            String dateStop = "03/25/2019 17:30:00";
             Date dtstart = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             SimpleDateFormat frmt = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -57,13 +57,12 @@ public class MainActivity extends AppCompatActivity {
             d1 = frmt.parse(dateStart);
             d2 = frmt.parse(dateStop);
             long diff = d2.getTime() - d1.getTime();
-            long diffDays = diff / (24 * 60 * 60 * 1000);
-
 
             CountdownView countdownView1 = (CountdownView) findViewById(R.id.countdownView);
+
             countdownView1.setTag("Lets Begin !");
-            long timer = (long) diffDays * 24 * 60 * 60 * 1000;
-            countdownView1.start(timer);
+
+            countdownView1.start(diff);
         }
         catch (Exception e) {
             e.printStackTrace();

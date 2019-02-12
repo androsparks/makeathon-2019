@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -59,6 +60,8 @@ public class SignupFragment extends Fragment {
     private LinearLayout layoutVitianYes;
     private LinearLayout layoutHostelerYes;
 
+    private ImageView backButton;
+
     private boolean isVitianSelected = false;
     private boolean isHostelerSelected = false;
     private boolean isGenderSelected = false;
@@ -100,6 +103,13 @@ public class SignupFragment extends Fragment {
         phoneNumber = prefs.getString(Constants.PREF_PHONE_NUMBER, "");
 
         initViews(view);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.OTP);
+            }
+        });
 
         isVitian.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
@@ -347,6 +357,8 @@ public class SignupFragment extends Fragment {
         layoutGenderError = view.findViewById(R.id.layout_error_gender);
         layoutVitianYes = view.findViewById(R.id.layout_vitian_yes);
         layoutHostelerYes = view.findViewById(R.id.layout_hosteler_yes);
+
+        backButton = view.findViewById(R.id.signup_button_back);
 
         registerButton = view.findViewById(R.id.auth_button_register);
     }

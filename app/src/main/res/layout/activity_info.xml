@@ -11,44 +11,45 @@
         android:id="@+id/topImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="36dp"
         android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="36dp"
         android:scaleType="center"
-        android:src="@drawable/ic_long_logo"/>
-    
+        android:src="@drawable/ic_long_logo" />
+
     <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
         android:id="@+id/TabsLay"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/tab_layout_background"
         app:tabBackground="@drawable/tab_layout_selector"
-        app:tabSelectedTextColor="#fff"
-        android:layout_marginHorizontal="20dp"
-        app:tabPaddingStart="16dp"
-        app:tabPaddingEnd="16dp"
         app:tabIndicatorHeight="0dp"
-        android:layout_height="36dp">
-        
+        app:tabPaddingEnd="16dp"
+        app:tabPaddingStart="16dp"
+        app:tabSelectedTextColor="#fff">
+
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
             android:id="@+id/item1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="About Us"
-            android:layout_margin="4dp"/>
+            android:layout_margin="4dp"
+            android:text="About Us" />
 
         <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
             android:id="@+id/item2"
-            android:layout_margin="4dp"
-            android:layout_height="wrap_content"
-            android:text="FAQs"/>
-
-        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/item3"
             android:layout_margin="4dp"
-            android:text="Contact Us"/>
+            android:text="FAQs" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/item3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="Contact Us" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager

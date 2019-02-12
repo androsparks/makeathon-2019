@@ -79,12 +79,71 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
                 android:textSize="12sp"
-                android:text="Make-A-Thon is an event where students, designers and hackers collaborate for limited time to deliver solutions to various challenges proposed by industries and need-knowers.
-            Event kick-starts with challenges being proposed to participants, for which they have to come up with an innovative solution and develop a prototype within 36 Hrs of Ideation.
-            Solutions can be based on hardware and software projects and are refined based on feedback from need-knowers. Event concludes with judging and prize distribution."
+                android:text="Make-A-Thon is an event where students, designers and hackers collaborate for limited time to deliver solutions to various challenges proposed by industries and need-knowers. Event kick-starts with challenges being proposed to participants, for which they have to come up with an innovative solution and develop a prototype within 36 Hrs of Ideation. Solutions can be based on hardware and software projects and are refined based on feedback from need-knowers. Event concludes with judging and prize distribution."
                 />
 
             <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:text="We Supply"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:text="Unlimited Wifi, all Electrical and mechanical components to execute your idea. Plus Breakfast, Lunch, Snacks, Dinner and Caffeine to keep you going."
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="You Bring"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:text="Your laptop, creativity, passion, skills and ideas. Come with a collaborative mindset."
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="You Get"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:text="A wholesome exposure to real time problems balanced with fun events. Lot of exciting prizes to be won and chances to grab internship opportunities."
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+            <TextView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
@@ -101,18 +160,20 @@ Unlimited Wifi, all Electrical and mechanical components to execute your idea. P
 You Get
 A wholesome exposure to real time problems balanced with fun events. Lot of exciting prizes to be won and chances to grab internship opportunities.
 "/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginRight="28dp"
+                android:layout_marginBottom="8dp"
                 android:text="TEAM"
-                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -135,7 +196,19 @@ A wholesome exposure to real time problems balanced with fun events. Lot of exci
                 android:textSize="14sp"
                 android:textStyle="bold|italic"
                 android:textAlignment="center"
-                android:text="Dr. Sivabalan S. Dean(SELECT) \t Dr. Arulmozh"/>
+                android:text="Dr. Sivabalan S. Dean(SELECT)"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. Arulmozhivarman P"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,7 +230,19 @@ A wholesome exposure to real time problems balanced with fun events. Lot of exci
                 android:textSize="14sp"
                 android:textStyle="bold|italic"
                 android:textAlignment="center"
-                android:text="Dr. Meikandasivam S \t Dr. Vijayakumar D"/>
+                android:text="Dr. Meikandasivam S"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. Vijayakumar D"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -179,7 +264,27 @@ A wholesome exposure to real time problems balanced with fun events. Lot of exci
                 android:textSize="14sp"
                 android:textStyle="bold|italic"
                 android:textAlignment="center"
-                android:text="Dr. Monica Subashini M \t Dr. Marimuthu R \t Dr. SriHari Mandava"/>
+                android:text="Dr. Monica Subashini M"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. Marimuthu R"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. SriHari Mandava"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -192,6 +297,7 @@ A wholesome exposure to real time problems balanced with fun events. Lot of exci
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -201,7 +307,47 @@ A wholesome exposure to real time problems balanced with fun events. Lot of exci
                 android:textSize="14sp"
                 android:textStyle="bold|italic"
                 android:textAlignment="center"
-                android:text="Mr. Kishan B \t Mr. Aman Bagaria \t Mr. Sabaree Sastha KP \t Mr. Ashish Dubey \t Ms. Namisha Mehta"/>
+                android:text="Mr. Kishan B"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Mr. Aman Bagaria"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Mr. Sabaree Sastha KP"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Mr. Ashish Dubey"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Ms. Namisha Mehta"/>
 
 
 

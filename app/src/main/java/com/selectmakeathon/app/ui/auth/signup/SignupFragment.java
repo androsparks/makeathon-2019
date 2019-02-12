@@ -187,11 +187,6 @@ public class SignupFragment extends Fragment {
 
                         }
                     });
-
-//                    usersRef.child(userModel.getRegNo()).setValue(userModel);
-
-                    /*TODO*/
-//                    ((AuthActivity) getActivity()).startMainActivity();
                 }
             }
         });

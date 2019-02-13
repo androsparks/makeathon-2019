@@ -61,9 +61,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/otp_button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:foreground="@drawable/bg_ripple"
         android:padding="16dp"
         android:src="@drawable/ic_arrow_back_black_24dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,10 +76,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:src="@drawable/ic_long_logo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/otp_button_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintTop_toTopOf="@+id/otp_button_back" />
 
     <TextView
         android:id="@+id/tv_phone_label"
@@ -91,7 +92,7 @@
         android:text="To get started please enter you phone number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/otp_button_back"
         app:layout_constraintVertical_bias="0.25" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -118,24 +119,23 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.chaos.view.PinView
-        android:gravity="center"
         android:id="@+id/pv_otp"
         style="@style/PinWidget.PinView"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:cursorVisible="true"
+        android:gravity="center"
         android:inputType="number"
         android:padding="4dp"
-        tools:visibility="visible"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:cursorColor="@color/colorAccent"
         android:visibility="gone"
+        app:cursorColor="@color/colorAccent"
         app:cursorWidth="2dp"
         app:hideLineWhenFilled="true"
         app:itemCount="6"
@@ -150,7 +150,8 @@
         app:layout_constraintVertical_bias="0.4"
         app:lineColor="@color/colorAccent"
         app:lineWidth="2dp"
-        app:viewType="rectangle" />
+        app:viewType="rectangle"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_otp_label"

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.info.AboutUsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/wave"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/mainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:scrollbars="vertical">
+            <!-- TODO: Update blank fragment layout -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="How Does It Work? "
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="You will work in teams of 3-5 person to make anything that fits according to the problem statement you have chosen. A prompt will be released around two weeks before the event to guide all projects. We will provide everything you need in order to hack/make, from prototyping resources to food. On the last day every team will pitch at the finale of the Make-A-Thon to present their projects."
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="What is the Pitch Competition? "
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="After the hacking and building period, we will host a public pitch competition where every team can present their projects. Pitches should be 5-7 minutes long."
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="Who can Participate?"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="All undergraduate and graduate students irrespective of branch and year, who are registered under affiliated institutes across India. Please note, however, that travel reimbursements will not be provided.
+"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="What should I bring?"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="We recommend that you bring a laptop (and yourself!) to hack. We will provide everything else that is necessary for the Make-A-Thon so do not worry about bringing anything else. However, if you have a certain set of tools that you like to use, please feel free to bring them as well.
+Kindly note that printed boards/circuits, readymade kits/devices are not allowed.
+"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="What do I Build?"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="You can build anything you and your team would like! We will provide a prompt,components to help accelerate development and mentorship from academicians and industrialists, but everything else is totally up to you and your team.
+"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="How does Judging Work?"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="Judges from industries and high profile academicians will evaluate the projects and pitches based on their relations to design (how awesome it is), engineering (does it work), and entrepreneurship (how was it pitched and what is its real-world potential). Do not worry! This event is meant to be fun, and all of the judges understand that everything was built over the limited span of time.
+"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="How does this Cost?"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="This event is completely free for VITians and at the registration fee of ₹500* for Non-VITians. It includes food and any necessary materials you will need to make with!
+*Including GST.
+*Excluding accommodation.
+"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="Can I leave in the middle?"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="Leaving the project in the middle without prior permission will attract penalty."
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="How do I benefit?"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="Exposure, internship opportunities, interaction with industry experts and vendors and prize money worth 1.5 Lacs.
+Top 10 teams will be given Startup grant of 1 Lakh rupees by VIT-TBI.
+Special prizes in healthcare track.
+"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wave"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_margin="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_waves"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

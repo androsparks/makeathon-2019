@@ -9,13 +9,14 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/signup_button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:src="@drawable/ic_arrow_back_black_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:foreground="@drawable/bg_ripple"/>
 
     <ImageView
         android:id="@+id/imageView7"
@@ -24,10 +25,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/ic_long_logo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintBottom_toBottomOf="@+id/signup_button_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        app:layout_constraintTop_toTopOf="@+id/signup_button_back" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -37,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6">
+        app:layout_constraintTop_toBottomOf="@+id/signup_button_back">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,7 +105,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="College registration number" />
+                    android:capitalize="characters"
+                    android:hint="College registration number"
+                    android:textAllCaps="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

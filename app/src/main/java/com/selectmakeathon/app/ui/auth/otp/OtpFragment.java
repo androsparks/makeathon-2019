@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class OtpFragment extends Fragment {
     private EditText phoneNumberEditText;
     private View phoneNumberEditTextLayout;
 
+    private ImageView backButton;
+
     SharedPreferences prefs;
     SharedPreferences.Editor prefEditor;
 
@@ -73,6 +76,8 @@ public class OtpFragment extends Fragment {
         phoneNumberTextLabel = view.findViewById(R.id.tv_phone_label);
         otpTextLabel = view.findViewById(R.id.tv_otp_label);
         phoneNumberEditTextLayout = view.findViewById(R.id.el_phone_number);
+        backButton = view.findViewById(R.id.otp_button_back);
+
         mAuth = FirebaseAuth.getInstance();
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +86,13 @@ public class OtpFragment extends Fragment {
                 phoneNumber = phoneNumberEditText.getText().toString();
                 phoneNumber = "+91" + phoneNumber;
                 verifyPhoneNnumberWithOtp(phoneNumber);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.LOGIN);
             }
         });
 

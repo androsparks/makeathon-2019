@@ -80,7 +80,7 @@ public class LoginFragment extends Fragment {
 
                 if (isValid()) {
 
-                    final String userName = userNameInput.getEditText().getText().toString();
+                    final String userName = userNameInput.getEditText().getText().toString().trim().toUpperCase();
                     String password = passwordInput.getEditText().getText().toString();
 
                     final String passwordHash = HashUtil.get_SHA_512_SecurePassword(password);

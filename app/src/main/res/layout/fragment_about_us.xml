@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.info.AboutUsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/wave"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/mainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
+            <!-- TODO: Update blank fragment layout -->
+            <TextView
+                android:id="@+id/abtVit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="About VIT "
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="Vellore Institute of Technology (VIT) was founded in 1984 as Vellore Engineering College by the Chancellor Dr. G. Viswanathan."
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:text="VIT attracts students from all the 29 states of India and more than 41 different countries because of its academic excellence. The credentials of VIT in academics and research, has placed VIT in the 13th position among the engineering institutions and VIT Business School has placed 17th position among the business schools in India by NIRF, Govt. of India Ranking. The world ranking body namely the QS has given 4 STAR rating to VIT, with that VIT becomes the first institution in India to have the 4 STAR rating. In addition to this, the consortium of industries, FICCI has adjudged VIT as the “Excellence in Faculty”. "
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:text="VIT has the record of publishing maximum number of SCOPUS Indexed Research Journal papers in 2016, among Indian Universities, overtaking all the premier institutions. VIT has also completed 3 cycles of NAAC accreditation and has been rated as “A” grade institution. In addition, VIT also has obtained for the coveted ABET accreditation by US agency. VIT has introduced many innovations in academic processes, which adds value to every student. FFCS (Fully Flexible Credit System), PBL (Project Based Learning) for better learning, fully digitized academic portals that assists students in equipping themselves for 2020 market place, Hackathons / Makeathons as part of curriculum exercise which kindles the interest and the curiosity of students, which moulds them to be better problem solvers, 8th module in every subject being handled by industry experts, making the students contextualize the concepts they study in the classroom, are a few of the innovations that VIT has introduced."
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:text="About Make-A-Thon "
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="12sp"
+                android:text="Make-A-Thon is an event where students, designers and hackers collaborate for limited time to deliver solutions to various challenges proposed by industries and need-knowers. Event kick-starts with challenges being proposed to participants, for which they have to come up with an innovative solution and develop a prototype within 36 Hrs of Ideation. Solutions can be based on hardware and software projects and are refined based on feedback from need-knowers. Event concludes with judging and prize distribution."
+                />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:text="We Supply"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:text="Unlimited Wifi, all Electrical and mechanical components to execute your idea. Plus Breakfast, Lunch, Snacks, Dinner and Caffeine to keep you going."
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="You Bring"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:text="Your laptop, creativity, passion, skills and ideas. Come with a collaborative mindset."
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="You Get"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginRight="28dp"
+                android:text="A wholesome exposure to real time problems balanced with fun events. Lot of exciting prizes to be won and chances to grab internship opportunities."
+                android:textAlignment="center"
+                android:textSize="12sp" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:text="We Supply
+Unlimited Wifi, all Electrical and mechanical components to execute your idea. Plus Breakfast, Lunch, Snacks, Dinner and Caffeine to keep you going.
+
+You Bring
+Unlimited Wifi, all Electrical and mechanical components to execute your idea. Plus Breakfast, Lunch, Snacks, Dinner and Caffeine to keep you going.
+
+You Get
+A wholesome exposure to real time problems balanced with fun events. Lot of exciting prizes to be won and chances to grab internship opportunities.
+"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="8dp"
+                android:text="TEAM"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="ORGANIZING CHAIRS"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="Dr. Sivabalan S, Dean SELECT"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. Arulmozhivarman P"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="CONVENORS"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. Meikandasivam S"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. Vijayakumar D"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="FACULTY COORDINATORS"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. Monica Subashini M"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. Marimuthu R"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Dr. SriHari Mandava"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:text="STUDENT CONVENORS"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Mr. Kishan B"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Mr. Aman Bagaria"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Mr. Sabaree Sastha KP"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Mr. Ashish Dubey"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="28dp"
+                android:textSize="14sp"
+                android:textStyle="bold|italic"
+                android:textAlignment="center"
+                android:text="Ms. Namisha Mehta"/>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wave"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_margin="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_waves"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

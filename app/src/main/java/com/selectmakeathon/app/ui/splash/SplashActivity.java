@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+//        setContentView(R.layout.activity_splash);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();

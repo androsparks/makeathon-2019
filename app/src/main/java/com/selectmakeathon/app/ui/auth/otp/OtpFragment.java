@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +37,8 @@ import com.selectmakeathon.app.ui.auth.AuthActivity;
 import com.selectmakeathon.app.util.Constants;
 
 import java.util.concurrent.TimeUnit;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 public class OtpFragment extends Fragment {
@@ -83,8 +86,10 @@ public class OtpFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideSoftKeyBoard();
                 phoneNumber = phoneNumberEditText.getText().toString();
                 phoneNumber = "+91" + phoneNumber;
+                AuthActivity.startAnimation();
                 verifyPhoneNnumberWithOtp(phoneNumber);
             }
         });
@@ -148,6 +153,7 @@ public class OtpFragment extends Fragment {
                         //     detect the incoming verification SMS and perform verification without
                         //     user action.
                         Log.d(TAG, "onVerificationCompleted:" + credential);
+                        AuthActivity.stopAnimation();
                         signInWithPhoneAuthCredential(credential);
                     }
 
@@ -156,7 +162,8 @@ public class OtpFragment extends Fragment {
                         // This callback is invoked in an invalid request for verification is made,
                         // for instance if the the phone number format is not valid.
                         Log.w(TAG, "onVerificationFailed", e);
-                        Toast.makeText(getContext(), "Please enter correct Phone Number", Toast.LENGTH_SHORT).show();
+                        AuthActivity.stopAnimation();
+                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
 
                         if (e instanceof FirebaseAuthInvalidCredentialsException) {
                             // Invalid request
@@ -180,7 +187,7 @@ public class OtpFragment extends Fragment {
                         // now need to ask the user to enter the code and then construct a credential
                         // by combining the code with a verification ID.
                         Log.d(TAG, "onCodeSent:" + verificationId);
-
+                        AuthActivity.stopAnimation();
                         switchToOtp();
 
                         // Save verification ID and resending token so we can use them later
@@ -221,6 +228,14 @@ public class OtpFragment extends Fragment {
         prefEditor.putString(Constants.PREF_PHONE_NUMBER, phoneNumber).commit();
         Toast.makeText(getContext(), "Successfully Authenticated", Toast.LENGTH_SHORT).show();
         ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.SIGNUP);
+    }
+
+    private void hideSoftKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+
+        if(imm.isAcceptingText()) { // verify if the soft keyboard is open
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
 }

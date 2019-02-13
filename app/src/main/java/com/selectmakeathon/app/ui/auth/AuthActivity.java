@@ -10,7 +10,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.ui.auth.login.LoginFragment;
 import com.selectmakeathon.app.ui.auth.otp.OtpFragment;
@@ -21,6 +24,9 @@ import com.selectmakeathon.app.util.Constants;
 import static com.selectmakeathon.app.ui.auth.AuthActivity.AuthFragment.*;
 
 public class AuthActivity extends AppCompatActivity {
+
+    static View loadingContainer;
+    static LottieAnimationView loadingAnimation;
 
     public enum AuthFragment {
         LOGIN,
@@ -35,6 +41,9 @@ public class AuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+
+        loadingContainer = findViewById(R.id.loading_animation_container);
+        loadingAnimation = findViewById(R.id.lottie_loading_animation);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
@@ -92,4 +101,15 @@ public class AuthActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+    public static void startAnimation(){
+        loadingContainer.setVisibility(View.VISIBLE);
+        loadingAnimation.playAnimation();
+    }
+
+    public static void stopAnimation(){
+        loadingContainer.setVisibility(View.INVISIBLE);
+        loadingAnimation.pauseAnimation();
+    }
+
 }

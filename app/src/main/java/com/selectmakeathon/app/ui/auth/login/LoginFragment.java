@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.ui.auth.otp.OtpFragment;
 import com.selectmakeathon.app.ui.main.MainActivity;
 import com.selectmakeathon.app.util.Constants;
 import com.selectmakeathon.app.util.HashUtil;
@@ -36,6 +38,7 @@ public class LoginFragment extends Fragment {
 
     private Button loginButton;
     private Button signupButton;
+    private TextView forgotPassword;
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor prefEditor;
@@ -70,7 +73,14 @@ public class LoginFragment extends Fragment {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.OTP);
+                ((AuthActivity)getActivity()).updateFragment(OtpFragment.newInstance(false));
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AuthActivity)getActivity()).updateFragment(OtpFragment.newInstance(true));
             }
         });
 
@@ -145,5 +155,6 @@ public class LoginFragment extends Fragment {
 
         loginButton = view.findViewById(R.id.auth_button_login);
         signupButton = view.findViewById(R.id.auth_button_signup);
+        forgotPassword = view.findViewById(R.id.auth_button_forgot_password);
     }
 }

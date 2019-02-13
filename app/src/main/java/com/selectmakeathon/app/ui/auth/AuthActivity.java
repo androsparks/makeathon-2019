@@ -21,18 +21,10 @@ import com.selectmakeathon.app.ui.auth.signup.SignupFragment;
 import com.selectmakeathon.app.ui.main.MainActivity;
 import com.selectmakeathon.app.util.Constants;
 
-import static com.selectmakeathon.app.ui.auth.AuthActivity.AuthFragment.*;
-
 public class AuthActivity extends AppCompatActivity {
 
     static View loadingContainer;
     static LottieAnimationView loadingAnimation;
-
-    public enum AuthFragment {
-        LOGIN,
-        OTP,
-        SIGNUP
-    }
 
     SharedPreferences prefs;
     SharedPreferences.Editor prefEditor;
@@ -48,26 +40,10 @@ public class AuthActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
 
-        updateFragment(LOGIN);
+        updateFragment(LoginFragment.newInstance());
     }
 
-    public void updateFragment(AuthFragment authFragment) {
-        Fragment fragment;
-
-        switch (authFragment) {
-            case LOGIN :
-                fragment = LoginFragment.newInstance();
-                break;
-            case OTP :
-                fragment = OtpFragment.newInstance();
-                break;
-            case SIGNUP :
-                fragment = SignupFragment.newInstance();
-                break;
-            default:
-                fragment = LoginFragment.newInstance();
-                break;
-        }
+    public void updateFragment(Fragment fragment) {
 
         String backStateName =  fragment.getClass().getName();
         String fragmentTag = backStateName;

@@ -34,6 +34,9 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.ui.auth.login.LoginFragment;
+import com.selectmakeathon.app.ui.auth.resetpassword.ResetPasswordFragment;
+import com.selectmakeathon.app.ui.auth.signup.SignupFragment;
 import com.selectmakeathon.app.util.Constants;
 
 import java.util.concurrent.TimeUnit;
@@ -42,6 +45,8 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 public class OtpFragment extends Fragment {
+
+    private static final String ARG_IS_RESET_PASSWORD = "IS_RESET_PASSWORD";
 
     private static final String TAG = "OTP-Fragment";
     private FirebaseAuth mAuth;
@@ -58,13 +63,26 @@ public class OtpFragment extends Fragment {
     SharedPreferences prefs;
     SharedPreferences.Editor prefEditor;
 
+    boolean isResetPassword;
+
     public OtpFragment() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static OtpFragment newInstance() {
-        return new OtpFragment();
+    public static OtpFragment newInstance(boolean isResetPassword) {
+        OtpFragment fragment = new OtpFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(ARG_IS_RESET_PASSWORD, isResetPassword);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            isResetPassword = getArguments().getBoolean(ARG_IS_RESET_PASSWORD) ;
+        }
     }
 
     @Override
@@ -97,7 +115,7 @@ public class OtpFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.LOGIN);
+                ((AuthActivity)getActivity()).updateFragment(LoginFragment.newInstance());
             }
         });
 
@@ -122,7 +140,11 @@ public class OtpFragment extends Fragment {
     }
 
     void goToSignUp(){
-        ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.SIGNUP);
+        ((AuthActivity)getActivity()).updateFragment(SignupFragment.newInstance());
+    }
+
+    void goToResetPassword() {
+        ((AuthActivity)getActivity()).updateFragment(ResetPasswordFragment.newInstance(phoneNumber));
     }
 
     void switchToOtp(){
@@ -227,7 +249,11 @@ public class OtpFragment extends Fragment {
         //Perform next sequence of actions
         prefEditor.putString(Constants.PREF_PHONE_NUMBER, phoneNumber).commit();
         Toast.makeText(getContext(), "Successfully Authenticated", Toast.LENGTH_SHORT).show();
-        ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.SIGNUP);
+        if (isResetPassword) {
+            goToResetPassword();
+        } else {
+            goToSignUp();
+        }
     }
 
     private void hideSoftKeyBoard() {

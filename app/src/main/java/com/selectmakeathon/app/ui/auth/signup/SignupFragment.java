@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.ui.auth.login.LoginFragment;
 import com.selectmakeathon.app.util.Constants;
 import com.selectmakeathon.app.util.FormUtil;
 import com.selectmakeathon.app.util.HashUtil;
@@ -116,7 +117,7 @@ public class SignupFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.OTP);
+                ((AuthActivity)getActivity()).updateFragment(LoginFragment.newInstance());
             }
         });
 

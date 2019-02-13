@@ -42,6 +42,9 @@ dependencies {
 
     // Countdown View
     implementation 'com.github.iwgang:countdownview:2.1.6'
+
+    //Lottie Animation
+    implementation 'com.airbnb.android:lottie:3.0.0-beta1'
 }
 
 apply plugin: 'com.google.gms.google-services'

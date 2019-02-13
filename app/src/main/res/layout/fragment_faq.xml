@@ -108,7 +108,7 @@ Kindly note that printed boards/circuits, readymade kits/devices are not allowed
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="35dp"
-                android:text="What do i Build?"
+                android:text="What do I Build?"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />

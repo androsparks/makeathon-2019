@@ -187,16 +187,17 @@ A wholesome exposure to real time problems balanced with fun events. Lot of exci
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
-                android:textSize="14sp"
-                android:textStyle="bold|italic"
+                android:text="Dr. Sivabalan S, Dean SELECT"
                 android:textAlignment="center"
-                android:text="Dr. Sivabalan S. Dean(SELECT)"/>
+                android:textSize="14sp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:layout_width="match_parent"

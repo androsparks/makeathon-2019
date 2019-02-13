@@ -1,11 +1,13 @@
 package com.selectmakeathon.app.ui.auth.signup;
 
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
@@ -30,15 +32,20 @@ import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.ui.auth.login.LoginFragment;
 import com.selectmakeathon.app.util.Constants;
 import com.selectmakeathon.app.util.FormUtil;
 import com.selectmakeathon.app.util.HashUtil;
+
+import java.util.regex.Pattern;
 
 import static com.selectmakeathon.app.util.FormUtil.emailValid;
 import static com.selectmakeathon.app.util.FormUtil.isEmpty;
 import static com.selectmakeathon.app.util.FormUtil.phoneValid;
 
 public class SignupFragment extends Fragment {
+
+    private static String REGNO_PATTERN = "^[0-9]{2}[A-Z]{3}[0-9]{4}$";
 
     private TextInputLayout nameInput;
     private TextInputLayout emailId;
@@ -100,14 +107,17 @@ public class SignupFragment extends Fragment {
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefEditor = prefs.edit();
 
-        phoneNumber = prefs.getString(Constants.PREF_PHONE_NUMBER, "");
 
         initViews(view);
+
+        phoneNumber = prefs.getString(Constants.PREF_PHONE_NUMBER, "");
+
+        whatsappNum.getEditText().setText(phoneNumber);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AuthActivity)getActivity()).updateFragment(AuthActivity.AuthFragment.OTP);
+                ((AuthActivity)getActivity()).updateFragment(LoginFragment.newInstance());
             }
         });
 
@@ -185,10 +195,7 @@ public class SignupFragment extends Fragment {
                             if (dataSnapshot.hasChild(userModel.getRegNo())) {
                                 Toast.makeText(getContext(), "User already exits", Toast.LENGTH_SHORT).show();
                             } else {
-                                prefEditor.putString(Constants.PREF_USER_ID, userModel.getRegNo()).apply();
-                                usersRef.child(userModel.getRegNo()).setValue(userModel);
-                                Toast.makeText(getContext(), "Successfully registered", Toast.LENGTH_SHORT).show();
-                                ((AuthActivity) getActivity()).startMainActivity();
+                                confirmRegNo();
                             }
                         }
 
@@ -200,6 +207,33 @@ public class SignupFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void confirmRegNo() {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Confirm registration number")
+                .setMessage(userModel.getRegNo())
+                .setCancelable(false)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        register();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void register() {
+        prefEditor.putString(Constants.PREF_USER_ID, userModel.getRegNo()).apply();
+        usersRef.child(userModel.getRegNo()).setValue(userModel);
+        Toast.makeText(getContext(), "Successfully registered", Toast.LENGTH_SHORT).show();
+        ((AuthActivity) getActivity()).startMainActivity();
     }
 
     private boolean isValid() {
@@ -225,6 +259,15 @@ public class SignupFragment extends Fragment {
             valid = false;
         } else {
             regNo.setError(null);
+
+            if (isVitianSelected && userModel.isVitian()) {
+                if (!Pattern.matches(REGNO_PATTERN, regNo.getEditText().getText().toString())) {
+                    regNo.setError("Enter a valid VIT registration number");
+                    valid = false;
+                } else {
+                    regNo.setError(null);
+                }
+            }
         }
 
         if (isEmpty(password)) {
@@ -318,13 +361,12 @@ public class SignupFragment extends Fragment {
             branchInput.setError(null);
         }
 
-        /*Gender is not mandatory*/
-//        if (!isGenderSelected) {
-//            layoutGenderError.setVisibility(View.VISIBLE);
-//            valid = false;
-//        } else {
-//            layoutGenderError.setVisibility(View.INVISIBLE);
-//        }
+        if (!isGenderSelected) {
+            layoutGenderError.setVisibility(View.VISIBLE);
+            valid = false;
+        } else {
+            layoutGenderError.setVisibility(View.INVISIBLE);
+        }
 
         if (isEmpty(skillsetInput)) {
             skillsetInput.setError("Enter a valid skillset");

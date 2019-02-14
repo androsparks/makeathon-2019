@@ -190,20 +190,20 @@ public class SignupFragment extends Fragment {
                     userModel.setSkillSet(skillsetInput.getEditText().getText().toString());
 
                     usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.hasChild(userModel.getRegNo())) {
-                                Toast.makeText(getContext(), "User already exits", Toast.LENGTH_SHORT).show();
-                            } else {
-                                confirmRegNo();
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.hasChild(userModel.getRegNo())) {
+                                    Toast.makeText(getContext(), "User already exits", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    confirmRegNo();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
                 }
             }
         });

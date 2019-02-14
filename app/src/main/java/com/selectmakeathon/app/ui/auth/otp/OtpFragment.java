@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.chaos.view.PinView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -47,6 +48,8 @@ import com.selectmakeathon.app.util.Constants;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static com.selectmakeathon.app.util.FormUtil.isEmpty;
+import static com.selectmakeathon.app.util.FormUtil.phoneValid;
 
 
 public class OtpFragment extends Fragment {
@@ -63,7 +66,7 @@ public class OtpFragment extends Fragment {
     private TextView phoneNumberTextLabel, otpTextLabel;
     private PinView otpPinView;
     private EditText phoneNumberEditText;
-    private View phoneNumberEditTextLayout;
+    private TextInputLayout phoneNumberEditTextLayout;
 
     private ImageView backButton;
 
@@ -111,11 +114,28 @@ public class OtpFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideSoftKeyBoard();
-                phoneNumber = phoneNumberEditText.getText().toString();
-                phoneNumber = "+91" + phoneNumber;
-                AuthActivity.startAnimation();
-                verifyIfPhoneNumberExists(phoneNumber);
+
+                if (isEmpty(phoneNumberEditTextLayout) || !phoneValid(phoneNumberEditTextLayout)) {
+
+                    phoneNumberEditTextLayout.setError("Enter a valid phone number");
+
+                } else {
+
+                    phoneNumberEditTextLayout.setError(null);
+
+                    hideSoftKeyBoard();
+                    phoneNumber = phoneNumberEditText.getText().toString();
+                    phoneNumber = "+91" + phoneNumber;
+
+                    AuthActivity.startAnimation();
+
+                    if (isResetPassword) {
+                        verifyPhoneNumberWithOtp(phoneNumber);
+                    } else {
+                        verifyIfPhoneNumberExists(phoneNumber);
+                    }
+                }
+
             }
         });
 
@@ -192,18 +212,16 @@ public class OtpFragment extends Fragment {
                         // for instance if the the phone number format is not valid.
                         Log.w(TAG, "onVerificationFailed", e);
                         AuthActivity.stopAnimation();
-                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+
+                        //e.toString() produced long toast message
+//                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "An error occurred \nCheck your number", Toast.LENGTH_SHORT).show();
 
                         if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                            // Invalid request
-                            // ...
-                        } else if (e instanceof FirebaseTooManyRequestsException) {
-                            // The SMS quota for the project has been exceeded
-                            // ...
-                        }
 
-                        // Show a message and update the UI
-                        // ...
+                        } else if (e instanceof FirebaseTooManyRequestsException) {
+
+                        }
                     }
 
                     @Override
@@ -280,7 +298,7 @@ public class OtpFragment extends Fragment {
                 if (verifiedPhoneNumber != null && verifiedPhoneNumber.getVerifiedPhoneNumbers().contains(number)){
                     AuthActivity.stopAnimation();
                     Toast.makeText(getContext(), "Number already Registered.\nPlease go to Login",
-                            Toast.LENGTH_SHORT).show();
+                            Toast.LENGTH_LONG).show();
                 } else {
                     verifyPhoneNumberWithOtp(number);
                 }

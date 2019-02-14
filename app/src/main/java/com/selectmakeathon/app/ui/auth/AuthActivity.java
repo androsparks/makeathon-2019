@@ -6,12 +6,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.selectmakeathon.app.R;
@@ -20,6 +24,8 @@ import com.selectmakeathon.app.ui.auth.otp.OtpFragment;
 import com.selectmakeathon.app.ui.auth.signup.SignupFragment;
 import com.selectmakeathon.app.ui.main.MainActivity;
 import com.selectmakeathon.app.util.Constants;
+
+import java.net.InetAddress;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -86,6 +92,22 @@ public class AuthActivity extends AppCompatActivity {
     public static void stopAnimation(){
         loadingContainer.setVisibility(View.INVISIBLE);
         loadingAnimation.pauseAnimation();
+    }
+
+    public static boolean isInternetAvailable(Context context) {
+        final ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
+
+        if (activeNetworkInfo != null) { // connected to the internet
+
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                return true;
+            } else if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

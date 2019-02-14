@@ -111,8 +111,11 @@ public class SignupFragment extends Fragment {
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefEditor = prefs.edit();
 
-
         initViews(view);
+
+        if (!AuthActivity.isInternetAvailable(getContext())) {
+            Toast.makeText(getContext(), "No internet connnection", Toast.LENGTH_SHORT).show();
+        }
 
         phoneNumber = prefs.getString(Constants.PREF_PHONE_NUMBER, "");
 
@@ -176,6 +179,12 @@ public class SignupFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (!AuthActivity.isInternetAvailable(getContext())) {
+                    Toast.makeText(getContext(), "No internet connnection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (isValid()) {
 
                     userModel.setName(nameInput.getEditText().getText().toString());
@@ -414,6 +423,7 @@ public class SignupFragment extends Fragment {
         verifiedPhoneNumberRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 VerifiedPhoneNumberModel verifiedPhoneNumber =
                         dataSnapshot.getValue(VerifiedPhoneNumberModel.class);
                 if (verifiedPhoneNumber != null) {

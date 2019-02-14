@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -278,7 +279,7 @@ public class OtpFragment extends Fragment {
                         dataSnapshot.getValue(VerifiedPhoneNumberModel.class);
                 if (verifiedPhoneNumber != null && verifiedPhoneNumber.getVerifiedPhoneNumbers().contains(number)){
                     AuthActivity.stopAnimation();
-                    Toast.makeText(getContext(), "Number already exists!\nPlease go to Login",
+                    Toast.makeText(getContext(), "Number already Registered.\nPlease go to Login",
                             Toast.LENGTH_SHORT).show();
                 } else {
                     verifyPhoneNumberWithOtp(number);

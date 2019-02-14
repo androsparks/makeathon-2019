@@ -382,6 +382,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textCapCharacters"
                             android:hint="Hostel block" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -427,7 +428,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Branch of study (ex CSE)" />
+                    android:hint="Branch of study (ex CSE)"
+                    android:inputType="textCapCharacters"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout

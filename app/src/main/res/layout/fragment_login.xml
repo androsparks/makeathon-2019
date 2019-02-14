@@ -32,7 +32,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_input_regno"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="363dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
@@ -55,7 +55,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_input_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="363dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"

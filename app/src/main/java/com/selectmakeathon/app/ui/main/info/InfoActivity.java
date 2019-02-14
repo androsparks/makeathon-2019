@@ -52,8 +52,8 @@ public class InfoActivity extends FragmentActivity /*implements ActionBar.TabLis
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backHome=new Intent(InfoActivity.this, MainActivity.class);
-                startActivity(backHome);
+//                Intent backHome=new Intent(InfoActivity.this, MainActivity.class);
+//                startActivity(backHome);
                 finish();
             }
         });

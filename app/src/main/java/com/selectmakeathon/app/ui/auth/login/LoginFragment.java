@@ -70,23 +70,40 @@ public class LoginFragment extends Fragment {
 
         initViews(view);
 
+        if (!AuthActivity.isInternetAvailable(getContext())) {
+            showToast("No internet connection");
+        }
+
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AuthActivity)getActivity()).updateFragment(OtpFragment.newInstance(false));
+                if (AuthActivity.isInternetAvailable(getContext())) {
+                    ((AuthActivity) getActivity()).updateFragment(OtpFragment.newInstance(false));
+                } else {
+                    showToast("No internet connection");
+                }
             }
         });
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AuthActivity)getActivity()).updateFragment(OtpFragment.newInstance(true));
+                if (AuthActivity.isInternetAvailable(getContext())) {
+                    ((AuthActivity) getActivity()).updateFragment(OtpFragment.newInstance(true));
+                } else {
+                    showToast("No internet connection");
+                }
             }
         });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (!AuthActivity.isInternetAvailable(getContext())) {
+                    showToast("No internet connection");
+                    return;
+                }
 
                 if (isValid()) {
 

@@ -1,8 +1,6 @@
 package com.selectmakeathon.app.ui.auth.otp;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 import com.chaos.view.PinView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -32,7 +32,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
+import com.selectmakeathon.app.model.VerifiedPhoneNumberModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
 import com.selectmakeathon.app.ui.auth.login.LoginFragment;
 import com.selectmakeathon.app.ui.auth.resetpassword.ResetPasswordFragment;
@@ -42,6 +48,8 @@ import com.selectmakeathon.app.util.Constants;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static com.selectmakeathon.app.util.FormUtil.isEmpty;
+import static com.selectmakeathon.app.util.FormUtil.phoneValid;
 
 
 public class OtpFragment extends Fragment {
@@ -50,13 +58,15 @@ public class OtpFragment extends Fragment {
 
     private static final String TAG = "OTP-Fragment";
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference verifiedPhoneNumberRef = database.getReference("verified");
     String mVerificationId, phoneNumber, otpCode;
     PhoneAuthProvider.ForceResendingToken mResendToken;
     private Button nextButton, confirmButton;
     private TextView phoneNumberTextLabel, otpTextLabel;
     private PinView otpPinView;
     private EditText phoneNumberEditText;
-    private View phoneNumberEditTextLayout;
+    private TextInputLayout phoneNumberEditTextLayout;
 
     private ImageView backButton;
 
@@ -104,11 +114,28 @@ public class OtpFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideSoftKeyBoard();
-                phoneNumber = phoneNumberEditText.getText().toString();
-                phoneNumber = "+91" + phoneNumber;
-                AuthActivity.startAnimation();
-                verifyPhoneNnumberWithOtp(phoneNumber);
+
+                if (isEmpty(phoneNumberEditTextLayout) || !phoneValid(phoneNumberEditTextLayout)) {
+
+                    phoneNumberEditTextLayout.setError("Enter a valid phone number");
+
+                } else {
+
+                    phoneNumberEditTextLayout.setError(null);
+
+                    hideSoftKeyBoard();
+                    phoneNumber = phoneNumberEditText.getText().toString();
+                    phoneNumber = "+91" + phoneNumber;
+
+                    AuthActivity.startAnimation();
+
+                    if (isResetPassword) {
+                        verifyPhoneNumberWithOtp(phoneNumber);
+                    } else {
+                        verifyIfPhoneNumberExists(phoneNumber);
+                    }
+                }
+
             }
         });
 
@@ -158,7 +185,7 @@ public class OtpFragment extends Fragment {
         otpPinView.setVisibility(View.VISIBLE);
     }
 
-    void verifyPhoneNnumberWithOtp(String phoneNumber){
+    void verifyPhoneNumberWithOtp(String phoneNumber){
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
@@ -185,18 +212,16 @@ public class OtpFragment extends Fragment {
                         // for instance if the the phone number format is not valid.
                         Log.w(TAG, "onVerificationFailed", e);
                         AuthActivity.stopAnimation();
-                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+
+                        //e.toString() produced long toast message
+//                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "An error occurred \nCheck your number", Toast.LENGTH_SHORT).show();
 
                         if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                            // Invalid request
-                            // ...
-                        } else if (e instanceof FirebaseTooManyRequestsException) {
-                            // The SMS quota for the project has been exceeded
-                            // ...
-                        }
 
-                        // Show a message and update the UI
-                        // ...
+                        } else if (e instanceof FirebaseTooManyRequestsException) {
+
+                        }
                     }
 
                     @Override
@@ -262,6 +287,28 @@ public class OtpFragment extends Fragment {
         if(imm.isAcceptingText()) { // verify if the soft keyboard is open
             imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
         }
+    }
+
+    void verifyIfPhoneNumberExists(final String number){
+        verifiedPhoneNumberRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                VerifiedPhoneNumberModel verifiedPhoneNumber =
+                        dataSnapshot.getValue(VerifiedPhoneNumberModel.class);
+                if (verifiedPhoneNumber != null && verifiedPhoneNumber.getVerifiedPhoneNumbers().contains(number)){
+                    AuthActivity.stopAnimation();
+                    Toast.makeText(getContext(), "Number already Registered.\nPlease go to Login",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    verifyPhoneNumberWithOtp(number);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

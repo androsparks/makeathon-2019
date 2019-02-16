@@ -31,12 +31,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.UserModel;
+import com.selectmakeathon.app.model.VerifiedPhoneNumberModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
 import com.selectmakeathon.app.ui.auth.login.LoginFragment;
 import com.selectmakeathon.app.util.Constants;
 import com.selectmakeathon.app.util.FormUtil;
 import com.selectmakeathon.app.util.HashUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import static com.selectmakeathon.app.util.FormUtil.emailValid;
@@ -81,6 +84,7 @@ public class SignupFragment extends Fragment {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference usersRef = database.getReference("users");
+    private DatabaseReference verifiedPhoneNumberRef = database.getReference("verified");
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor prefEditor;
@@ -107,8 +111,11 @@ public class SignupFragment extends Fragment {
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefEditor = prefs.edit();
 
-
         initViews(view);
+
+        if (!AuthActivity.isInternetAvailable(getContext())) {
+            Toast.makeText(getContext(), "No internet connnection", Toast.LENGTH_SHORT).show();
+        }
 
         phoneNumber = prefs.getString(Constants.PREF_PHONE_NUMBER, "");
 
@@ -172,6 +179,12 @@ public class SignupFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (!AuthActivity.isInternetAvailable(getContext())) {
+                    Toast.makeText(getContext(), "No internet connnection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (isValid()) {
 
                     userModel.setName(nameInput.getEditText().getText().toString());
@@ -232,6 +245,7 @@ public class SignupFragment extends Fragment {
     private void register() {
         prefEditor.putString(Constants.PREF_USER_ID, userModel.getRegNo()).apply();
         usersRef.child(userModel.getRegNo()).setValue(userModel);
+        addToVerified(phoneNumber);
         Toast.makeText(getContext(), "Successfully registered", Toast.LENGTH_SHORT).show();
         ((AuthActivity) getActivity()).startMainActivity();
     }
@@ -404,4 +418,30 @@ public class SignupFragment extends Fragment {
 
         registerButton = view.findViewById(R.id.auth_button_register);
     }
+
+    void addToVerified(final String number){
+        verifiedPhoneNumberRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                VerifiedPhoneNumberModel verifiedPhoneNumber =
+                        dataSnapshot.getValue(VerifiedPhoneNumberModel.class);
+                if (verifiedPhoneNumber != null) {
+                    verifiedPhoneNumber.addPhoneNumber(number);
+                } else {
+                    List<String> phoneNumberList = new ArrayList<>();
+                    phoneNumberList.add(number);
+                    verifiedPhoneNumber = new VerifiedPhoneNumberModel(phoneNumberList);
+                }
+
+                verifiedPhoneNumberRef.setValue(verifiedPhoneNumber);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.signup.SignupFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ImageView
         android:id="@+id/signup_button_back"
         android:layout_width="wrap_content"

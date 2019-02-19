@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -46,7 +45,7 @@
         app:tabIndicatorHeight="0dp"
         app:tabPaddingEnd="16dp"
         app:tabPaddingStart="16dp"
-        app:tabSelectedTextColor="#fff">
+        app:tabSelectedTextColor="@color/colorPrimary">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/item1"

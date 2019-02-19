@@ -1,4 +1,4 @@
-package com.selectmakeathon.app.ui.main.info;
+package com.selectmakeathon.app.ui.main.info.tabs;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.selectmakeathon.app.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FaqFragment extends androidx.fragment.app.Fragment {
+public class AboutUsFragment extends androidx.fragment.app.Fragment {
 
 
-    public FaqFragment() {
+    public AboutUsFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class FaqFragment extends androidx.fragment.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_faq, container, false);
+        return inflater.inflate(R.layout.fragment_about_us, container, false);
     }
 
 }

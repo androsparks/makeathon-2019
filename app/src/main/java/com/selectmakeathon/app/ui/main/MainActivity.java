@@ -2,90 +2,131 @@ package com.selectmakeathon.app.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.TaskStackBuilder;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.TextureView;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
+import com.google.android.material.navigation.NavigationView;
 import com.selectmakeathon.app.R;
+import com.selectmakeathon.app.model.NavModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.ui.main.home.HomeFragment;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;
+import com.selectmakeathon.app.ui.main.sidenav.SideNavAdapter;
+import com.selectmakeathon.app.ui.main.sidenav.SideNavListener;
 import com.selectmakeathon.app.util.Constants;
 
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 
-import cn.iwgang.countdownview.CountdownView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SideNavListener {
 
     SharedPreferences prefs;
     SharedPreferences.Editor prefEditor;
 
-    private Button logoutButton;
-    private TextView infoButton;
+    private DrawerLayout drawerLayout;
+    private TextView buttonSignOut;
+    private NavigationView navigationView;
+    private RecyclerView rvNav;
+
+    SideNavAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            String dateStop = "03/25/2019 17:30:00";
-            Date dtstart = Calendar.getInstance().getTime();
-            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            SimpleDateFormat frmt = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-            String dateStart = dateFormat.format(dtstart);
-            Date d1 = null;
-            Date d2 = null;
-            d1 = frmt.parse(dateStart);
-            d2 = frmt.parse(dateStop);
-            long diff = d2.getTime() - d1.getTime();
-
-            CountdownView countdownView1 = (CountdownView) findViewById(R.id.countdownView);
-
-            countdownView1.setTag("Lets Begin !");
-
-            countdownView1.start(diff);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
 
         initViews();
 
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        initAdapter();
+
+        updateFragment(HomeFragment.newInstance());
+
+        buttonSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startAuthActivity();
             }
         });
 
-        infoButton.setOnClickListener(new View.OnClickListener() {
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+
             @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, InfoActivity.class);
-                startActivity(i);
+            public void onBackStackChanged() {
+                updateDrawer();
             }
         });
+
+        updateDrawer();
+    }
+
+    private void initAdapter() {
+
+        ArrayList<NavModel> navModels = new ArrayList<>();
+
+        navModels.add(new NavModel(
+                R.drawable.ic_home_black_24dp,
+                "Home"
+        ));
+        navModels.add(new NavModel(
+                R.drawable.ic_format_list_bulleted_black_24dp,
+                "Problem Statements"
+        ));
+        navModels.add(new NavModel(
+                R.drawable.ic_people_black_24dp,
+                "Team"
+        ));
+        navModels.add(new NavModel(
+                R.drawable.ic_info_black_24dp,
+                "Info"
+        ));
+
+        adapter = new SideNavAdapter(this, navModels, this);
+
+        initRv();
+    }
+
+    private void initRv() {
+
+        rvNav.setHasFixedSize(true);
+        rvNav.setLayoutManager(new LinearLayoutManager(this));
+
+        rvNav.setAdapter(adapter);
+
+    }
+
+    private void updateDrawer() {
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container_main);
+
+        if (fragment != null){
+
+            String fragClassName = fragment.getClass().getName();
+
+            if (fragClassName.equals(HomeFragment.class.getName())) {
+                adapter.update(0);
+            }
+        }
+
     }
 
     public void startAuthActivity() {
@@ -98,7 +139,89 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        logoutButton = findViewById(R.id.main_button_logout);
-        infoButton = findViewById(R.id.main_button_info);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        buttonSignOut = findViewById(R.id.main_text_signout);
+        navigationView = findViewById(R.id.nav_view);
+        rvNav = findViewById(R.id.nav_rv);
+    }
+
+    public void updateFragment(Fragment fragment) {
+
+        String backStateName =  fragment.getClass().getName();
+        String fragmentTag = backStateName;
+
+        FragmentManager manager = getSupportFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+
+        if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null) {
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.container_main, fragment)
+                    .addToBackStack(backStateName)
+                    .commit();
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+                finish();
+            }
+            else {
+                super.onBackPressed();
+            }
+        }
+    }
+
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//
+//        int id = item.getItemId();
+//
+//        if (id == R.id.nav_home) {
+//            updateFragment(HomeFragment.newInstance());
+//        } else if (id == R.id.nav_problem_statement) {
+//
+//        } else if (id == R.id.nav_team) {
+//
+//        } else if (id == R.id.nav_info) {
+//            Intent i = new Intent(this, InfoActivity.class);
+//            startActivity(i);
+//        }
+//
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+
+    public void openSideNav() {
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateDrawer();
+    }
+
+    @Override
+    public void onNavItemSelected(int position) {
+
+        if (position == 0) {
+            updateFragment(HomeFragment.newInstance());
+        } else if (position == 3) {
+            Intent i = new Intent(this, InfoActivity.class);
+            startActivity(i);
+        }
+
+        adapter.update(position);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
     }
 }

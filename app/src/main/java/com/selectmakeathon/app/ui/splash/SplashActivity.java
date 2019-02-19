@@ -33,12 +33,14 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent intent;
-                if (prefs.getBoolean(Constants.PREF_IS_LOGGED_IN, true)) {
-                    intent = new Intent(SplashActivity.this, AuthActivity.class);
-                } else {
-                    intent = new Intent(SplashActivity.this, MainActivity.class);
-                }
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+
+                // TODO: REMOVE THIS (HIGH PRIORITY) - DONE FOR TESTING
+//                if (prefs.getBoolean(Constants.PREF_IS_LOGGED_IN, true)) {
+//                    intent = new Intent(SplashActivity.this, AuthActivity.class);
+//                } else {
+//                    intent = new Intent(SplashActivity.this, MainActivity.class);
+//                }
 
                 TaskStackBuilder.create(SplashActivity.this)
                         .addNextIntentWithParentStack(intent)

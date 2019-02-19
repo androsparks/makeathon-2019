@@ -45,6 +45,10 @@ dependencies {
 
     //Lottie Animation
     implementation 'com.airbnb.android:lottie:3.0.0-beta1'
+
+    //FCM
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

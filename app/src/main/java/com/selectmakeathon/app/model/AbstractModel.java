@@ -12,6 +12,10 @@ public class AbstractModel {
     private ArrayList<Component> components;
     private boolean isFinal;
 
+    public AbstractModel() {
+
+    }
+
     public AbstractModel(String ideaAbstract, String ideaUniquness, String ideaUseCases,
                          String attachmentName, String attachmentUrl,
                          ArrayList<Component> components, boolean isFinal

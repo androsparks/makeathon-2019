@@ -15,6 +15,7 @@ import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.NavModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
 import com.selectmakeathon.app.ui.main.home.HomeFragment;
+import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavAdapter;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavListener;
@@ -213,6 +214,9 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
 
         if (position == 0) {
             updateFragment(HomeFragment.newInstance());
+        } else if (position == 1) {
+            Intent i = new Intent(this, AbstractActivity.class);
+            startActivity(i);
         } else if (position == 3) {
             Intent i = new Intent(this, InfoActivity.class);
             startActivity(i);

@@ -128,7 +128,7 @@
                     android:textColor="@color/colorAccent" />
 
                 <TextView
-                    android:id="@+id/abstract_text_attachment"
+                    android:id="@+id/abstract_text_attachment_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -149,6 +149,7 @@
                     android:textColor="@color/colorAccent" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/abstract_rv_components"
                     android:layout_width="match_parent"
                     android:layout_height="0dp" />
 
@@ -191,7 +192,7 @@
                     android:textColor="@color/colorAccent" />
 
                 <TextView
-                    android:id="@+id/textView18"
+                    android:id="@+id/abstract_text_abstract"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -208,7 +209,7 @@
                     android:textColor="@color/colorAccent" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/abstract_text_uniqueness"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -226,7 +227,7 @@
                     android:textColor="@color/colorAccent" />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/abstract_text_attachment_static"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -248,6 +249,7 @@
                     android:textColor="@color/colorAccent" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/abstract_rv_components_static"
                     android:layout_width="match_parent"
                     android:layout_height="0dp" />
 

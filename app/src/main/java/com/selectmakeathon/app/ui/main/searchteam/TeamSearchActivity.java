@@ -1,10 +1,12 @@
 package com.selectmakeathon.app.ui.main.searchteam;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,7 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -91,12 +95,16 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                teamModels.clear();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    teamModels.add(child.getValue(TeamModel.class));
+                try {
+                    teamModels.clear();
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        teamModels.add(0, child.getValue(TeamModel.class));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    updateUI();
                 }
-
-                updateUI();
 
             }
 
@@ -127,11 +135,13 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                                 TeamModel searchTeamModel = dataSnapshot.child(query).getValue(TeamModel.class);
 
                                 teamNameStatic.setText(searchTeamModel.getTeamName());
-                                teamLeaderStatic.setText(searchTeamModel.getTeamLeader());
+                                teamLeaderStatic.setText(searchTeamModel.getTeamLeader().getName());
                                 memberCountStatic.setText(searchTeamModel.getTeamMembers().size());
 
                                 showRv = false;
 
+                            } else {
+                                showToast("No results found");
                             }
                             updateUI();
                         }
@@ -155,6 +165,10 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                 updateUI();
             }
         });
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void initRv() {
@@ -201,12 +215,36 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
     }
 
     @Override
-    public void onTeamSelect(int position) {
+    public void onTeamSelect(final int position) {
 
         TeamModel teamModel = teamModels.get(position);
+        requestToJoin(teamModel);
 
-        /*TODO: Show dialog box*/
-        /*TODO: Update firebase*/
+    }
+
+    private void requestToJoin(final TeamModel teamModel) {
+
+        new AlertDialog.Builder(this)
+                .setTitle(teamModel.getTeamName())
+                .setMessage("Request to join this team?")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        teamModel.getMemberRequests().add(userModel);
+                        reference.child("teams").child(teamModel.getTeamId()).setValue(teamModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                showToast("Requested Successfully");
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).create().show();
 
     }
 }

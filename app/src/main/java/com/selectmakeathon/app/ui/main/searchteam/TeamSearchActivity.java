@@ -127,7 +127,7 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                                 TeamModel searchTeamModel = dataSnapshot.child(query).getValue(TeamModel.class);
 
                                 teamNameStatic.setText(searchTeamModel.getTeamName());
-                                teamLeaderStatic.setText(searchTeamModel.getTeamLeader());
+                                teamLeaderStatic.setText(searchTeamModel.getTeamLeader().getName());
                                 memberCountStatic.setText(searchTeamModel.getTeamMembers().size());
 
                                 showRv = false;

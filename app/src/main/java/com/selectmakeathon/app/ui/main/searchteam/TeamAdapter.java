@@ -43,7 +43,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         TeamModel teamModel = teamModels.get(position);
 
         holder.teamName.setText(teamModel.getTeamName());
-        holder.leaderName.setText(teamModel.getTeamLeader());
+        holder.leaderName.setText(teamModel.getTeamLeader().getName());
         holder.memberCount.setText(
                 String.valueOf(teamModel.getTeamMembers().size())
         );

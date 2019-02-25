@@ -32,7 +32,6 @@ public class TeamActivity extends AppCompatActivity {
     private TextInputLayout teamNameEditText;
     private List<UserModel> initialMembers;
     UserModel teamLeader;
-    TeamModel mainTeam;
     private AddMemberBottomSheet memberBottomSheet;
     private SharedPreferences prefs;
     static AddMemberInterface addMemberInterface;
@@ -62,8 +61,12 @@ public class TeamActivity extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
-                        addNewMember(member);
-                        dialog.dismiss();
+                        if (member.getRegNo().equals(teamLeader.getRegNo())){
+                            Toast.makeText(TeamActivity.this, "We believe in Collaboration and not in Isolation. Please add members other than yourself!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            addNewMember(member);
+                            dialog.dismiss();
+                        }
                     }
                 });
 
@@ -140,7 +143,7 @@ public class TeamActivity extends AppCompatActivity {
                 } else {
                     TeamModel teamModel = new TeamModel(teamName, teamId, teamLeader, initialMembers, null, null, false);
                     mTeamReference.child(teamId).setValue(teamModel);
-                    mainTeam = teamModel;
+
                 }
             }
 

@@ -128,6 +128,13 @@ public class TeamActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.team_button_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishAfterTransition();
+            }
+        });
+
         findViewById(R.id.btn_team_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

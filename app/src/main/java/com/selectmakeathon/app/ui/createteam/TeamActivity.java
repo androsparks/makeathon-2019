@@ -1,17 +1,17 @@
-package com.selectmakeathon.app.ui.team;
+package com.selectmakeathon.app.ui.createteam;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,11 +29,11 @@ public class TeamActivity extends AppCompatActivity {
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mTeamReference, mUserReference;
-    private String teamName, teamId;
-    private EditText teamNameEditText;
+    private TextInputLayout teamNameEditText;
     private List<UserModel> initialMembers;
     UserModel teamLeader;
     TeamModel mainTeam;
+    private AddMemberBottomSheet memberBottomSheet;
     private SharedPreferences prefs;
     static AddMemberInterface addMemberInterface;
     private SharedPreferences.Editor prefEditor;
@@ -47,12 +47,38 @@ public class TeamActivity extends AppCompatActivity {
         mUserReference = mDatabase.getReference().child("users");
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
-        teamNameEditText = findViewById(R.id.et_team_name);
+        teamNameEditText = findViewById(R.id.el_team_name);
 
         addMemberInterface = new AddMemberInterface() {
             @Override
-            public void addMember(UserModel member) {
+            public void addMember(final UserModel member) {
+                dismissMemberBottomSheet();
+                AlertDialog.Builder builder = new AlertDialog.Builder(TeamActivity.this);
+                builder.setTitle("Confirm");
+                String message = "Do you really wanna add " + member.getName() + "?";
+                builder.setMessage(message);
 
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing but close the dialog
+                        addNewMember(member);
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         };
 
@@ -66,9 +92,12 @@ public class TeamActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.hasChild(teamLeaderRegNo)){
                         teamLeader = dataSnapshot.child(teamLeaderRegNo).getValue(UserModel.class);
+                        initialMembers = new ArrayList<>();
+                        initialMembers.add(teamLeader);
 
                     } else {
                         Toast.makeText(TeamActivity.this, "Can't find the User, Please Login again", Toast.LENGTH_SHORT).show();
+                        finishAfterTransition();
                     }
                 }
 
@@ -82,17 +111,26 @@ public class TeamActivity extends AppCompatActivity {
         findViewById(R.id.add_member_text_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddMemberBottomSheet memberBottomSheet = new AddMemberBottomSheet();
-                memberBottomSheet.show(getSupportFragmentManager(), "AddMember");
+                openAddMemberBottomSheet();
             }
         });
 
-        find
+        findViewById(R.id.btn_team_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String teamName = teamNameEditText.getEditText().getText().toString().trim();
+                if (teamName == null || teamName.length() == 0){
+                    teamNameEditText.setError("Please Enter a valid Team Name");
+                } else {
+                    createTeam(teamName, teamLeader);
+                }
+            }
+        });
 
     }
 
     void createTeam(final String teamName, final UserModel teamLeader){
-        teamId = teamName.toLowerCase().replace(' ', '_');
+        final String teamId = teamName.toLowerCase().replace(' ', '_');
         mTeamReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -113,20 +151,48 @@ public class TeamActivity extends AppCompatActivity {
         });
     }
 
-    void addMember(UserModel newMember){
+    void addNewMember(UserModel newMember){
         if (initialMembers == null || initialMembers.size() == 0){
             initialMembers = new ArrayList<>();
+            initialMembers.add(teamLeader);
             initialMembers.add(newMember);
         } else {
             initialMembers.add(newMember);
         }
+        putTeamMemberAsAdded(newMember);
+    }
+
+    void putTeamMemberAsAdded(final UserModel acceptedMember){
+        mUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserModel thisMember = dataSnapshot.child(acceptedMember.getRegNo()).getValue(UserModel.class);
+                thisMember.setJoined(true);
+                mUserReference.child(thisMember.getRegNo()).setValue(thisMember);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static AddMemberInterface getAddMemberInterface() {
         return addMemberInterface;
     }
 
-    public static void setAddMemberInterface(AddMemberInterface addMemberInterface) {
-        TeamActivity.addMemberInterface = addMemberInterface;
+
+    void openAddMemberBottomSheet(){
+        memberBottomSheet = new AddMemberBottomSheet();
+        memberBottomSheet.show(getSupportFragmentManager(), "AddMember");
+    }
+
+    void dismissMemberBottomSheet(){
+        memberBottomSheet.dismiss();
+    }
+
+    void updateMembersList(){
+
     }
 }

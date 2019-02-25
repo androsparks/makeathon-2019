@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.team.TeamActivity">
+    tools:context=".ui.createteam.TeamActivity">
 
     <ImageView
         android:id="@+id/team_button_back"
@@ -38,6 +38,7 @@
         app:boxBackgroundMode="outline"
         app:boxStrokeColor="@color/colorAccent"
         app:hintTextColor="@color/colorAccent"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/team_button_back"
@@ -47,8 +48,7 @@
             android:id="@+id/et_team_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Team Name"
-            android:inputType="textCapCharacters" />
+            android:hint="Team Name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
     <Button
-        android:id="@+id/auth_button_login"
+        android:id="@+id/btn_team_confirm"
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

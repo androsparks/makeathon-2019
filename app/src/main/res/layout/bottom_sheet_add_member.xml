@@ -36,6 +36,7 @@
             android:id="@+id/et_team_member_reg_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
             android:hint="Member Registration Number"
             android:inputType="textCapCharacters" />
 

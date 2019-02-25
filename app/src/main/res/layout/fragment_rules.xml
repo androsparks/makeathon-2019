@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.rules.RulesFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/wave"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:id="@+id/mainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/rulesHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="35dp"
+                android:gravity="center"
+                android:text="RULES"
+                android:textColor="@color/colorAccent"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/rules1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="10dp"
+                android:text="Intellectual Property Rights"
+                android:textColor="#fff"
+                android:textSize="18sp"
+
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="10dp"
+                android:text="All submissions remain the intellectual property of the individuals or organizations that developed them. However, should team consensus be reached, the team can enter into an NDA (Non-disclosure agreement) or any equivalent legal agreement with a sponsoring organization or the company interested in the team’s solution. The organizing team may facilitate such processes but has no deciding authority in that regard. "
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/rules2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:text="Protection of Intellectual Property"
+                android:textColor="#fff"
+                android:textSize="18sp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="10dp"
+                android:text="By submitting an Entry or accepting any prize, you represent and warrant the following: you will not submit content that is copyrighted, protected by trade secret or otherwise subject to third party intellectual property rights or other proprietary rights, including privacy and publicity rights, unless you are the owner of such rights or have permission from their rightful owner to post the content; and the content submitted by you does not contain any viruses, Trojan horses, worms or other disabling devices or harmful code."
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:id="@+id/rules4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:text="Eligibility"
+                android:textColor="#fff"
+                android:textSize="18sp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="10dp"
+                android:text="Make-A-Thon organizers have the right at their sole discretion to determine whether an entrant is eligible for the Contest. Make-A-Thon may disqualify, at organizers’ sole discretion, Make-A-Thon entries (including, without limitation, content submitted in connection therewith) that (a) are in violation of third-party rights or law or regulation, (b) use inappropriate or explicit language or images, or display content that Make-A-Thon or Sponsors otherwise finds objectionable."
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/rules5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:text="Winner Selection"
+                android:textColor="#fff"
+                android:textSize="18sp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="10dp"
+                android:text="Winners will be judged based on the a set of criteria that will be announced during the commencement of the event."
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/rules6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:text="Judging Criteria"
+                android:textColor="#fff"
+                android:textSize="18sp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="10dp"
+                android:text="The Contest winners will be selected by a panel of judges. By submitting any Make-A-Thon Entry, entrants release Make-A-Thon, Sponsors, their respective subsidiaries, affiliates, directors, officers, employees, representatives, agents, and advisors from any and all liability for any claims, costs, injuries, losses, or damages of any kind arising out of or in connection with the decisions of the Judges."
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/rules3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:text="© Copyright"
+                android:textColor="#fff"
+                android:textSize="18sp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="10dp"
+                android:text="Participant represents and warrants that he or she is the sole author and copyright owner of the Submission, and that the Submission is an original work of the Participant, or if the Submission is a work based on an existing application, that the Participant has acquired sufficient rights to use and to authorize others; and that the Submission does not infringe upon any copyright or upon any other third party rights of which the Participant is aware, and that the Submission is free of malware."
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wave"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_margin="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_waves"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -17,8 +16,10 @@ import com.selectmakeathon.app.ui.auth.AuthActivity;
 import com.selectmakeathon.app.ui.main.home.HomeFragment;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;
+import com.selectmakeathon.app.ui.main.rules.RulesFragment;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavAdapter;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavListener;
+import com.selectmakeathon.app.ui.main.searchteam.TeamSearchActivity;
 import com.selectmakeathon.app.util.Constants;
 
 //import android.support.v7.app.AppCompatActivity;
@@ -95,6 +96,10 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         navModels.add(new NavModel(
                 R.drawable.ic_people_black_24dp,
                 "Team"
+        ));
+        navModels.add(new NavModel(
+                R.drawable.ic_info_black_24dp,
+                "Rules"
         ));
         navModels.add(new NavModel(
                 R.drawable.ic_info_black_24dp,
@@ -217,7 +222,13 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         } else if (position == 1) {
             Intent i = new Intent(this, AbstractActivity.class);
             startActivity(i);
+        } else if (position == 2) {
+            /*TODO: Test whether the user is in a team or not*/
+            Intent i = new Intent(this, TeamSearchActivity.class);
+            startActivity(i);
         } else if (position == 3) {
+            updateFragment(RulesFragment.newInstance());
+        } else if (position == 4) {
             Intent i = new Intent(this, InfoActivity.class);
             startActivity(i);
         }

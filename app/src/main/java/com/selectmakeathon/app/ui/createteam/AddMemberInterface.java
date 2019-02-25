@@ -1,4 +1,4 @@
-package com.selectmakeathon.app.ui.team;
+package com.selectmakeathon.app.ui.createteam;
 
 import com.selectmakeathon.app.model.UserModel;
 

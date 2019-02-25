@@ -1,14 +1,16 @@
 package com.selectmakeathon.app.model;
 
+import android.icu.lang.UScript;
+
 import java.util.List;
 
 public class TeamModel {
 
     private String teamName;
     private String teamId;
-    private String teamLeader;
-    private List<String> teamMembers;
-    private List<String> memberRequests;
+    private UserModel teamLeader;
+    private List<UserModel> teamMembers;
+    private List<UserModel> memberRequests;
     private AbstractModel abstractModel;
     private boolean isSelected;
 
@@ -16,8 +18,7 @@ public class TeamModel {
 
     }
 
-    public TeamModel(String teamName, String teamId, String teamLeader, List<String> teamMembers, List<String> memberRequests, AbstractModel abstractModel, boolean isSelected) {
-        this.teamName = teamName;
+    public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) { this.teamName = teamName;
         this.teamId = teamId;
         this.teamLeader = teamLeader;
         this.teamMembers = teamMembers;
@@ -42,27 +43,27 @@ public class TeamModel {
         this.teamId = teamId;
     }
 
-    public String getTeamLeader() {
+    public UserModel getTeamLeader() {
         return teamLeader;
     }
 
-    public void setTeamLeader(String teamLeader) {
+    public void setTeamLeader(UserModel teamLeader) {
         this.teamLeader = teamLeader;
     }
 
-    public List<String> getTeamMembers() {
+    public List<UserModel> getTeamMembers() {
         return teamMembers;
     }
 
-    public void setTeamMembers(List<String> teamMembers) {
+    public void setTeamMembers(List<UserModel> teamMembers) {
         this.teamMembers = teamMembers;
     }
 
-    public List<String> getMemberRequests() {
+    public List<UserModel> getMemberRequests() {
         return memberRequests;
     }
 
-    public void setMemberRequests(List<String> memberRequests) {
+    public void setMemberRequests(List<UserModel> memberRequests) {
         this.memberRequests = memberRequests;
     }
 

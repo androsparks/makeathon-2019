@@ -18,8 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+      
         <activity android:name=".ui.main.searchteam.TeamSearchActivity"></activity>
         <activity android:name=".ui.team.TeamActivity" />
+      
         <activity android:name=".ui.main.idea.AbstractActivity" />
 
         <service android:name=".util.FCMService">

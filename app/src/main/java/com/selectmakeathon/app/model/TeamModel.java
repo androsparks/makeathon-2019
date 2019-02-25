@@ -7,15 +7,15 @@ public class TeamModel {
     private String teamName;
     private String teamId;
     private String teamLeader;
-    private List<String> teamMembers;
-    private List<String> memberRequests;
+    private List<UserModel> teamMembers;
+    private List<UserModel> memberRequests;
     private AbstractModel abstractModel;
     private boolean isSelected;
 
     public TeamModel() {
     }
 
-    public TeamModel(String teamName, String teamId, String teamLeader, List<String> teamMembers, List<String> memberRequests, AbstractModel abstractModel, boolean isSelected) {
+    public TeamModel(String teamName, String teamId, String teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) {
         this.teamName = teamName;
         this.teamId = teamId;
         this.teamLeader = teamLeader;
@@ -49,19 +49,19 @@ public class TeamModel {
         this.teamLeader = teamLeader;
     }
 
-    public List<String> getTeamMembers() {
+    public List<UserModel> getTeamMembers() {
         return teamMembers;
     }
 
-    public void setTeamMembers(List<String> teamMembers) {
+    public void setTeamMembers(List<UserModel> teamMembers) {
         this.teamMembers = teamMembers;
     }
 
-    public List<String> getMemberRequests() {
+    public List<UserModel> getMemberRequests() {
         return memberRequests;
     }
 
-    public void setMemberRequests(List<String> memberRequests) {
+    public void setMemberRequests(List<UserModel> memberRequests) {
         this.memberRequests = memberRequests;
     }
 

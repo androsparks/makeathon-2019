@@ -13,6 +13,7 @@ public class TeamModel {
     private boolean isSelected;
 
     public TeamModel() {
+
     }
 
     public TeamModel(String teamName, String teamId, String teamLeader, List<String> teamMembers, List<String> memberRequests, AbstractModel abstractModel, boolean isSelected) {

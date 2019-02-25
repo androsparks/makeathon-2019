@@ -335,11 +335,12 @@ public class AbstractActivity extends AppCompatActivity {
         abstractModel.setIdeaUniquness(inputUniqueness.getEditText().getText().toString());
         abstractModel.setComponents(componentAdapter.getComponents());
 
-        reference.child("teams").child(teamId).child("abstract").setValue(abstractModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+        reference.child("teams").child(teamId).child("abstract").setValue(abstractModel)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 isEditModeOn = false;
-                prefEditor.putBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, true);
+                prefEditor.putBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, true).apply();
                 updateUI();
             }
         });

@@ -46,7 +46,8 @@ public class AddMemberBottomSheet extends BottomSheetDialogFragment {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChild(memberRegNo)) {
                                 UserModel member = dataSnapshot.child(memberRegNo).getValue(UserModel.class);
-                                if (member.isJoined()) {
+                                assert member != null;
+                                if (member.isJoined() || member.isLeader()) {
                                     Toast.makeText(getContext(), "Entered member is already a part of a team, Please enter a new Reg No.", Toast.LENGTH_SHORT).show();
                                 } else {
                                     memberInterface.addMember(member);

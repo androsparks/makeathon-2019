@@ -21,6 +21,8 @@ import com.selectmakeathon.app.ui.auth.AuthActivity;
 import com.selectmakeathon.app.ui.auth.login.LoginFragment;
 import com.selectmakeathon.app.util.HashUtil;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,7 +31,7 @@ import static com.selectmakeathon.app.util.FormUtil.isEmpty;
 
 public class ResetPasswordFragment extends Fragment {
 
-    private static final String ARG_PHONENUM = "PHONE_NUMBER";
+    private static final String     ARG_PHONENUM = "PHONE_NUMBER";
 
     private TextInputLayout inputRegno;
     private TextInputLayout inputPassword;

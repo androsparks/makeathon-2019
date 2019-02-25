@@ -34,7 +34,7 @@ public class TeamCreationFragment extends Fragment {
         return view;
     }
 
-    void createTeam(){
+    void createTeam(String teamName, String teamId){
         teamId = teamName.toLowerCase().replace(' ', '_');
         mTeamReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

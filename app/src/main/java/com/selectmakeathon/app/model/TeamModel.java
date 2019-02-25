@@ -1,12 +1,14 @@
 package com.selectmakeathon.app.model;
 
+import android.icu.lang.UScript;
+
 import java.util.List;
 
 public class TeamModel {
 
     private String teamName;
     private String teamId;
-    private String teamLeader;
+    private UserModel teamLeader;
     private List<UserModel> teamMembers;
     private List<UserModel> memberRequests;
     private AbstractModel abstractModel;
@@ -15,8 +17,7 @@ public class TeamModel {
     public TeamModel() {
     }
 
-    public TeamModel(String teamName, String teamId, String teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) {
-        this.teamName = teamName;
+    public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) { this.teamName = teamName;
         this.teamId = teamId;
         this.teamLeader = teamLeader;
         this.teamMembers = teamMembers;
@@ -41,11 +42,11 @@ public class TeamModel {
         this.teamId = teamId;
     }
 
-    public String getTeamLeader() {
+    public UserModel getTeamLeader() {
         return teamLeader;
     }
 
-    public void setTeamLeader(String teamLeader) {
+    public void setTeamLeader(UserModel teamLeader) {
         this.teamLeader = teamLeader;
     }
 

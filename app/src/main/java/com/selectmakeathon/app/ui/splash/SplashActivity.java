@@ -41,9 +41,6 @@ public class SplashActivity extends AppCompatActivity {
                     intent = new Intent(SplashActivity.this, MainActivity.class);
                 }
 
-                /*TODO: (HIGH PRIORITY) remove this line (Used only for testing*/
-                intent = new Intent(SplashActivity.this, MainActivity.class);
-
                 TaskStackBuilder.create(SplashActivity.this)
                         .addNextIntentWithParentStack(intent)
                         .startActivities();

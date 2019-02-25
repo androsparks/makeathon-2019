@@ -15,6 +15,7 @@ public class TeamModel {
     private boolean isSelected;
 
     public TeamModel() {
+
     }
 
     public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) { this.teamName = teamName;

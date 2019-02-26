@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class AbstractModel {
 
+    private String problemStatementId;
     private String ideaAbstract;
     private String ideaUniquness;
     private String ideaUseCases;
@@ -16,10 +17,8 @@ public class AbstractModel {
 
     }
 
-    public AbstractModel(String ideaAbstract, String ideaUniquness, String ideaUseCases,
-                         String attachmentName, String attachmentUrl,
-                         ArrayList<Component> components, boolean isFinal
-    ) {
+    public AbstractModel(String problemStatementId, String ideaAbstract, String ideaUniquness, String ideaUseCases, String attachmentName, String attachmentUrl, ArrayList<Component> components, boolean isFinal) {
+        this.problemStatementId = problemStatementId;
         this.ideaAbstract = ideaAbstract;
         this.ideaUniquness = ideaUniquness;
         this.ideaUseCases = ideaUseCases;
@@ -27,6 +26,14 @@ public class AbstractModel {
         this.attachmentUrl = attachmentUrl;
         this.components = components;
         this.isFinal = isFinal;
+    }
+
+    public String getProblemStatementId() {
+        return problemStatementId;
+    }
+
+    public void setProblemStatementId(String problemStatementId) {
+        this.problemStatementId = problemStatementId;
     }
 
     public String getIdeaAbstract() {

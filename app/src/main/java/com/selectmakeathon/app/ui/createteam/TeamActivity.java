@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
+import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
 import com.selectmakeathon.app.util.Constants;
 
 import java.util.ArrayList;
@@ -149,7 +151,7 @@ public class TeamActivity extends AppCompatActivity {
     }
 
     void createTeam(final String teamName, final UserModel teamLeader){
-        final String teamId = teamName.toLowerCase().replace(' ', '_');
+        final String teamId = teamName.trim().toLowerCase().replace(' ', '_');
         mTeamReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -157,11 +159,18 @@ public class TeamActivity extends AppCompatActivity {
                     //Team Already Exists, take Action
                     Toast.makeText(TeamActivity.this, "Team Already Exists, Please use a different name", Toast.LENGTH_SHORT).show();
                 } else {
+
                     teamLeader.setLeader(true);
+                    teamLeader.setJoined(true);
+                    teamLeader.setTeamName(teamId);
+
                     mUserReference.child(teamLeader.getRegNo()).setValue(teamLeader);
                     for(int i = 1; i < initialMembers.size(); i++){
                         UserModel userModel = initialMembers.get(i);
+
                         userModel.setJoined(true);
+                        userModel.setTeamName(teamId);
+
                         putTeamMemberAsAdded(initialMembers.get(i));
                         initialMembers.set(i, userModel);
                     }
@@ -229,6 +238,9 @@ public class TeamActivity extends AppCompatActivity {
 
     void launchAfterFinish(){
         //TODO : Handle further flow
+        Intent intent = new Intent(this, MyTeamActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

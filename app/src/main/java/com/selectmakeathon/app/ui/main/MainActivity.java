@@ -268,16 +268,17 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             updateFragment(HomeFragment.newInstance());
         } else if (position == 1) {
             Intent i = new Intent(this, ProblemActivity.class);
+            i.putExtra("CONTINUE", false);
             startActivity(i);
         }
         else if (position == 2) {
             Intent intent;
-            //if (userModel.isJoined()) {
-             //   intent = new Intent(this, MyTeamActivity.class);
-           // } else {
-             //   intent = new Intent(this, TeamSearchActivity.class);
-            //}
-            intent = new Intent(this, MyTeamActivity.class);
+            if (userModel.isJoined()) {
+                intent = new Intent(this, MyTeamActivity.class);
+            } else {
+                intent = new Intent(this, TeamSearchActivity.class);
+            }
+//            intent = new Intent(this, MyTeamActivity.class);
             startActivity(intent);
         } else if (position == 3) {
             updateFragment(RulesFragment.newInstance());

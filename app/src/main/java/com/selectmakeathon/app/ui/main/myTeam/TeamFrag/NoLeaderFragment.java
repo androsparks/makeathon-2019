@@ -11,16 +11,19 @@ import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
+import com.selectmakeathon.app.ui.main.myTeam.adapter.NoLeaderMemberAdapter;
 
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NoLeaderFragment extends Fragment {
 
+    RecyclerView noLeaderMemberRecyclerView;
 
     public NoLeaderFragment() {
         // Required empty public constructor
@@ -31,7 +34,9 @@ public class NoLeaderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_no_leader, container, false);
+        View view =  inflater.inflate(R.layout.fragment_no_leader, container, false);
+        noLeaderMemberRecyclerView = view.findViewById(R.id.rv_no_leader_members);
+        return view;
     }
 
     @Override
@@ -40,6 +45,8 @@ public class NoLeaderFragment extends Fragment {
 
         //TODO: Use this
         List<UserModel> registeredMembers = getTeamModel().getTeamMembers();
+        NoLeaderMemberAdapter adapter = new NoLeaderMemberAdapter(registeredMembers);
+        noLeaderMemberRecyclerView.setAdapter(adapter);
     }
 
     private TeamModel getTeamModel() {

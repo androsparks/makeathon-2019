@@ -140,7 +140,6 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChild(query)) {
                                 searchTeamModel = dataSnapshot.child(query).getValue(TeamModel.class);
-
                                 teamNameStatic.setText(searchTeamModel.getTeamName());
                                 teamLeaderStatic.setText(searchTeamModel.getTeamLeader().getName());
                                 memberCountStatic.setText(String.valueOf(searchTeamModel.getTeamMembers().size()));

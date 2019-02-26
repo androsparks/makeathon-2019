@@ -42,8 +42,7 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
     private DatabaseReference mDatabaseReference;
     private ListAdapter mListAdapter;
     public ArrayList<String> data =new ArrayList<String>();
-    private String[] tracklist=new String[6];
-    private ArrayList<String> tracks=new ArrayList<String>();
+    private ArrayList<String> imageList=new ArrayList<String>();
     private static final String TAG = "ProbHomeFrag";
     private ImageView backButton;
 
@@ -105,6 +104,8 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
         data.add("Health Care");
         data.add("IoT and Automation");
         data.add("Safety and Security");
+
+        imageList.add("")
         mListAdapter = new ListAdapter(data);
         cardStack.setAdapter(mListAdapter);
         return view;

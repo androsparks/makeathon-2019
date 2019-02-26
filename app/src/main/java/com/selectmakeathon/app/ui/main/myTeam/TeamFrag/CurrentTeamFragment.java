@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
+import com.selectmakeathon.app.ui.main.myTeam.adapter.CurrentTeamAdapter;
 import com.selectmakeathon.app.ui.main.myTeam.adapter.NoLeaderMemberAdapter;
 import com.selectmakeathon.app.ui.main.problems.ProbFragmentPack.HealthFrag;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
@@ -57,7 +59,7 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
     private RecyclerView mRecyclerView;
     private TextView TeamNameHolder;
     private Button submitButton;
-
+    public boolean leaderOrNot=false;
 
     public CurrentTeamFragment() {
         // Required empty public constructor
@@ -99,7 +101,9 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
         super.onViewCreated(view, savedInstanceState);
         //TeamNameHolder = view.findViewById(R.id.TeamNameText);
         List<UserModel> registeredMembers = getTeamModel().getTeamMembers();
-        CurrentTeamAdapter adapter = new CurrentTeamAdapter(registeredMembers);
+        leaderOrNot=getUserModel().isLeader();
+        System.out.println(leaderOrNot);
+        CurrentTeamAdapter adapter = new CurrentTeamAdapter(registeredMembers,leaderOrNot);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
 
@@ -143,51 +147,11 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
         });
     }
 
-    private TeamModel getTeamModel() {
+    public TeamModel getTeamModel() {
         return ((MyTeamActivity) getActivity()).teamModel;
     }
-    private UserModel getUserModel() {
+    public UserModel getUserModel() {
         return ((MyTeamActivity) getActivity()).userModel;
     }
 }
 
-class CurrentTeamAdapter extends RecyclerView.Adapter<CurrentTeamAdapter.LeaderMemberViewHolder> {
-
-    List<UserModel> LeaderMemberList;
-
-    public CurrentTeamAdapter(List<UserModel> LeaderMemberList) {
-        this.LeaderMemberList = LeaderMemberList;
-    }
-
-    @NonNull
-    @Override
-    public CurrentTeamAdapter.LeaderMemberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_member, parent, false);
-        return new CurrentTeamAdapter.LeaderMemberViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull CurrentTeamAdapter.LeaderMemberViewHolder holder, int position) {
-        UserModel currentUser = LeaderMemberList.get(position);
-        holder.LeaderMemberName.setText(currentUser.getName());
-        holder.LeaderMemberReg.setText(currentUser.getRegNo());
-    }
-
-    @Override
-    public int getItemCount() {
-        return LeaderMemberList.size();
-    }
-
-    class LeaderMemberViewHolder extends RecyclerView.ViewHolder {
-
-        TextView LeaderMemberName, LeaderMemberReg;
-
-        public LeaderMemberViewHolder(@NonNull View itemView) {
-            super(itemView);
-            LeaderMemberName = itemView.findViewById(R.id.MemberNameText);
-            LeaderMemberReg = itemView.findViewById(R.id.MemberRgNo);
-        }
-    }
-
-}

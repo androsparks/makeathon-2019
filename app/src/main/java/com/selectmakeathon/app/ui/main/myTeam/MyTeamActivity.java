@@ -50,6 +50,8 @@ public class MyTeamActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
 
+        teamDisplayName=findViewById(R.id.TeamNameHolder);
+
         /*TODO: Remove default values */
         teamName = prefs.getString(Constants.PREF_TEAM_ID, "team_null_proxy");
         userName = prefs.getString(Constants.PREF_USER_ID, "16BCE0587");
@@ -80,6 +82,7 @@ public class MyTeamActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     teamModel = dataSnapshot.getValue(TeamModel.class);
+                    teamDisplayName.setText(teamModel.getTeamName());
                     initViews();
                 } catch (Exception e) {
                     e.printStackTrace();

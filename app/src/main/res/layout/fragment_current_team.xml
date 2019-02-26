@@ -5,35 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.myTeam.TeamFrag.CurrentTeamFragment">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="Team Name"
-        android:id="@+id/TeamNameText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/colorAccent"
-        android:layout_marginBottom="16dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TeamNameText"
-        android:text="Details"
-        android:id="@+id/DetailsHead"
-        android:textAllCaps="false"
-        android:textColor="#FFF"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:id="@+id/ListMembers"
         android:layout_marginHorizontal="8dp"
-        app:layout_constraintTop_toBottomOf="@id/DetailsHead"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
@@ -51,17 +30,15 @@
         android:scaleType="fitXY"/>
 
     <Button
-        android:id="@+id/btn_team_confirm"
-        android:layout_width="128dp"
+        android:id="@+id/btn_team_submit"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginBottom="48dp"
         android:background="@drawable/bg_yellow_curve"
         android:foreground="@drawable/bg_ripple"
         android:text="Submit Abstract"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -26,10 +26,19 @@ public class ProblemActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
 
+    public boolean toContinue;
+    public String teamId;
+    public boolean isExternal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem);
+
+        toContinue = getIntent().getBooleanExtra("CONTINUE", false);
+        teamId = getIntent().getStringExtra("TEAM_ID");
+        isExternal = getIntent().getBooleanExtra("IS_EXTERNAL", false);
+
         final FragmentManager manager=getSupportFragmentManager();
         ProbHomeFrag fragment=new ProbHomeFrag();
         manager.beginTransaction()
@@ -43,10 +52,14 @@ public class ProblemActivity extends AppCompatActivity {
 
     public void sendToAbstract(String Id)
     {
-        Intent intent=new Intent(ProblemActivity.this, AbstractActivity.class);
-        intent.putExtra("probId",Id);
-        startActivity(intent);
-        finish();
+        if (toContinue) {
+            Intent intent = new Intent(ProblemActivity.this, AbstractActivity.class);
+            intent.putExtra("probId", Id);
+            intent.putExtra("TEAM_ID", teamId);
+            intent.putExtra("IS_EXTERNAL", isExternal);
+            startActivity(intent);
+            finish();
+        }
     }
 
 

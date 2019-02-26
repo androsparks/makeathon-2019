@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_darkened"
     android:layout_margin="8dp">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:text="Member Name"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/MemberNameText"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
@@ -21,11 +24,28 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="14sp"
         android:text="Registeration Number"
         android:id="@+id/MemberRgNo"
+        app:layout_constraintTop_toBottomOf="@id/MemberNameText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:textColor="#FFF"
         android:textAllCaps="false"/>
-
-</LinearLayout>
+    <ImageView
+        android:id="@+id/delete_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_muted_yellow_curve"
+        android:foreground="@drawable/bg_ripple"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="8dp"
+        app:srcCompat="@drawable/ic_close_black_24dp"
+        android:tint="@color/colorAccent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

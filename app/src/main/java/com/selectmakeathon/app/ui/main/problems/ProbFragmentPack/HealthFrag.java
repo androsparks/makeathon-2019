@@ -77,11 +77,9 @@ public class HealthFrag extends androidx.fragment.app.Fragment implements Proble
                         ProblemStatements dp = new ProblemStatements();
                         String statement = templist.get(i).getProblemStatement();
                         String company = templist.get(i).getCompany();
-                        Integer numofteas = templist.get(i).getNumOfTeams();
                         String id = templist.get(i).getId();
                         String details = templist.get(i).getDetails();
                         dp.setCompany(company);
-                        dp.setNumOfTeams(numofteas);
                         dp.setProblemStatement(statement);
                         dp.setId(id);
                         dp.setDetails(details);
@@ -91,7 +89,7 @@ public class HealthFrag extends androidx.fragment.app.Fragment implements Proble
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                mAdapter = new ListAdapter(list,HealthFrag.this);
+                mAdapter = new ListAdapter(list,HealthFrag.this,((ProblemActivity)getActivity()).toContinue);
                 statementRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
                 statementRecycle.setAdapter(mAdapter);
             }
@@ -124,10 +122,13 @@ public class HealthFrag extends androidx.fragment.app.Fragment implements Proble
     public class ListAdapter extends RecyclerView.Adapter<HealthFrag.ListAdapter.ViewHolder> {
         private List<ProblemStatements> dataList;
         private ProblemChooseListener mListener;
+        private boolean toContinue;
 
-        public ListAdapter(List<ProblemStatements> dataList, ProblemChooseListener listener) {
+
+        public ListAdapter(List<ProblemStatements> dataList, ProblemChooseListener listener, boolean toContinue) {
             this.dataList = dataList;
             mListener = listener;
+            this.toContinue = toContinue;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -146,7 +147,6 @@ public class HealthFrag extends androidx.fragment.app.Fragment implements Proble
                 this.expands = (LinearLayout) itemView.findViewById(R.id.ExpandArea);
                 this.details = (TextView) itemView.findViewById(R.id.StatDeet);
                 this.Company = (TextView) itemView.findViewById(R.id.StatCompanyName);
-                this.Number = (TextView) itemView.findViewById(R.id.StatNumTeam);
                 this.choose=(Button)itemView.findViewById(R.id.ChoooseProb);
             }
         }
@@ -167,7 +167,6 @@ public class HealthFrag extends androidx.fragment.app.Fragment implements Proble
             final String id=dataList.get(position).getId();
             holder.details.setText(dataList.get(position).getDetails());
             holder.Company.setText(dataList.get(position).getCompany());
-            holder.Number.setText(String.valueOf(dataList.get(position).getNumOfTeams()));
 
             if (isExpanded)
                 previousExpandedPosition = position;
@@ -181,6 +180,14 @@ public class HealthFrag extends androidx.fragment.app.Fragment implements Proble
 
                 }
             });
+
+            if (toContinue) {
+                holder.choose.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                holder.choose.setVisibility(View.GONE);
+            }
 
             holder.choose.setOnClickListener(new View.OnClickListener() {
                 @Override

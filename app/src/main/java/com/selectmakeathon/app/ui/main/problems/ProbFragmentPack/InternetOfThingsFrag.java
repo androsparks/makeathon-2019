@@ -77,11 +77,9 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment impleme
                         ProblemStatements dp = new ProblemStatements();
                         String statement = templist.get(i).getProblemStatement();
                         String company = templist.get(i).getCompany();
-                        Integer numofteas = templist.get(i).getNumOfTeams();
                         String id=templist.get(i).getId();
                         String details=templist.get(i).getDetails();
                         dp.setCompany(company);
-                        dp.setNumOfTeams(numofteas);
                         dp.setProblemStatement(statement);
                         dp.setId(id);
                         dp.setDetails(details);
@@ -146,7 +144,6 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment impleme
                 this.expands=(LinearLayout)itemView.findViewById(R.id.ExpandArea);
                 this.details=(TextView)itemView.findViewById(R.id.StatDeet);
                 this.Company=(TextView)itemView.findViewById(R.id.StatCompanyName);
-                this.Number=(TextView)itemView.findViewById(R.id.StatNumTeam);
                 this.choose=(Button)itemView.findViewById(R.id.ChoooseProb);
             }
         }
@@ -167,7 +164,6 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment impleme
             final String id=dataList.get(position).getId();
             holder.details.setText(dataList.get(position).getDetails());
             holder.Company.setText(dataList.get(position).getCompany());
-            holder.Number.setText(String.valueOf(dataList.get(position).getNumOfTeams()));
 
             if (isExpanded)
                 previousExpandedPosition = position;

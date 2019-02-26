@@ -9,6 +9,7 @@ import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.ProblemStatements;
 import com.selectmakeathon.app.model.ProblemTrack;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
+import com.selectmakeathon.app.ui.main.problems.ProblemChooseListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InternetOfThingsFrag extends androidx.fragment.app.Fragment {
+public class InternetOfThingsFrag extends androidx.fragment.app.Fragment implements ProblemChooseListener {
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
@@ -89,7 +91,7 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                mAdapter=new ListAdapter(list);
+                mAdapter=new ListAdapter(list,InternetOfThingsFrag.this);
                 statementRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
                 statementRecycle.setAdapter(mAdapter);
             }
@@ -121,9 +123,11 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment {
     //Adapter Class
     public class ListAdapter extends RecyclerView.Adapter<InternetOfThingsFrag.ListAdapter.ViewHolder> {
         private List<ProblemStatements> dataList;
+        private ProblemChooseListener mListener;
 
-        public ListAdapter(List<ProblemStatements> data) {
-            this.dataList = data;
+        public ListAdapter(List<ProblemStatements> dataList, ProblemChooseListener listener) {
+            this.dataList = dataList;
+            mListener = listener;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -132,6 +136,7 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment {
             LinearLayout expands;
             TextView details;
             TextView Company;
+            Button choose;
             TextView Number;
 
             public ViewHolder(View itemView) {
@@ -142,6 +147,7 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment {
                 this.details=(TextView)itemView.findViewById(R.id.StatDeet);
                 this.Company=(TextView)itemView.findViewById(R.id.StatCompanyName);
                 this.Number=(TextView)itemView.findViewById(R.id.StatNumTeam);
+                this.choose=(Button)itemView.findViewById(R.id.ChoooseProb);
             }
         }
 
@@ -158,7 +164,7 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment {
             final boolean isExpanded = position==mExpandedPosition;
             holder.expands.setVisibility(isExpanded?View.VISIBLE:View.GONE);
             holder.itemView.setActivated(isExpanded);
-
+            final String id=dataList.get(position).getId();
             holder.details.setText(dataList.get(position).getDetails());
             holder.Company.setText(dataList.get(position).getCompany());
             holder.Number.setText(String.valueOf(dataList.get(position).getNumOfTeams()));
@@ -175,6 +181,13 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment {
 
                 }
             });
+
+            holder.choose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onChoose(id);
+                }
+            });
         }
 
         public int getItemCount() {
@@ -183,6 +196,17 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment {
         }
 
     }
+    private void moveToAbstract(String id)
+    {
+        ((ProblemActivity)getActivity()).sendToAbstract(id);
+    }
+
+
+    @Override
+    public void onChoose(String id) {
+        moveToAbstract(id);
+    }
+
 
 
 

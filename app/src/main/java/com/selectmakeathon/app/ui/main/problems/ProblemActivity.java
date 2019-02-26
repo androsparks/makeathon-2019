@@ -46,6 +46,7 @@ public class ProblemActivity extends AppCompatActivity {
         Intent intent=new Intent(ProblemActivity.this, AbstractActivity.class);
         intent.putExtra("probId",Id);
         startActivity(intent);
+        finish();
     }
 
 

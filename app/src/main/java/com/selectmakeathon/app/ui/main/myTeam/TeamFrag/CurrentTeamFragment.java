@@ -22,6 +22,7 @@ import com.selectmakeathon.app.model.ProblemStatements;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
+import com.selectmakeathon.app.ui.main.myTeam.adapter.NoLeaderMemberAdapter;
 import com.selectmakeathon.app.ui.main.problems.ProbFragmentPack.HealthFrag;
 import com.selectmakeathon.app.util.Constants;
 
@@ -47,7 +48,6 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
     SharedPreferences.Editor prefEditor;
     private String teamnameId, teamname, name, regno;
     private UserModel in, outp;
-    private ListAdapter mListAdapter;
     private RecyclerView mRecyclerView;
     private TextView TeamNameHolder;
 
@@ -60,30 +60,33 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_current_team, container, false);
-
+        View view=inflater.inflate(R.layout.fragment_current_team, container, false);
+        mRecyclerView = view.findViewById(R.id.ListMembers);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = view.findViewById(R.id.ListMembers);
         TeamNameHolder = view.findViewById(R.id.TeamNameText);
-
-        currentTeam = getTeamModel().getTeamMembers();
-        teamname = getTeamModel().getTeamName();
-        TeamNameHolder.setText(teamname);
-        for (int i = 0; i < getTeamModel().getTeamMembers().size(); i++) {
-            in = getTeamModel().getTeamMembers().get(i);
-            name = in.getName();
-            regno = in.getRegNo();
-            outp.setName(name);
-            outp.setRegNo(regno);
-            toAdapter.add(outp);
-        }
-        mListAdapter = new ListAdapter(toAdapter);
+        List<UserModel> registeredMembers = getTeamModel().getTeamMembers();
+        CurrentTeamAdapter adapter = new CurrentTeamAdapter(registeredMembers);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mListAdapter);
+        mRecyclerView.setAdapter(adapter);
+        //currentTeam = getTeamModel().getTeamMembers();
+        //teamname = getTeamModel().getTeamName();
+        //TeamNameHolder.setText(teamname);
+        //for (int i = 0; i < getTeamModel().getTeamMembers().size(); i++) {
+          //  in = getTeamModel().getTeamMembers().get(i);
+           // name = in.getName();
+           // regno = in.getRegNo();
+            //outp.setName(name);
+           // outp.setRegNo(regno);
+            //toAdapter.add(outp);
+        //}
+       // mListAdapter = new ListAdapter(toAdapter);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //mRecyclerView.setAdapter(mListAdapter);
     }
 
     private TeamModel getTeamModel() {
@@ -92,40 +95,45 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
     private UserModel getUserModel() {
         return ((MyTeamActivity) getActivity()).userModel;
     }
+}
 
-    public class ListAdapter extends RecyclerView.Adapter<CurrentTeamFragment.ListAdapter.ViewHolder> {
-        private List<UserModel> dataList;
+class CurrentTeamAdapter extends RecyclerView.Adapter<CurrentTeamAdapter.LeaderMemberViewHolder> {
 
+    List<UserModel> LeaderMemberList;
 
-        public ListAdapter(List<UserModel> data) {
-            this.dataList = data;
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView nameHolder;
-            TextView regHolder;
-            public ViewHolder(View itemView) {
-                super(itemView);
-                this.nameHolder.findViewById(R.id.MemberNameText);
-                this.regHolder.findViewById(R.id.MemberRgNo);
-            }
-        }
-
-        public CurrentTeamFragment.ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_member, parent, false);
-            CurrentTeamFragment.ListAdapter.ViewHolder viewHolder = new CurrentTeamFragment.ListAdapter.ViewHolder(view);
-            return viewHolder;
-        }
-
-        public void onBindViewHolder(CurrentTeamFragment.ListAdapter.ViewHolder holder, final int position) {
-            holder.nameHolder.setText(dataList.get(position).getName());
-            holder.regHolder.setText(dataList.get(position).getRegNo());
-        }
-
-        public int getItemCount() {
-            return dataList.size();
-        }
-
-
+    public CurrentTeamAdapter(List<UserModel> LeaderMemberList) {
+        this.LeaderMemberList = LeaderMemberList;
     }
+
+    @NonNull
+    @Override
+    public CurrentTeamAdapter.LeaderMemberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.item_member, parent, false);
+        return new CurrentTeamAdapter.LeaderMemberViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CurrentTeamAdapter.LeaderMemberViewHolder holder, int position) {
+        UserModel currentUser = LeaderMemberList.get(position);
+        holder.LeaderMemberName.setText(currentUser.getName());
+        holder.LeaderMemberReg.setText(currentUser.getRegNo());
+    }
+
+    @Override
+    public int getItemCount() {
+        return LeaderMemberList.size();
+    }
+
+    class LeaderMemberViewHolder extends RecyclerView.ViewHolder {
+
+        TextView LeaderMemberName, LeaderMemberReg;
+
+        public LeaderMemberViewHolder(@NonNull View itemView) {
+            super(itemView);
+            LeaderMemberName = itemView.findViewById(R.id.MemberNameText);
+            LeaderMemberReg = itemView.findViewById(R.id.MemberRgNo);
+        }
+    }
+
 }

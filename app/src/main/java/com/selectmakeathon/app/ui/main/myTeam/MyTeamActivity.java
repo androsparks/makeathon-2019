@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -28,6 +29,7 @@ public class MyTeamActivity extends AppCompatActivity {
     private ViewPager tviewPager;
     private TabItem mMt;
     private TabItem mPt;
+    private TextView teamDisplayName;
 
     public String teamName;
     public TeamModel teamModel = new TeamModel();

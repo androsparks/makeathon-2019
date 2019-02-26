@@ -17,6 +17,8 @@ import com.selectmakeathon.app.ui.auth.AuthActivity;
 import com.selectmakeathon.app.ui.main.home.HomeFragment;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;
+import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
+import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
 import com.selectmakeathon.app.ui.main.rules.RulesFragment;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavAdapter;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavListener;
@@ -220,9 +222,13 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         if (position == 0) {
             updateFragment(HomeFragment.newInstance());
         } else if (position == 1) {
-            Intent i = new Intent(this, AbstractActivity.class);
+            Intent i = new Intent(this, ProblemActivity.class);
             startActivity(i);
-        } else if (position == 3) {
+        } else if (position == 2) {
+            Intent i = new Intent(this, MyTeamActivity.class);
+            startActivity(i);
+        }
+        else if (position == 3) {
             updateFragment(RulesFragment.newInstance());
         } else if (position == 4) {
             Intent i = new Intent(this, InfoActivity.class);

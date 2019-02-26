@@ -6,19 +6,12 @@ public class Problems {
 
     List<ProblemTrack> problemTracks;
 
+    public List<ProblemTrack> getProblemTracks() {
+        return problemTracks;
+    }
+
+    public void setProblemTracks(List<ProblemTrack> problemTracks) {
+        this.problemTracks = problemTracks;
+    }
 }
 
-class ProblemTrack {
-
-    List<ProblemStatements> problemStatements;
-
-}
-
-class ProblemStatements {
-
-    private String id;
-    private String problemStatement;
-    private String company;
-    private int numOfTeams;
-
-}

@@ -46,6 +46,10 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.main.myTeam.MyTeamActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.problems.ProblemActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

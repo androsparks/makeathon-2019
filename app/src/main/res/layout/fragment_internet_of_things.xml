@@ -1,0 +1,54 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.problems.ProbFragmentPack.ProbHomeFrag">
+    <ImageView
+        android:id="@+id/logohead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_long_logo"
+        app:layout_constraintBottom_toTopOf="@id/HeaderTab"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bkProb"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:foreground="@drawable/bg_ripple"
+        app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+        android:layout_margin="32dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        app:cornerRadius="10dp"
+        android:id="@+id/HeaderTab"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logohead"
+        android:layout_marginTop="32dp"
+        android:transitionName="Simple"
+        android:text="IoT and Automation" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/HeaderTab"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginHorizontal="0dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/RecyclerStatement">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</androidx.constraintlayout.widget.ConstraintLayout>

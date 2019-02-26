@@ -39,11 +39,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
+        android:paddingBottom="16dp"
         android:text="team name"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:textColor="@color/colorAccent" />
 
     <FrameLayout
+        android:id="@+id/team_layout_is_no_leader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">

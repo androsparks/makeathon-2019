@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
     private TextView buttonSignOut;
     private NavigationView navigationView;
     private RecyclerView rvNav;
+    private TextView navUserName;
+    private TextView navUserId;
 
     SideNavAdapter adapter;
 
@@ -118,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
 
         updateFragment(HomeFragment.newInstance());
         updateDrawer();
+
+        navUserName.setText(userModel.getName());
+        navUserId.setText(userModel.getRegNo());
     }
 
     private void startAnimation() {
@@ -145,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
                 "Team"
         ));
         navModels.add(new NavModel(
-                R.drawable.ic_info_black_24dp,
+                R.drawable.ic_script_text,
                 "Rules"
         ));
         navModels.add(new NavModel(
@@ -196,6 +201,9 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         buttonSignOut = findViewById(R.id.main_text_signout);
         navigationView = findViewById(R.id.nav_view);
         rvNav = findViewById(R.id.nav_rv);
+
+        navUserId = findViewById(R.id.nav_userid);
+        navUserName = findViewById(R.id.nav_username);
     }
 
     public void updateFragment(Fragment fragment) {

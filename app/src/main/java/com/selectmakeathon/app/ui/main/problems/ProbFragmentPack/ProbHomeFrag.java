@@ -104,8 +104,6 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
         data.add("Health Care");
         data.add("IoT and Automation");
         data.add("Safety and Security");
-
-        imageList.add("")
         mListAdapter = new ListAdapter(data);
         cardStack.setAdapter(mListAdapter);
         return view;

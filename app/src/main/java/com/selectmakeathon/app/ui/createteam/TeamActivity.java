@@ -237,7 +237,7 @@ public class TeamActivity extends AppCompatActivity {
     }
 
     void launchAfterFinish(){
-        //TODO : Handle further flow
+//        TODO : Handle further flow
         Intent intent = new Intent(this, MyTeamActivity.class);
         startActivity(intent);
         finish();

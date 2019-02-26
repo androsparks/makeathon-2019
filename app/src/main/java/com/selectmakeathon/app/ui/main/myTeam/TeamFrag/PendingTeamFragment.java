@@ -19,13 +19,14 @@ import com.selectmakeathon.app.ui.main.myTeam.adapter.PendingMembersAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PendingTeamFragment extends Fragment implements PendingMemberListener {
 
-    TextView textEmptyListPlaceHolder;
+    ConstraintLayout placeholderLayout;
     RecyclerView rvPendingMembers;
     PendingMembersAdapter adapter;
 
@@ -55,7 +56,16 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
 
     private void updateUI() {
 
-        rvPendingMembers.setVisibility(View.VISIBLE);
+        if (getTeamModel().getMemberRequests() == null
+                || getTeamModel().getMemberRequests().isEmpty()
+                || getTeamModel().getMemberRequests().size() == 0) {
+            placeholderLayout.setVisibility(View.VISIBLE);
+            rvPendingMembers.setVisibility(View.GONE);
+        } else {
+            placeholderLayout.setVisibility(View.GONE);
+            rvPendingMembers.setVisibility(View.VISIBLE);
+        }
+
         adapter.setPendingUsers(getTeamModel().getMemberRequests());
 
     }
@@ -68,7 +78,7 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
     }
 
     private void initViews(View view) {
-        textEmptyListPlaceHolder = view.findViewById(R.id.text_empty_pending_members_placeholder);
+        placeholderLayout = view.findViewById(R.id.layout_pending_placeholder);
         rvPendingMembers = view.findViewById(R.id.rv_pending_members);
     }
 

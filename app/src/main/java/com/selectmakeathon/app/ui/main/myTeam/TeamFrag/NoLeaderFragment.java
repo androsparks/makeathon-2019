@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NoLeaderFragment extends Fragment {
+public class NoLeaderFragment extends androidx.fragment.app.Fragment {
 
     RecyclerView noLeaderMemberRecyclerView;
 

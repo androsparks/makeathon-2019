@@ -67,6 +67,7 @@ public class AbstractActivity extends AppCompatActivity {
 
     private TextView abstractSubmitButton;
     private TextView textProbId;
+    private ImageView backButton;
 
     private LinearLayout layoutAbstractEdit;
     private TextInputLayout inputAbstract;
@@ -125,10 +126,11 @@ public class AbstractActivity extends AppCompatActivity {
         prefEditor = prefs.edit();
 
         isEditModeOn = !prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false);
-//        teamId = prefs.getString(Constants.PREF_TEAM_ID, "reverse_atlas");
 
         problemId = getIntent().getStringExtra("probId");
         teamId = getIntent().getStringExtra("TEAM_ID");
+        teamId = "reverse_atlas"; //TODO: Remove this. Testing data.
+        isExternal = getIntent().getBooleanExtra("IS_EXTERNAL", false);
 
         textProbId.setText(problemId);
 
@@ -136,13 +138,11 @@ public class AbstractActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
-                    /*TODO: Get team model and extract abstract model from it*/
                     abstractModel = dataSnapshot.child("abstract").getValue(AbstractModel.class);
                     if (abstractModel == null) {
                         abstractModel = new AbstractModel();
                         problemId = abstractModel.getProblemStatementId();
                     }
-                    isExternal = false; /*TODO: This value is only for testing purpose*/
                     updateUI();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -197,11 +197,11 @@ public class AbstractActivity extends AppCompatActivity {
                             }
                         } else {
                             isEditModeOn = true;
-//                            updateUI();
+                            updateUI();
                         }
 
                     } else {
-                        showToast("Cannot submit. Deadline over");
+                        showToast("Crossed deadline");
                     }
 
                 } else {
@@ -230,6 +230,13 @@ public class AbstractActivity extends AppCompatActivity {
                         getSupportFragmentManager(),
                         componentsBottomSheetFragment.getTag()
                 );
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -269,8 +276,8 @@ public class AbstractActivity extends AppCompatActivity {
                         }
                     });
         } else {
-            showToast("File not selected");
-            updateUI();
+            submitAbstract();
+            isEditModeOn = false;
         }
     }
 
@@ -314,8 +321,6 @@ public class AbstractActivity extends AppCompatActivity {
 
         if (abstractModel != null) {
 
-
-
             inputAbstract.getEditText().setText(abstractModel.getIdeaAbstract());
             inputUniqueness.getEditText().setText(abstractModel.getIdeaUniquness());
             inputUseCases.getEditText().setText(abstractModel.getIdeaUseCases());
@@ -348,27 +353,36 @@ public class AbstractActivity extends AppCompatActivity {
 
         String abstractText = inputAbstract.getEditText().getText().toString();
         int lengthAbstractText = abstractText.split(" ").length;
-        if (lengthAbstractText < 150 || lengthAbstractText > 200) {
+        if (abstractText.isEmpty()) {
             isValid = false;
-            inputAbstract.setError("" + lengthAbstractText + " - Not in specified range");
+            inputAbstract.setError("Cannot be empty");
+        } else if (lengthAbstractText < 150 || lengthAbstractText > 200) {
+            isValid = false;
+            inputAbstract.setError("" + lengthAbstractText + " words - Not in specified range");
         } else {
             inputAbstract.setError(null);
         }
 
         String uniqueText = inputUniqueness.getEditText().getText().toString();
-        int lengthUnique = abstractText.split(" ").length;
-        if (lengthUnique < 50 || lengthUnique > 60) {
+        int lengthUnique = uniqueText.split(" ").length;
+        if (uniqueText.isEmpty()) {
             isValid = false;
-            inputUniqueness.setError("" + lengthUnique + " - Not in specified range");
+            inputUniqueness.setError("Cannot be empty");
+        } else if (lengthUnique < 50 || lengthUnique > 60) {
+            isValid = false;
+            inputUniqueness.setError("" + lengthUnique + " words - Not in specified range");
         } else {
             inputUniqueness.setError(null);
         }
 
         String useCasesText = inputUseCases.getEditText().getText().toString();
         int lengthUseCases = useCasesText.split(" ").length;
-        if (lengthUseCases < 80 || lengthUseCases > 100) {
+        if (useCasesText.isEmpty()) {
             isValid = false;
-            inputUseCases.setError("" + lengthUseCases + " - Not in specified range");
+            inputUseCases.setError("Cannot be empty");
+        } else if (lengthUseCases < 80 || lengthUseCases > 100) {
+            isValid = false;
+            inputUseCases.setError("" + lengthUseCases + " words - Not in specified range");
         } else {
             inputUseCases.setError(null);
         }
@@ -394,6 +408,7 @@ public class AbstractActivity extends AppCompatActivity {
 
         abstractModel.setIdeaAbstract(inputAbstract.getEditText().getText().toString());
         abstractModel.setIdeaUniquness(inputUniqueness.getEditText().getText().toString());
+        abstractModel.setIdeaUseCases(inputUseCases.getEditText().getText().toString());
         abstractModel.setComponents(componentAdapter.getComponents());
         abstractModel.setProblemStatementId(problemId);
 
@@ -467,6 +482,8 @@ public class AbstractActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+
+        backButton = findViewById(R.id.activity_abstract_back_button);
 
         loadingContainer = findViewById(R.id.loading_animation_container_abstract);
         loadingAnimation = findViewById(R.id.lottie_loading_animation_abstract);

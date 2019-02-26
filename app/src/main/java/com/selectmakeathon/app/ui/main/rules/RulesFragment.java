@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.selectmakeathon.app.R;
+import com.selectmakeathon.app.ui.main.MainActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +20,8 @@ import com.selectmakeathon.app.R;
 
 public class RulesFragment extends androidx.fragment.app.Fragment {
 
+
+    private ImageView navIcon;
 
     public RulesFragment() {
         // Required empty public constructor
@@ -29,5 +36,19 @@ public class RulesFragment extends androidx.fragment.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_rules, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        navIcon = view.findViewById(R.id.frag_rules_nav_icon);
+
+        navIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).openSideNav();
+            }
+        });
     }
 }

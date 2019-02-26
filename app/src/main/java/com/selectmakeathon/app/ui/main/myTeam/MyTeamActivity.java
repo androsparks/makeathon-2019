@@ -7,6 +7,9 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabItem;
@@ -19,9 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
+import com.selectmakeathon.app.ui.main.myTeam.TeamFrag.NoLeaderFragment;
 import com.selectmakeathon.app.util.Constants;
-
-import java.util.List;
 
 public class MyTeamActivity extends AppCompatActivity {
 
@@ -30,6 +32,8 @@ public class MyTeamActivity extends AppCompatActivity {
     private TabItem mMt;
     private TabItem mPt;
     private TextView teamDisplayName;
+    private FrameLayout layoutNoLeader;
+    private LinearLayout layoutLeader;
 
     public String teamName;
     public TeamModel teamModel = new TeamModel();
@@ -61,7 +65,7 @@ public class MyTeamActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     userModel = dataSnapshot.getValue(UserModel.class);
-                    fetchDataModel();
+                    fetchTeamModel();
                 } catch (Exception e) {
 
                 }
@@ -76,7 +80,7 @@ public class MyTeamActivity extends AppCompatActivity {
 
     }
 
-    private void fetchDataModel() {
+    private void fetchTeamModel() {
         reference.child("teams").child(userModel.getTeamName()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -97,6 +101,10 @@ public class MyTeamActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+
+        layoutNoLeader = findViewById(R.id.team_layout_is_no_leader);
+        layoutLeader = findViewById(R.id.team_layout_isleader);
+
         TabLayout allTabs = findViewById(R.id.TabsLayTeam);
         TabItem mMt = findViewById(R.id.titem1);
         TabItem mPt = findViewById(R.id.titem2);
@@ -124,6 +132,18 @@ public class MyTeamActivity extends AppCompatActivity {
         MyTeamAdapter myTeamAdapter = new MyTeamAdapter(getSupportFragmentManager(),2);
         tviewPager.setAdapter(myTeamAdapter);
         tviewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(allTabs));
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.team_layout_is_no_leader, new NoLeaderFragment())
+                .commit();
+
+        if (userModel.isLeader()) {
+            layoutLeader.setVisibility(View.VISIBLE);
+            layoutNoLeader.setVisibility(View.GONE);
+        } else {
+            layoutLeader.setVisibility(View.GONE);
+            layoutNoLeader.setVisibility(View.VISIBLE);
+        }
     }
 
 

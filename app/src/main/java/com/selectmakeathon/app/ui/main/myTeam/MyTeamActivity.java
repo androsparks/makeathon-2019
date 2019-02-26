@@ -48,15 +48,16 @@ public class MyTeamActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
 
-        teamName = prefs.getString(Constants.PREF_TEAM_ID, "");
-        userName = prefs.getString(Constants.PREF_USER_ID, "");
+        /*TODO: Remove this */
+        teamName = prefs.getString(Constants.PREF_TEAM_ID, "team_null_proxy");
+        userName = prefs.getString(Constants.PREF_USER_ID, "16BCE0587");
 
-        reference.child("teams").addValueEventListener(new ValueEventListener() {
+        reference.child("teams").child(teamName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     teamModel = dataSnapshot.getValue(TeamModel.class);
-
+                    initViews();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -84,6 +85,10 @@ public class MyTeamActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void initViews() {
         TabLayout allTabs = findViewById(R.id.TabsLayTeam);
         TabItem mMt = findViewById(R.id.titem1);
         TabItem mPt = findViewById(R.id.titem2);

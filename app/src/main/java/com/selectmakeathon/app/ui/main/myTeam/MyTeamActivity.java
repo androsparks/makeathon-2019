@@ -75,7 +75,7 @@ public class MyTeamActivity extends AppCompatActivity {
                 try {
                     userModel = dataSnapshot.getValue(UserModel.class);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
 
@@ -84,6 +84,7 @@ public class MyTeamActivity extends AppCompatActivity {
 
             }
         });
+
 
 
     }

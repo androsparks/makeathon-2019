@@ -67,25 +67,19 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        model = getTeamModel();
         mRecyclerView = view.findViewById(R.id.ListMembers);
         TeamNameHolder = view.findViewById(R.id.TeamNameText);
+
         currentTeam = getTeamModel().getTeamMembers();
-        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        prefEditor = prefs.edit();
-        teamnameId = prefs.getString(Constants.PREF_TEAM_ID, "reverse_atlas");
-        if (teamnameId == model.getTeamId()) {
-            currentTeam = getTeamModel().getTeamMembers();
-            teamname = model.getTeamName();
-            TeamNameHolder.setText(teamname);
-            for (int i = 0; i < currentTeam.size(); i++) {
-                in = currentTeam.get(i);
-                name = in.getName();
-                regno = in.getRegNo();
-                outp.setName(name);
-                outp.setRegNo(regno);
-                toAdapter.add(outp);
-            }
+        teamname = getTeamModel().getTeamName();
+        TeamNameHolder.setText(teamname);
+        for (int i = 0; i < getTeamModel().getTeamMembers().size(); i++) {
+            in = getTeamModel().getTeamMembers().get(i);
+            name = in.getName();
+            regno = in.getRegNo();
+            outp.setName(name);
+            outp.setRegNo(regno);
+            toAdapter.add(outp);
         }
         mListAdapter = new ListAdapter(toAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -95,7 +89,6 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
     private TeamModel getTeamModel() {
         return ((MyTeamActivity) getActivity()).teamModel;
     }
-
     private UserModel getUserModel() {
         return ((MyTeamActivity) getActivity()).userModel;
     }
@@ -105,14 +98,12 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
 
 
         public ListAdapter(List<UserModel> data) {
-
             this.dataList = data;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView nameHolder;
             TextView regHolder;
-
             public ViewHolder(View itemView) {
                 super(itemView);
                 this.nameHolder.findViewById(R.id.MemberNameText);
@@ -122,7 +113,6 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
 
         public CurrentTeamFragment.ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.problem_statement_card, parent, false);
-
             CurrentTeamFragment.ListAdapter.ViewHolder viewHolder = new CurrentTeamFragment.ListAdapter.ViewHolder(view);
             return viewHolder;
         }
@@ -130,12 +120,9 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
         public void onBindViewHolder(CurrentTeamFragment.ListAdapter.ViewHolder holder, final int position) {
             holder.nameHolder.setText(dataList.get(position).getName());
             holder.regHolder.setText(dataList.get(position).getRegNo());
-
-
         }
 
         public int getItemCount() {
-
             return dataList.size();
         }
 

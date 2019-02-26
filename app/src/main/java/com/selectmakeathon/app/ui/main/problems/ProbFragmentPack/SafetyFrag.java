@@ -24,6 +24,7 @@ import com.selectmakeathon.app.model.ProblemStatements;
 import com.selectmakeathon.app.model.ProblemTrack;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
+import com.selectmakeathon.app.ui.main.problems.ProblemChooseListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SafetyFrag extends androidx.fragment.app.Fragment {
+public class SafetyFrag extends androidx.fragment.app.Fragment implements ProblemChooseListener {
 
 
     private FirebaseDatabase mDatabase;
@@ -93,7 +94,7 @@ public class SafetyFrag extends androidx.fragment.app.Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                mAdapter=new ListAdapter(list);
+                mAdapter=new ListAdapter(list, SafetyFrag.this);
                 statementRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
                 statementRecycle.setAdapter(mAdapter);
             }
@@ -125,9 +126,11 @@ public class SafetyFrag extends androidx.fragment.app.Fragment {
     //Adapter Class
     public class ListAdapter extends RecyclerView.Adapter<SafetyFrag.ListAdapter.ViewHolder> {
         private List<ProblemStatements> dataList;
+        private ProblemChooseListener mListener;
 
-        public ListAdapter(List<ProblemStatements> data) {
-            this.dataList = data;
+        public ListAdapter(List<ProblemStatements> dataList, ProblemChooseListener listener) {
+            this.dataList = dataList;
+            mListener = listener;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -180,14 +183,14 @@ public class SafetyFrag extends androidx.fragment.app.Fragment {
                     mExpandedPosition = isExpanded ? -1:position;
                     notifyItemChanged(previousExpandedPosition);
                     notifyItemChanged(position);
-                    holder.choose.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent=new Intent(getActivity(), AbstractActivity.class);
-                            intent.putExtra("ProbId",id);
-                            startActivity(intent);
-                        }
-                    });
+
+                }
+            });
+
+            holder.choose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onChoose(id);
                 }
             });
 
@@ -200,5 +203,14 @@ public class SafetyFrag extends androidx.fragment.app.Fragment {
 
     }
 
+    private void moveToAbstract(String id)
+    {
+        ((ProblemActivity)getActivity()).sendToAbstract(id);
+    }
 
+
+    @Override
+    public void onChoose(String id) {
+        moveToAbstract(id);
+    }
 }

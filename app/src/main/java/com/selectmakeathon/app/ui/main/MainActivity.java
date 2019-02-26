@@ -1,5 +1,6 @@
 package com.selectmakeathon.app.ui.main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.TaskStackBuilder;
 
@@ -10,8 +11,14 @@ import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.NavModel;
+import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
 import com.selectmakeathon.app.ui.main.home.HomeFragment;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
@@ -49,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
 
     SideNavAdapter adapter;
 
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+    UserModel userModel;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +67,12 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        startAnimation();
+
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
+
+        userName = prefs.getString(Constants.PREF_USER_ID, "");
 
         initViews();
 
@@ -80,7 +95,37 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             }
         });
 
+        reference.child("users").child(userName).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    userModel = dataSnapshot.getValue(UserModel.class);
+                    updateUI();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateUI() {
+        stopAnimation();
+
+        updateFragment(HomeFragment.newInstance());
         updateDrawer();
+    }
+
+    private void startAnimation() {
+
+    }
+
+    private void stopAnimation() {
+
     }
 
     private void initAdapter() {
@@ -226,9 +271,15 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             startActivity(i);
         }
         else if (position == 2) {
-            /*TODO: Test whether the user is in a team or not*/
-            Intent i = new Intent(this, TeamSearchActivity.class);
-            startActivity(i);
+            Intent intent;
+            if (userModel.isJoined()) {
+//                /*TODO: Intent to team activity*/
+                intent = new Intent(this, MyTeamActivity.class);
+            } else {
+                intent = new Intent(this, TeamSearchActivity.class);
+            }
+            intent = new Intent(this, MyTeamActivity.class);
+            startActivity(intent);
         } else if (position == 3) {
             updateFragment(RulesFragment.newInstance());
         } else if (position == 4) {

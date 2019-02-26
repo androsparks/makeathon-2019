@@ -3,6 +3,7 @@ package com.selectmakeathon.app.ui.createteam;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -30,6 +31,7 @@ public class TeamActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mTeamReference, mUserReference;
     private TextInputLayout teamNameEditText;
+    private RecyclerView teamMemberRecyclerView;
     private List<UserModel> initialMembers;
     UserModel teamLeader;
     private AddMemberBottomSheet memberBottomSheet;
@@ -47,6 +49,7 @@ public class TeamActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
         teamNameEditText = findViewById(R.id.el_team_name);
+        teamMemberRecyclerView = findViewById(R.id.rv_team_members);
 
         addMemberInterface = new AddMemberInterface() {
             @Override
@@ -62,7 +65,7 @@ public class TeamActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
                         if (member.getRegNo().equals(teamLeader.getRegNo())){
-                            Toast.makeText(TeamActivity.this, "We believe in Collaboration and not in Isolation. Please add members other than yourself!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TeamActivity.this, "We believe in Collaboration and not in Isolation. Please add members other than yourself!", Toast.LENGTH_LONG).show();
                         } else {
                             addNewMember(member);
                             dialog.dismiss();
@@ -87,7 +90,7 @@ public class TeamActivity extends AppCompatActivity {
 
         final String teamLeaderRegNo = prefs.getString(Constants.PREF_USER_ID, null);
         if (teamLeaderRegNo == null){
-            Toast.makeText(this, "Couldn't find User Data, Please Login again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Couldn't find User Data, Please Login again", Toast.LENGTH_LONG).show();
             finishAfterTransition();
         } else {
             mUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,8 +98,14 @@ public class TeamActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.hasChild(teamLeaderRegNo)){
                         teamLeader = dataSnapshot.child(teamLeaderRegNo).getValue(UserModel.class);
-                        initialMembers = new ArrayList<>();
-                        initialMembers.add(teamLeader);
+                        if (teamLeader.isLeader() || teamLeader.isJoined()){
+                            Toast.makeText(TeamActivity.this, "You are already part of another team", Toast.LENGTH_SHORT).show();
+                            finishAfterTransition();
+                        } else {
+                            initialMembers = new ArrayList<>();
+                            initialMembers.add(teamLeader);
+                            updateMembersList();
+                        }
 
                     } else {
                         Toast.makeText(TeamActivity.this, "Can't find the User, Please Login again", Toast.LENGTH_SHORT).show();
@@ -115,6 +124,13 @@ public class TeamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openAddMemberBottomSheet();
+            }
+        });
+
+        findViewById(R.id.team_button_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishAfterTransition();
             }
         });
 
@@ -141,9 +157,17 @@ public class TeamActivity extends AppCompatActivity {
                     //Team Already Exists, take Action
                     Toast.makeText(TeamActivity.this, "Team Already Exists, Please use a different name", Toast.LENGTH_SHORT).show();
                 } else {
+                    teamLeader.setLeader(true);
+                    mUserReference.child(teamLeader.getRegNo()).setValue(teamLeader);
+                    for(int i = 1; i < initialMembers.size(); i++){
+                        UserModel userModel = initialMembers.get(i);
+                        userModel.setJoined(true);
+                        putTeamMemberAsAdded(initialMembers.get(i));
+                        initialMembers.set(i, userModel);
+                    }
                     TeamModel teamModel = new TeamModel(teamName, teamId, teamLeader, initialMembers, null, null, false);
                     mTeamReference.child(teamId).setValue(teamModel);
-
+                    launchAfterFinish();
                 }
             }
 
@@ -162,7 +186,10 @@ public class TeamActivity extends AppCompatActivity {
         } else {
             initialMembers.add(newMember);
         }
-        putTeamMemberAsAdded(newMember);
+        if (initialMembers.size() > 4){
+            findViewById(R.id.add_member_text_button).setVisibility(View.GONE);
+        }
+        updateMembersList();
     }
 
     void putTeamMemberAsAdded(final UserModel acceptedMember){
@@ -196,6 +223,12 @@ public class TeamActivity extends AppCompatActivity {
     }
 
     void updateMembersList(){
-
+        TeamMemberAdapter adapter = new TeamMemberAdapter(initialMembers);
+        teamMemberRecyclerView.setAdapter(adapter);
     }
+
+    void launchAfterFinish(){
+        //TODO : Handle further flow
+    }
+
 }

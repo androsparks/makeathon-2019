@@ -70,14 +70,18 @@ public class AbstractActivity extends AppCompatActivity {
     private LinearLayout layoutAbstractEdit;
     private TextInputLayout inputAbstract;
     private TextInputLayout inputUniqueness;
+    private TextInputLayout inputUseCases;
+    private TextView textAttachmentError;
     private TextView buttonAttachment;
     private ImageView imageAttachment;
+    private TextView textComponentsError;
     private RecyclerView rvComponents;
     private TextView buttonAddComponent;
 
     private LinearLayout layoutAbstractStatic;
     private TextView textAbstract;
     private TextView textUniqueness;
+    private TextView textUseCases;
     private TextView textAttachment;
     private ImageView imageAttachmentStatic;
     private RecyclerView rvComponentsStatic;
@@ -109,7 +113,6 @@ public class AbstractActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abstract);
 
-
         initViews();
         startAnimation();
         initRv();
@@ -120,7 +123,7 @@ public class AbstractActivity extends AppCompatActivity {
         prefEditor = prefs.edit();
 
         isEditModeOn = !prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false);
-        teamId = prefs.getString(Constants.PREF_TEAM_ID, "teamname");
+        teamId = prefs.getString(Constants.PREF_TEAM_ID, "reverse_atlas");
 
         reference.child("teams").child(teamId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -128,6 +131,9 @@ public class AbstractActivity extends AppCompatActivity {
                 try {
                     /*TODO: Get team model and extract abstract model from it*/
                     abstractModel = dataSnapshot.child("abstract").getValue(AbstractModel.class);
+                    if (abstractModel == null) {
+                        abstractModel = new AbstractModel();
+                    }
                     isExternal = false; /*TODO: This value is only for testing purpose*/
                     updateUI();
                 } catch (Exception e) {
@@ -183,6 +189,7 @@ public class AbstractActivity extends AppCompatActivity {
                             }
                         } else {
                             isEditModeOn = true;
+//                            updateUI();
                         }
 
                     } else {
@@ -192,8 +199,6 @@ public class AbstractActivity extends AppCompatActivity {
                 } else {
                     showToast("Please check your internet connection");
                 }
-
-                updateUI();
 
             }
         });
@@ -299,17 +304,26 @@ public class AbstractActivity extends AppCompatActivity {
 
     private void updateData() {
 
-        inputAbstract.getEditText().setText(abstractModel.getIdeaAbstract());
-        inputUniqueness.getEditText().setText(abstractModel.getIdeaUniquness());
-        componentAdapter.setComponents(abstractModel.getComponents());
+        if (abstractModel != null) {
 
-        imageAttachment.setVisibility(View.VISIBLE);
-        Picasso.get().load(abstractModel.getAttachmentUrl()).into(imageAttachment);
+            inputAbstract.getEditText().setText(abstractModel.getIdeaAbstract());
+            inputUniqueness.getEditText().setText(abstractModel.getIdeaUniquness());
+            inputUseCases.getEditText().setText(abstractModel.getIdeaUseCases());
+            componentAdapter.setComponents(abstractModel.getComponents());
 
-        textAbstract.setText(abstractModel.getIdeaAbstract());
-        textUniqueness.setText(abstractModel.getIdeaUniquness());
-        staticComponentsAdapter.setComponents(abstractModel.getComponents());
-        Picasso.get().load(abstractModel.getAttachmentUrl()).into(imageAttachmentStatic);
+            if (abstractModel.getAttachmentUrl() != null) {
+                imageAttachment.setVisibility(View.VISIBLE);
+                Picasso.get().load(abstractModel.getAttachmentUrl()).into(imageAttachment);
+            }
+
+            textAbstract.setText(abstractModel.getIdeaAbstract());
+            textUniqueness.setText(abstractModel.getIdeaUniquness());
+            textUseCases.setText(abstractModel.getIdeaUseCases());
+            staticComponentsAdapter.setComponents(abstractModel.getComponents());
+
+            Picasso.get().load(abstractModel.getAttachmentUrl()).into(imageAttachmentStatic);
+
+        }
 
         stopAnimation();
     }
@@ -322,9 +336,46 @@ public class AbstractActivity extends AppCompatActivity {
 
         boolean isValid = true;
 
-//        String abstractText = inputAbstract.getEditText().getText().toString();
-        String abstractText = "";
+        String abstractText = inputAbstract.getEditText().getText().toString();
         int lengthAbstractText = abstractText.split(" ").length;
+        if (lengthAbstractText < 150 || lengthAbstractText > 200) {
+            isValid = false;
+            inputAbstract.setError("" + lengthAbstractText + " - Not in specified range");
+        } else {
+            inputAbstract.setError(null);
+        }
+
+        String uniqueText = inputUniqueness.getEditText().getText().toString();
+        int lengthUnique = abstractText.split(" ").length;
+        if (lengthUnique < 50 || lengthUnique > 60) {
+            isValid = false;
+            inputUniqueness.setError("" + lengthUnique + " - Not in specified range");
+        } else {
+            inputUniqueness.setError(null);
+        }
+
+        String useCasesText = inputUseCases.getEditText().getText().toString();
+        int lengthUseCases = useCasesText.split(" ").length;
+        if (lengthUseCases < 80 || lengthUseCases > 100) {
+            isValid = false;
+            inputUseCases.setError("" + lengthUseCases + " - Not in specified range");
+        } else {
+            inputUseCases.setError(null);
+        }
+
+        if (abstractModel.getAttachmentUrl() == null && filePath == null) {
+            isValid = false;
+            textAttachmentError.setVisibility(View.VISIBLE);
+        } else {
+            textAttachmentError.setVisibility(View.GONE);
+        }
+
+        if (componentAdapter.getItemCount() == 0) {
+            isValid = false;
+            textComponentsError.setVisibility(View.VISIBLE);
+        } else {
+            textComponentsError.setVisibility(View.GONE);
+        }
 
         return isValid;
     }
@@ -415,14 +466,18 @@ public class AbstractActivity extends AppCompatActivity {
         layoutAbstractEdit = findViewById(R.id.abstract_layout_edit);
         inputAbstract = findViewById(R.id.abstract_input_abstract);
         inputUniqueness = findViewById(R.id.abstract_input_uniqueness);
+        inputUseCases = findViewById(R.id.abstract_input_usercases);
+        textAttachmentError = findViewById(R.id.text_error_abstract_attachment);
         buttonAttachment = findViewById(R.id.abstract_text_attachment_button);
         imageAttachment = findViewById(R.id.abstract_image_attachment);
+        textComponentsError = findViewById(R.id.text_error_abstract_components);
         rvComponents = findViewById(R.id.abstract_rv_components);
         buttonAddComponent = findViewById(R.id.abstract_text_add_component);
 
         layoutAbstractStatic = findViewById(R.id.abstract_layout_static);
         textAbstract = findViewById(R.id.abstract_text_abstract);
         textUniqueness = findViewById(R.id.abstract_text_uniqueness);
+        textUseCases = findViewById(R.id.abstract_text_usecases);
         textAttachment = findViewById(R.id.abstract_text_attachment_static);
         imageAttachmentStatic = findViewById(R.id.abstract_image_static);
         rvComponentsStatic = findViewById(R.id.abstract_rv_components_static);

@@ -19,6 +19,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.createteam.TeamActivity" />
+        <activity android:name=".ui.main.searchteam.TeamSearchActivity" />
         <activity android:name=".ui.main.idea.AbstractActivity" />
 
         <service android:name=".util.FCMService">
@@ -52,8 +53,6 @@
         <activity android:name=".ui.main.myTeam.MyTeamActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.main.problems.ProblemActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.main.searchteam.TeamSearchActivity"
             android:screenOrientation="portrait"/>
     </application>
 

@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder> {
 
-    Context context;
+    OnTeamSelectListener listener;
     ArrayList<TeamModel> teamModels = new ArrayList<>();
 
-    public TeamAdapter(Context context) {
-        this.context = context;
+    public TeamAdapter(OnTeamSelectListener listener) {
+        this.listener = listener;
     }
 
     public void setTeamModels(ArrayList<TeamModel> teamModels) {
@@ -38,7 +38,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TeamViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TeamViewHolder holder, final int position) {
 
         TeamModel teamModel = teamModels.get(position);
 
@@ -51,7 +51,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*TODO: Show dialog box and confirm addition of user*/
+                listener.onTeamSelect(position);
             }
         });
     }

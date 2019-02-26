@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:backgroundTint="@color/colorAccent"
+    app:cardCornerRadius="@dimen/theme_corner_radius"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/tv_member_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sparsh"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:padding="16dp"/>
+
+</com.google.android.material.card.MaterialCardView>

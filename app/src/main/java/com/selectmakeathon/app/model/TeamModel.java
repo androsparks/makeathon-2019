@@ -83,5 +83,6 @@ public class TeamModel {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
+
 }
 

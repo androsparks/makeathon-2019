@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -22,6 +21,7 @@ import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
 import com.selectmakeathon.app.ui.main.rules.RulesFragment;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavAdapter;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavListener;
+import com.selectmakeathon.app.ui.main.searchteam.TeamSearchActivity;
 import com.selectmakeathon.app.util.Constants;
 
 //import android.support.v7.app.AppCompatActivity;
@@ -225,10 +225,17 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             Intent i = new Intent(this, ProblemActivity.class);
             startActivity(i);
         } else if (position == 2) {
+<<<<<<< HEAD
             Intent i = new Intent(this, MyTeamActivity.class);
             startActivity(i);
         }
         else if (position == 3) {
+=======
+            /*TODO: Test whether the user is in a team or not*/
+            Intent i = new Intent(this, TeamSearchActivity.class);
+            startActivity(i);
+        } else if (position == 3) {
+>>>>>>> e4244f2ce94a455548592a9fa1c099cc8c6c7261
             updateFragment(RulesFragment.newInstance());
         } else if (position == 4) {
             Intent i = new Intent(this, InfoActivity.class);

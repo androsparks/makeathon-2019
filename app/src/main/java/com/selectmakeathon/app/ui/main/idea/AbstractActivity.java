@@ -66,6 +66,7 @@ public class AbstractActivity extends AppCompatActivity {
     private ConstraintLayout containerAbstract;
 
     private TextView abstractSubmitButton;
+    private TextView textProbId;
 
     private LinearLayout layoutAbstractEdit;
     private TextInputLayout inputAbstract;
@@ -103,6 +104,7 @@ public class AbstractActivity extends AppCompatActivity {
     private String teamId;
     private ArrayList<String> components = new ArrayList<>();
     private Uri filePath;
+    private String problemId;
 
     private ComponentAdapter componentAdapter;
     private StaticComponentsAdapter staticComponentsAdapter;
@@ -123,7 +125,12 @@ public class AbstractActivity extends AppCompatActivity {
         prefEditor = prefs.edit();
 
         isEditModeOn = !prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false);
-        teamId = prefs.getString(Constants.PREF_TEAM_ID, "reverse_atlas");
+//        teamId = prefs.getString(Constants.PREF_TEAM_ID, "reverse_atlas");
+
+        problemId = getIntent().getStringExtra("probId");
+        teamId = getIntent().getStringExtra("TEAM_ID");
+
+        textProbId.setText(problemId);
 
         reference.child("teams").child(teamId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -133,6 +140,7 @@ public class AbstractActivity extends AppCompatActivity {
                     abstractModel = dataSnapshot.child("abstract").getValue(AbstractModel.class);
                     if (abstractModel == null) {
                         abstractModel = new AbstractModel();
+                        problemId = abstractModel.getProblemStatementId();
                     }
                     isExternal = false; /*TODO: This value is only for testing purpose*/
                     updateUI();
@@ -306,6 +314,8 @@ public class AbstractActivity extends AppCompatActivity {
 
         if (abstractModel != null) {
 
+
+
             inputAbstract.getEditText().setText(abstractModel.getIdeaAbstract());
             inputUniqueness.getEditText().setText(abstractModel.getIdeaUniquness());
             inputUseCases.getEditText().setText(abstractModel.getIdeaUseCases());
@@ -385,6 +395,7 @@ public class AbstractActivity extends AppCompatActivity {
         abstractModel.setIdeaAbstract(inputAbstract.getEditText().getText().toString());
         abstractModel.setIdeaUniquness(inputUniqueness.getEditText().getText().toString());
         abstractModel.setComponents(componentAdapter.getComponents());
+        abstractModel.setProblemStatementId(problemId);
 
         reference.child("teams").child(teamId).child("abstract").setValue(abstractModel)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -462,6 +473,7 @@ public class AbstractActivity extends AppCompatActivity {
         containerAbstract = findViewById(R.id.abstract_container);
 
         abstractSubmitButton = findViewById(R.id.abstract_button_submit);
+        textProbId = findViewById(R.id.text_abstract_probid);
 
         layoutAbstractEdit = findViewById(R.id.abstract_layout_edit);
         inputAbstract = findViewById(R.id.abstract_input_abstract);

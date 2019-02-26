@@ -268,6 +268,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             updateFragment(HomeFragment.newInstance());
         } else if (position == 1) {
             Intent i = new Intent(this, ProblemActivity.class);
+            i.putExtra("CONTINUE", false);
             startActivity(i);
         }
         else if (position == 2) {

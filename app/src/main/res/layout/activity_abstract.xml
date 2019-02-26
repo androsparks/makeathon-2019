@@ -76,6 +76,18 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp">
 
+                <TextView
+                    android:id="@+id/text_abstract_probid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="TextView"
+                    android:textAppearance="@android:style/TextAppearance.Material.Large"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:id="@+id/abstract_layout_edit"
                     android:layout_width="match_parent"

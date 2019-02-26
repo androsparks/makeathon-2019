@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -82,17 +83,22 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
     @Override
     public void onAcceptUser(UserModel userModel) {
 
-        userModel.setJoined(true);
-        userModel.setTeamName(getTeamModel().getTeamId());
+        if (getTeamModel().getTeamMembers().size() < 5) {
 
-        getTeamModel().getMemberRequests().remove(userModel);
-        getTeamModel().getTeamMembers().add(userModel);
+            userModel.setJoined(true);
+            userModel.setTeamName(getTeamModel().getTeamId());
+
+            getTeamModel().getMemberRequests().remove(userModel);
+            getTeamModel().getTeamMembers().add(userModel);
 
 
-        reference.child("teams").child(getTeamModel().getTeamId()).setValue(getTeamModel());
-        reference.child("users").child(userModel.getRegNo()).setValue(userModel);
+            reference.child("teams").child(getTeamModel().getTeamId()).setValue(getTeamModel());
+            reference.child("users").child(userModel.getRegNo()).setValue(userModel);
 
-        updateUI();
+            updateUI();
+        } else {
+            Toast.makeText(getContext(), "Cannot add more members", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

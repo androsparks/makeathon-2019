@@ -272,12 +272,11 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         } else if (position == 2) {
             Intent intent;
             if (userModel.isJoined()) {
-//                /*TODO: Intent to team activity*/
                 intent = new Intent(this, MyTeamActivity.class);
             } else {
                 intent = new Intent(this, TeamSearchActivity.class);
             }
-            intent = new Intent(this, MyTeamActivity.class);
+//            intent = new Intent(this, MyTeamActivity.class);
             startActivity(intent);
         } else if (position == 3) {
             updateFragment(RulesFragment.newInstance());

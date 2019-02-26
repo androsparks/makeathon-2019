@@ -58,7 +58,7 @@
                 android:background="@drawable/bg_yellow_curve"
                 android:foreground="@drawable/bg_ripple"
                 android:padding="8dp"
-                android:tint="@color/colorYellowMuted/bg_muted_yellow_curve"
+                android:tint="@color/colorYellowMuted"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

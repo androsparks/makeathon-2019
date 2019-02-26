@@ -18,6 +18,7 @@ public class UserModel {
     private String branch;
     private String gender;
     private String skillSet;
+    private String teamName;
     private boolean isLeader;
     private boolean isJoined;
 
@@ -29,12 +30,8 @@ public class UserModel {
 
     }
 
-    public UserModel(
-            String name, String email, String regNo, String hashPassword, String whatsNo,
-            String phNo, boolean isVitian, String collegeName, boolean isHosteler,
-            String hostelBlock, String roomNo, String branch, String gender, String skillSet,
-            boolean isLeader, boolean isJoined
-    ) {
+    public UserModel(String name, String email, String regNo, String hashPassword, String whatsNo, String phNo, boolean isVitian, String collegeName, boolean isHosteler, String hostelBlock, String roomNo, String branch, String gender, String skillSet, String teamName, boolean isLeader, boolean isJoined) {
+
         this.name = name;
         this.email = email;
         this.regNo = regNo;
@@ -49,6 +46,7 @@ public class UserModel {
         this.branch = branch;
         this.gender = gender;
         this.skillSet = skillSet;
+        this.teamName = teamName;
         this.isLeader = isLeader;
         this.isJoined = isJoined;
     }
@@ -163,6 +161,14 @@ public class UserModel {
 
     public void setSkillSet(String skillSet) {
         this.skillSet = skillSet;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     public boolean isLeader() {

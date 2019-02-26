@@ -20,6 +20,8 @@ import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.util.Constants;
 
+import java.util.List;
+
 public class MyTeamActivity extends AppCompatActivity {
 
     private TabLayout allTabs;
@@ -31,6 +33,7 @@ public class MyTeamActivity extends AppCompatActivity {
     public TeamModel teamModel = new TeamModel();
     public String userName;
     public UserModel userModel = new UserModel();
+
 
     SharedPreferences prefs;
     SharedPreferences.Editor prefEditor;
@@ -53,6 +56,7 @@ public class MyTeamActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     teamModel = dataSnapshot.getValue(TeamModel.class);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -34,18 +34,21 @@ public class ComponentAdapter
     }
 
     public void addComponent(Component component) {
-        boolean isPresent = false;
 
-        for (Component c : components) {
-            if (c.getName().equals(component.getName())) {
-                isPresent = true;
-                break;
+        if (components.size() < 15) {
+
+            boolean isPresent = false;
+            for (Component c : components) {
+                if (c.getName().equals(component.getName())) {
+                    isPresent = true;
+                    break;
+                }
             }
-        }
 
-        if (!isPresent) {
-            components.add(component);
-            notifyDataSetChanged();
+            if (!isPresent) {
+                components.add(component);
+                notifyDataSetChanged();
+            }
         }
     }
 

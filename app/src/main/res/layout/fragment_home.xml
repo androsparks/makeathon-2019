@@ -37,6 +37,7 @@
         android:foreground="@drawable/bg_ripple"
         android:text="sign out"
         android:textColor="@color/colorPrimary"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -91,7 +92,7 @@
         app:timeTextSize="30sp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/nav_username"
         android:layout_width="wrap_content"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
@@ -108,14 +109,15 @@
 
     <TextView
         android:id="@+id/main_button_info"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:foreground="@drawable/bg_ripple"
         android:padding="16dp"
-        android:text="Click here to see more info"
+        android:text="Create or join team and submit abstract"
+        android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/main_button_logout"

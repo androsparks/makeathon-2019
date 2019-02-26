@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ((MainActivity)getActivity()).openSideNav();
             }
         });
     }

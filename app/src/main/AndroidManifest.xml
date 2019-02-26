@@ -19,6 +19,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.createteam.TeamActivity" />
+        <activity android:name=".ui.main.searchteam.TeamSearchActivity" />
         <activity android:name=".ui.main.idea.AbstractActivity" />
 
         <service android:name=".util.FCMService">

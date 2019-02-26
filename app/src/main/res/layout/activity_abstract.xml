@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:elevation="56dp"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
         android:id="@+id/abstract_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/textView14"
@@ -159,7 +159,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:text="Please select an image"
-                        android:textColor="#b30000" />
+                        android:textColor="#b30000"
+                        android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/abstract_image_attachment"
@@ -209,13 +210,15 @@
                         android:text="Swipe to delete a component" />
 
                     <TextView
+                        android:id="@+id/text_error_abstract_components"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:text="Please select atleast one component"
-                        android:textColor="#b30000" />
+                        android:textColor="#b30000"
+                        android:visibility="gone" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/abstract_rv_components"
@@ -232,7 +235,7 @@
                         android:foreground="@drawable/bg_ripple"
                         android:gravity="center"
                         android:padding="16dp"
-                        android:text="Add Component"
+                        android:text="Add Component (Max 15)"
                         android:textColor="@color/colorAccent" />
 
                 </LinearLayout>
@@ -242,7 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/textView13"

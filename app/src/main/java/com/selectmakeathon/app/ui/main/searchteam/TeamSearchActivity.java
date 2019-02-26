@@ -3,10 +3,13 @@ package com.selectmakeathon.app.ui.main.searchteam;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.TaskStackBuilder;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -27,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
+import com.selectmakeathon.app.ui.createteam.TeamActivity;
 import com.selectmakeathon.app.util.Constants;
 
 import java.util.ArrayList;
@@ -43,6 +47,7 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
     TextView teamNameStatic;
     TextView teamLeaderStatic;
     TextView memberCountStatic;
+    CardView cardViewStatic;
     Button clearButtonStatic;
 
     TeamAdapter teamAdapter;
@@ -53,6 +58,7 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
     SharedPreferences.Editor prefEditor;
 
     ArrayList<TeamModel> teamModels = new ArrayList<>();
+    TeamModel searchTeamModel;
     UserModel userModel;
 
     boolean showRv = true;
@@ -80,7 +86,7 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    showToast("Please check your connection");
                 }
             });
 
@@ -98,7 +104,7 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                 try {
                     teamModels.clear();
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        teamModels.add(0, child.getValue(TeamModel.class));
+                        teamModels.add(child.getValue(TeamModel.class));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -110,7 +116,8 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                showToast("Please check your connection");
+                updateUI();
             }
         });
 
@@ -132,11 +139,11 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChild(query)) {
-                                TeamModel searchTeamModel = dataSnapshot.child(query).getValue(TeamModel.class);
+                                searchTeamModel = dataSnapshot.child(query).getValue(TeamModel.class);
 
                                 teamNameStatic.setText(searchTeamModel.getTeamName());
                                 teamLeaderStatic.setText(searchTeamModel.getTeamLeader().getName());
-                                memberCountStatic.setText(searchTeamModel.getTeamMembers().size());
+                                memberCountStatic.setText(String.valueOf(searchTeamModel.getTeamMembers().size()));
 
                                 showRv = false;
 
@@ -157,12 +164,31 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
             }
         });
 
+        cardViewStatic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestToJoin(searchTeamModel);
+            }
+        });
+
         clearButtonStatic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showRv = true;
                 inputQuery.setText(null);
                 updateUI();
+            }
+        });
+
+        buttonAddTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TeamSearchActivity.this, TeamActivity.class);
+                startActivity(intent);
+//                TaskStackBuilder.create(TeamSearchActivity.this)
+//                        .addNextIntentWithParentStack()
+//                        .startActivities();
+                finish();
             }
         });
     }
@@ -189,6 +215,7 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
         teamNameStatic = findViewById(R.id.item_team_teamname_static);
         teamLeaderStatic = findViewById(R.id.item_team_leadername_static);
         memberCountStatic = findViewById(R.id.item_team_member_count_static);
+        cardViewStatic = findViewById(R.id.item_team_card_static);
         clearButtonStatic = findViewById(R.id.button_team_clear_static);
     }
 
@@ -224,19 +251,37 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
 
     private void requestToJoin(final TeamModel teamModel) {
 
+        if (teamModel.getMemberRequests() == null) {
+            teamModel.setMemberRequests(new ArrayList<UserModel>());
+        }
+
         new AlertDialog.Builder(this)
                 .setTitle(teamModel.getTeamName())
                 .setMessage("Request to join this team?")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        teamModel.getMemberRequests().add(userModel);
-                        reference.child("teams").child(teamModel.getTeamId()).setValue(teamModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                showToast("Requested Successfully");
+
+                        boolean contains = false;
+
+                        for (UserModel user : teamModel.getMemberRequests()) {
+                            if (user.getRegNo().equals(userModel.getRegNo())) {
+                                contains = true;
+                                break;
                             }
-                        });
+                        }
+
+                        if (contains) {
+                            showToast("Already Requested");
+                        } else {
+                            teamModel.getMemberRequests().add(userModel);
+                            reference.child("teams").child(teamModel.getTeamId()).setValue(teamModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    showToast("Requested Successfully");
+                                }
+                            });
+                        }
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -244,7 +289,8 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
-                }).create().show();
+                })
+                .create().show();
 
     }
 }

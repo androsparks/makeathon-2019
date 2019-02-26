@@ -62,7 +62,7 @@ public class TeamActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing but close the dialog
                         if (member.getRegNo().equals(teamLeader.getRegNo())){
-                            Toast.makeText(TeamActivity.this, "We believe in Collaboration and not in Isolation. Please add members other than yourself!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TeamActivity.this, "We believe in Collaboration and not in Isolation. Please add members other than yourself!", Toast.LENGTH_LONG).show();
                         } else {
                             addNewMember(member);
                             dialog.dismiss();
@@ -87,7 +87,7 @@ public class TeamActivity extends AppCompatActivity {
 
         final String teamLeaderRegNo = prefs.getString(Constants.PREF_USER_ID, null);
         if (teamLeaderRegNo == null){
-            Toast.makeText(this, "Couldn't find User Data, Please Login again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Couldn't find User Data, Please Login again", Toast.LENGTH_LONG).show();
             finishAfterTransition();
         } else {
             mUserReference.addListenerForSingleValueEvent(new ValueEventListener() {

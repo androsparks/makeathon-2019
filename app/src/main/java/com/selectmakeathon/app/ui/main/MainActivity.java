@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             } else {
                 intent = new Intent(this, TeamSearchActivity.class);
             }
-            intent = new Intent(this, MyTeamActivity.class);
+          //  intent = new Intent(this, MyTeamActivity.class);
             startActivity(intent);
         } else if (position == 3) {
             updateFragment(RulesFragment.newInstance());

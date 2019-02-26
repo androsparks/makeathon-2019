@@ -20,8 +20,8 @@ public class MyTeamAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            //case 0:
-             //   return new CurrentTeamFragment();
+            case 0:
+               return new CurrentTeamFragment();
             case 1:
                 return new PendingTeamFragment();
             default:

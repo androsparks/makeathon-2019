@@ -112,7 +112,7 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
         }
 
         public CurrentTeamFragment.ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.problem_statement_card, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_member, parent, false);
             CurrentTeamFragment.ListAdapter.ViewHolder viewHolder = new CurrentTeamFragment.ListAdapter.ViewHolder(view);
             return viewHolder;
         }

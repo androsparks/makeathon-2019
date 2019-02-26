@@ -95,6 +95,7 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
     @Override
     public void onRejectUser(UserModel userModel) {
         getTeamModel().getMemberRequests().remove(userModel);
+        reference.child("teams").child(getTeamModel().getTeamId()).setValue(getTeamModel());
         updateUI();
     }
 }

@@ -48,11 +48,32 @@ public class MyTeamActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
 
-        /*TODO: Remove this */
+        /*TODO: Remove default values */
         teamName = prefs.getString(Constants.PREF_TEAM_ID, "team_null_proxy");
         userName = prefs.getString(Constants.PREF_USER_ID, "16BCE0587");
 
-        reference.child("teams").child(teamName).addValueEventListener(new ValueEventListener() {
+        reference.child("users").child(userName).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    userModel = dataSnapshot.getValue(UserModel.class);
+                    fetchDataModel();
+                } catch (Exception e) {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private void fetchDataModel() {
+        reference.child("teams").child(userModel.getTeamName()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
@@ -68,25 +89,6 @@ public class MyTeamActivity extends AppCompatActivity {
 
             }
         });
-
-        reference.child("users").child(userName).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    userModel = dataSnapshot.getValue(UserModel.class);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-
     }
 
     private void initViews() {

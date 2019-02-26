@@ -81,10 +81,13 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
 
     @Override
     public void onAcceptUser(UserModel userModel) {
+
+        userModel.setJoined(true);
+        userModel.setTeamName(getTeamModel().getTeamId());
+
         getTeamModel().getMemberRequests().remove(userModel);
         getTeamModel().getTeamMembers().add(userModel);
 
-        userModel.setJoined(true);
 
         reference.child("teams").child(getTeamModel().getTeamId()).setValue(getTeamModel());
         reference.child("users").child(userModel.getRegNo()).setValue(userModel);

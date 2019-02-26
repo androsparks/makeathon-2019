@@ -18,7 +18,8 @@ public class TeamModel {
 
     }
 
-    public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) { this.teamName = teamName;
+    public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) {
+        this.teamName = teamName;
         this.teamId = teamId;
         this.teamLeader = teamLeader;
         this.teamMembers = teamMembers;
@@ -84,3 +85,4 @@ public class TeamModel {
     }
 
 }
+

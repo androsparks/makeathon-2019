@@ -269,7 +269,8 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         } else if (position == 1) {
             Intent i = new Intent(this, ProblemActivity.class);
             startActivity(i);
-        } else if (position == 2) {
+        }
+        else if (position == 2) {
             Intent intent;
             if (userModel.isJoined()) {
                 intent = new Intent(this, MyTeamActivity.class);

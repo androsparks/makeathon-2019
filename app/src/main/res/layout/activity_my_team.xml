@@ -9,7 +9,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -34,37 +33,63 @@
             android:src="@drawable/ic_long_logo" />
     </RelativeLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/TabsLayTeam"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/tab_layout_background"
-        app:tabBackground="@drawable/tab_layout_selector"
-        app:tabIndicatorHeight="0dp"
-        app:tabPaddingEnd="16dp"
-        app:tabPaddingStart="16dp"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabGravity="fill"
-        app:tabMode="fixed">
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/titem1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="My Team" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:text="team name"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:textColor="@color/colorAccent" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/titem2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="Pending Request" />
-    </com.google.android.material.tabs.TabLayout>
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/ViewPagerTeam"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/team_layout_isleader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/TabsLayTeam"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/tab_layout_background"
+            app:tabBackground="@drawable/tab_layout_selector"
+            app:tabGravity="fill"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabPaddingEnd="16dp"
+            app:tabPaddingStart="16dp"
+            app:tabSelectedTextColor="@color/colorPrimary">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/titem1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="My Team" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/titem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Pending Request" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/ViewPagerTeam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></androidx.viewpager.widget.ViewPager>
+    </LinearLayout>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

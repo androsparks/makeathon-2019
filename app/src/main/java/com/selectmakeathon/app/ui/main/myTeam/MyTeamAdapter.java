@@ -1,7 +1,7 @@
 package com.selectmakeathon.app.ui.main.myTeam;
 
-import com.selectmakeathon.app.ui.main.myTeam.TeamFrag.CurrentTeamFrag;
-import com.selectmakeathon.app.ui.main.myTeam.TeamFrag.PendingTeam;
+import com.selectmakeathon.app.ui.main.myTeam.TeamFrag.CurrentTeamFragment;
+import com.selectmakeathon.app.ui.main.myTeam.TeamFrag.PendingTeamFragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,9 +21,9 @@ public class MyTeamAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new CurrentTeamFrag();
+                return new CurrentTeamFragment();
             case 1:
-                return new PendingTeam();
+                return new PendingTeamFragment();
             default:
                 return null;
         }

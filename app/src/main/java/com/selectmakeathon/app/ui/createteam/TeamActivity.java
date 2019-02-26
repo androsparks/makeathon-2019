@@ -22,7 +22,6 @@ import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.util.Constants;
-import com.selectmakeathon.app.util.TeamMemberAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

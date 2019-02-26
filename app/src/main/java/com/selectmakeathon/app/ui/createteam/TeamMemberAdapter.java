@@ -1,4 +1,4 @@
-package com.selectmakeathon.app.util;
+package com.selectmakeathon.app.ui.createteam;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +8,7 @@ import android.widget.TextView;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.UserModel;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

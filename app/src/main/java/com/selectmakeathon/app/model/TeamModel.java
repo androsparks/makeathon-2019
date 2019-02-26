@@ -15,13 +15,11 @@ public class TeamModel {
     private boolean isSelected;
 
     public TeamModel() {
-<<<<<<< HEAD
-=======
 
->>>>>>> e4244f2ce94a455548592a9fa1c099cc8c6c7261
     }
 
-    public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) { this.teamName = teamName;
+    public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) {
+        this.teamName = teamName;
         this.teamId = teamId;
         this.teamLeader = teamLeader;
         this.teamMembers = teamMembers;
@@ -85,8 +83,5 @@ public class TeamModel {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> e4244f2ce94a455548592a9fa1c099cc8c6c7261
+

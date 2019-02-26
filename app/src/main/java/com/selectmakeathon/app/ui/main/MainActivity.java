@@ -224,18 +224,12 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         } else if (position == 1) {
             Intent i = new Intent(this, ProblemActivity.class);
             startActivity(i);
-        } else if (position == 2) {
-<<<<<<< HEAD
-            Intent i = new Intent(this, MyTeamActivity.class);
-            startActivity(i);
         }
-        else if (position == 3) {
-=======
+        else if (position == 2) {
             /*TODO: Test whether the user is in a team or not*/
             Intent i = new Intent(this, TeamSearchActivity.class);
             startActivity(i);
         } else if (position == 3) {
->>>>>>> e4244f2ce94a455548592a9fa1c099cc8c6c7261
             updateFragment(RulesFragment.newInstance());
         } else if (position == 4) {
             Intent i = new Intent(this, InfoActivity.class);

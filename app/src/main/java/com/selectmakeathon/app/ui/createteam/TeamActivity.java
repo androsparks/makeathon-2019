@@ -57,50 +57,55 @@ public class TeamActivity extends AppCompatActivity {
             @Override
             public void addMember(final UserModel member) {
                 dismissMemberBottomSheet();
-                AlertDialog.Builder builder = new AlertDialog.Builder(TeamActivity.this);
-                builder.setTitle("Confirm");
-                String message = "Do you really wanna add " + member.getName() + "?";
-                builder.setMessage(message);
+                if (member.isVitian() == teamLeader.isVitian()) {
 
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TeamActivity.this);
+                    builder.setTitle("Confirm");
+                    String message = "Do you really wanna add " + member.getName() + "?";
+                    builder.setMessage(message);
 
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
-                        if (member.getRegNo().equals(teamLeader.getRegNo())){
-                            Toast.makeText(TeamActivity.this, "We believe in Collaboration and not in Isolation. Please add members other than yourself!", Toast.LENGTH_LONG).show();
-                        } else {
-                            addNewMember(member);
+                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing but close the dialog
+                            if (member.getRegNo().equals(teamLeader.getRegNo())) {
+                                Toast.makeText(TeamActivity.this, "We believe in Collaboration and not in Isolation. Please add members other than yourself!", Toast.LENGTH_LONG).show();
+                            } else {
+                                addNewMember(member);
+                                dialog.dismiss();
+                            }
+                        }
+                    });
+
+                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            // Do nothing
                             dialog.dismiss();
                         }
-                    }
-                });
+                    });
 
-                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        // Do nothing
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog alert = builder.create();
-                alert.show();
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                } else {
+                    Toast.makeText(TeamActivity.this, "VITians and Non VITians are not allowed to be in same team", Toast.LENGTH_SHORT).show();
+                }
             }
         };
 
         final String teamLeaderRegNo = prefs.getString(Constants.PREF_USER_ID, null);
-        if (teamLeaderRegNo == null){
+        if (teamLeaderRegNo == null) {
             Toast.makeText(this, "Couldn't find User Data, Please Login again", Toast.LENGTH_LONG).show();
             finishAfterTransition();
         } else {
             mUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChild(teamLeaderRegNo)){
+                    if (dataSnapshot.hasChild(teamLeaderRegNo)) {
                         teamLeader = dataSnapshot.child(teamLeaderRegNo).getValue(UserModel.class);
-                        if (teamLeader.isLeader() || teamLeader.isJoined()){
+                        if (teamLeader.isLeader() || teamLeader.isJoined()) {
                             Toast.makeText(TeamActivity.this, "You are already part of another team", Toast.LENGTH_SHORT).show();
                             finishAfterTransition();
                         } else {
@@ -140,7 +145,7 @@ public class TeamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String teamName = teamNameEditText.getEditText().getText().toString().trim();
-                if (teamName == null || teamName.length() == 0){
+                if (teamName == null || teamName.length() == 0) {
                     teamNameEditText.setError("Please Enter a valid Team Name");
                 } else {
                     createTeam(teamName, teamLeader);
@@ -150,12 +155,12 @@ public class TeamActivity extends AppCompatActivity {
 
     }
 
-    void createTeam(final String teamName, final UserModel teamLeader){
+    void createTeam(final String teamName, final UserModel teamLeader) {
         final String teamId = teamName.trim().toLowerCase().replace(' ', '_');
         mTeamReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(teamId)){
+                if (dataSnapshot.hasChild(teamId)) {
                     //Team Already Exists, take Action
                     Toast.makeText(TeamActivity.this, "Team Already Exists, Please use a different name", Toast.LENGTH_LONG).show();
                 } else {
@@ -165,7 +170,7 @@ public class TeamActivity extends AppCompatActivity {
                     teamLeader.setTeamName(teamId);
 
                     mUserReference.child(teamLeader.getRegNo()).setValue(teamLeader);
-                    for(int i = 1; i < initialMembers.size(); i++){
+                    for (int i = 1; i < initialMembers.size(); i++) {
                         UserModel userModel = initialMembers.get(i);
 
                         userModel.setJoined(true);
@@ -187,21 +192,21 @@ public class TeamActivity extends AppCompatActivity {
         });
     }
 
-    void addNewMember(UserModel newMember){
-        if (initialMembers == null || initialMembers.size() == 0){
+    void addNewMember(UserModel newMember) {
+        if (initialMembers == null || initialMembers.size() == 0) {
             initialMembers = new ArrayList<>();
             initialMembers.add(teamLeader);
             initialMembers.add(newMember);
         } else {
             initialMembers.add(newMember);
         }
-        if (initialMembers.size() > 4){
+        if (initialMembers.size() > 4) {
             findViewById(R.id.add_member_text_button).setVisibility(View.GONE);
         }
         updateMembersList();
     }
 
-    void putTeamMemberAsAdded(final UserModel acceptedMember, final String teamId){
+    void putTeamMemberAsAdded(final UserModel acceptedMember, final String teamId) {
         mUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -223,22 +228,21 @@ public class TeamActivity extends AppCompatActivity {
     }
 
 
-    void openAddMemberBottomSheet(){
+    void openAddMemberBottomSheet() {
         memberBottomSheet = new AddMemberBottomSheet();
         memberBottomSheet.show(getSupportFragmentManager(), "AddMember");
     }
 
-    void dismissMemberBottomSheet(){
+    void dismissMemberBottomSheet() {
         memberBottomSheet.dismiss();
     }
 
-    void updateMembersList(){
+    void updateMembersList() {
         TeamMemberAdapter adapter = new TeamMemberAdapter(initialMembers);
         teamMemberRecyclerView.setAdapter(adapter);
     }
 
-    void launchAfterFinish(){
-//        TODO : Handle further flow
+    void launchAfterFinish() {
         Intent intent = new Intent(this, MyTeamActivity.class);
         startActivity(intent);
         finish();

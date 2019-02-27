@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -27,10 +28,13 @@
 
             <TextView
                 android:id="@+id/StatName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Statement Name" />
+                android:paddingEnd="8dp"
+                android:paddingRight="8dp"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                tools:text="Statement Name" />
 
             <TextView
                 android:id="@+id/StatId"
@@ -38,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Statement Id" />
+                android:textStyle="bold"
+                tools:text="Statement Id" />
         </LinearLayout>
     </LinearLayout>
 

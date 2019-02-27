@@ -161,9 +161,11 @@ public class MyTeamActivity extends AppCompatActivity {
         if (userModel.isLeader()) {
             layoutLeader.setVisibility(View.VISIBLE);
             layoutNoLeader.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.VISIBLE);
         } else {
             layoutLeader.setVisibility(View.GONE);
             layoutNoLeader.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.GONE);
         }
 
         deleteButton.setOnClickListener(new View.OnClickListener() {

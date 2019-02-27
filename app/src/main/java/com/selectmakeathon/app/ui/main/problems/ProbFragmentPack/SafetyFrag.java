@@ -79,10 +79,8 @@ public class SafetyFrag extends androidx.fragment.app.Fragment implements Proble
                     for(i=0;i<templist.size();i++) {
                         ProblemStatements dp = new ProblemStatements();
                         String statement = templist.get(i).getProblemStatement();
-                        String company = templist.get(i).getCompany();
                         String id=templist.get(i).getId();
                         String details=templist.get(i).getDetails();
-                        dp.setCompany(company);
                         dp.setProblemStatement(statement);
                         dp.setId(id);
                         dp.setDetails(details);
@@ -138,8 +136,6 @@ public class SafetyFrag extends androidx.fragment.app.Fragment implements Proble
             TextView StatIdPrev;
             LinearLayout expands;
             TextView details;
-            TextView Company;
-            TextView Number;
             Button choose;
 
             public ViewHolder(View itemView) {
@@ -148,7 +144,6 @@ public class SafetyFrag extends androidx.fragment.app.Fragment implements Proble
                 this.StatementPrev = (TextView) itemView.findViewById(R.id.StatName);
                 this.expands=(LinearLayout)itemView.findViewById(R.id.ExpandArea);
                 this.details=(TextView)itemView.findViewById(R.id.StatDeet);
-                this.Company=(TextView)itemView.findViewById(R.id.StatCompanyName);
                 this.choose=(Button)itemView.findViewById(R.id.ChoooseProb);
 
             }
@@ -169,7 +164,6 @@ public class SafetyFrag extends androidx.fragment.app.Fragment implements Proble
             holder.itemView.setActivated(isExpanded);
             final String id=dataList.get(position).getId();
             holder.details.setText(dataList.get(position).getDetails());
-            holder.Company.setText(dataList.get(position).getCompany());
 
 
             if (isExpanded)

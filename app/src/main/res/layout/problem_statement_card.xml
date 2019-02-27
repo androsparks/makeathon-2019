@@ -69,25 +69,6 @@
             android:layout_margin="8dp"
             android:text="Details" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Company"
-                android:textColor="@color/colorAccent" />
-
-            <TextView
-                android:id="@+id/StatCompanyName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Company" />
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

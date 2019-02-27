@@ -4,7 +4,6 @@ package com.selectmakeathon.app.ui.main.problems.ProbFragmentPack;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,21 +13,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
-import com.selectmakeathon.app.model.AbstractModel;
 import com.selectmakeathon.app.model.ProblemStatements;
 import com.selectmakeathon.app.model.ProblemTrack;
-import com.selectmakeathon.app.model.Problems;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
 import com.selectmakeathon.app.ui.main.problems.ProblemChooseListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

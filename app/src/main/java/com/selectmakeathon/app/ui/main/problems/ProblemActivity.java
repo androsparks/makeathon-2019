@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +40,14 @@ public class ProblemActivity extends AppCompatActivity {
         toContinue = getIntent().getBooleanExtra("CONTINUE", false);
         teamId = getIntent().getStringExtra("TEAM_ID");
         isExternal = getIntent().getBooleanExtra("IS_EXTERNAL", false);
+
+        ImageView backButton = findViewById(R.id.problems_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         final FragmentManager manager=getSupportFragmentManager();
         ProbHomeFrag fragment=new ProbHomeFrag();

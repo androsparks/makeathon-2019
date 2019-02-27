@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +28,6 @@ import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
-import com.selectmakeathon.app.ui.main.myTeam.adapter.CurrentTeamAdapter;
 import com.selectmakeathon.app.ui.main.myTeam.adapter.NoLeaderMemberAdapter;
 import com.selectmakeathon.app.ui.main.problems.ProbFragmentPack.HealthFrag;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
@@ -48,7 +48,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
+public class CurrentTeamFragment extends androidx.fragment.app.Fragment implements DeleteUserListener {
 
     private TeamModel model;
     private List<UserModel> currentTeam, toAdapter;
@@ -59,7 +59,9 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
     private RecyclerView mRecyclerView;
     private TextView TeamNameHolder;
     private Button submitButton;
-    public boolean leaderOrNot=false;
+
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+    CurrentTeamAdapter adapter;
 
     public CurrentTeamFragment() {
         // Required empty public constructor
@@ -101,47 +103,51 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
         super.onViewCreated(view, savedInstanceState);
         //TeamNameHolder = view.findViewById(R.id.TeamNameText);
         List<UserModel> registeredMembers = getTeamModel().getTeamMembers();
-        leaderOrNot=getUserModel().isLeader();
-        System.out.println(leaderOrNot);
-        CurrentTeamAdapter adapter = new CurrentTeamAdapter(registeredMembers,leaderOrNot);
+        CurrentTeamAdapter adapter = new CurrentTeamAdapter(registeredMembers, this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isSubmitted = prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false);
 
-                if (isSubmitted) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Edit Abstract")
-                            .setMessage("Do you want to change problem statement?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(getActivity(), ProblemActivity.class);
-                                    intent.putExtra("CONTINUE", true);
-                                    intent.putExtra("TEAM_ID", getTeamModel().getTeamId());
-                                    intent.putExtra("IS_EXTERNAL", !getUserModel().isVitian());
-                                    startActivity(intent);
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(getActivity(), AbstractActivity.class);
-                                    intent.putExtra("TEAM_ID", getTeamModel().getTeamId());
-                                    intent.putExtra("IS_EXTERNAL", !getUserModel().isVitian());
-                                    startActivity(intent);
-                                }
-                            })
-                            .create().show();
+                if (getTeamModel().getTeamMembers().size() < 3) {
+                    Toast.makeText(getContext(), "Team must have at least 3 members", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(getActivity(), ProblemActivity.class);
-                    intent.putExtra("CONTINUE", true);
-                    intent.putExtra("TEAM_ID", getTeamModel().getTeamId());
-                    intent.putExtra("IS_EXTERNAL", !getUserModel().isVitian());
-                    startActivity(intent);
+
+                    boolean isSubmitted = prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false);
+
+                    if (isSubmitted) {
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Edit Abstract")
+                                .setMessage("Do you want to change problem statement?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(getActivity(), ProblemActivity.class);
+                                        intent.putExtra("CONTINUE", true);
+                                        intent.putExtra("TEAM_ID", getTeamModel().getTeamId());
+                                        intent.putExtra("IS_EXTERNAL", !getUserModel().isVitian());
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(getActivity(), AbstractActivity.class);
+                                        intent.putExtra("TEAM_ID", getTeamModel().getTeamId());
+                                        intent.putExtra("IS_EXTERNAL", !getUserModel().isVitian());
+                                        startActivity(intent);
+                                    }
+                                })
+                                .create().show();
+                    } else {
+                        Intent intent = new Intent(getActivity(), ProblemActivity.class);
+                        intent.putExtra("CONTINUE", true);
+                        intent.putExtra("TEAM_ID", getTeamModel().getTeamId());
+                        intent.putExtra("IS_EXTERNAL", !getUserModel().isVitian());
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -153,5 +159,105 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment {
     public UserModel getUserModel() {
         return ((MyTeamActivity) getActivity()).userModel;
     }
+
+    @Override
+    public void onDeleteUser(final UserModel userModel) {
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Remove User")
+                .setMessage("Are you sure you want to remove " + userModel.getName())
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        removeUser(userModel);
+                    }
+                })
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .create().show();
+    }
+
+    private void removeUser(UserModel userModel) {
+        getTeamModel().getTeamMembers().remove(userModel);
+        userModel.setJoined(false);
+        userModel.setTeamName("");
+
+        reference.child("teams").child(getTeamModel().getTeamId()).setValue(getTeamModel());
+        reference.child("users").child(userModel.getRegNo()).setValue(userModel);
+
+        adapter.setLeaderMemberList(getTeamModel().getTeamMembers());
+    }
 }
 
+class CurrentTeamAdapter extends RecyclerView.Adapter<CurrentTeamAdapter.LeaderMemberViewHolder> {
+
+    List<UserModel> LeaderMemberList;
+    DeleteUserListener listener;
+
+    public CurrentTeamAdapter(List<UserModel> leaderMemberList, DeleteUserListener listener) {
+        LeaderMemberList = leaderMemberList;
+        this.listener = listener;
+    }
+
+    public void setLeaderMemberList(List<UserModel> leaderMemberList) {
+        LeaderMemberList = leaderMemberList;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public CurrentTeamAdapter.LeaderMemberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.item_member, parent, false);
+        return new CurrentTeamAdapter.LeaderMemberViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CurrentTeamAdapter.LeaderMemberViewHolder holder, int position) {
+        final UserModel currentUser = LeaderMemberList.get(position);
+        holder.LeaderMemberName.setText(currentUser.getName());
+        holder.LeaderMemberReg.setText(currentUser.getRegNo());
+
+        if (currentUser.isLeader()) {
+            holder.delete.setVisibility(View.GONE);
+        } else {
+            holder.delete.setVisibility(View.VISIBLE);
+        }
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onDeleteUser(currentUser);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return LeaderMemberList.size();
+    }
+
+    class LeaderMemberViewHolder extends RecyclerView.ViewHolder {
+
+        TextView LeaderMemberName, LeaderMemberReg;
+        ImageView delete;
+
+        public LeaderMemberViewHolder(@NonNull View itemView) {
+            super(itemView);
+            LeaderMemberName = itemView.findViewById(R.id.MemberNameText);
+            LeaderMemberReg = itemView.findViewById(R.id.MemberRgNo);
+            delete = itemView.findViewById(R.id.delete_member);
+        }
+    }
+
+}
+
+interface DeleteUserListener {
+
+    public void onDeleteUser(UserModel userModel);
+
+}

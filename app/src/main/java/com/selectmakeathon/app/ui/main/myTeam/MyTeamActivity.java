@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class MyTeamActivity extends AppCompatActivity {
     private TextView teamDisplayName;
     private FrameLayout layoutNoLeader;
     private LinearLayout layoutLeader;
+    private ImageView backButton;
 
     public String teamName;
     public TeamModel teamModel = new TeamModel();
@@ -55,6 +57,14 @@ public class MyTeamActivity extends AppCompatActivity {
         prefEditor = prefs.edit();
 
         teamDisplayName=findViewById(R.id.TeamNameHolder);
+
+        backButton = findViewById(R.id.nav_home_team);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         /*TODO: Remove default values */
         teamName = prefs.getString(Constants.PREF_TEAM_ID, "team_null_proxy");

@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
@@ -31,6 +34,7 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
     PendingMembersAdapter adapter;
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference userReference;
 
     public PendingTeamFragment() {
         // Required empty public constructor
@@ -40,6 +44,7 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        userReference = FirebaseDatabase.getInstance().getReference().child("users");
         return inflater.inflate(R.layout.fragment_pending_team, container, false);
     }
 
@@ -91,21 +96,39 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
     }
 
     @Override
-    public void onAcceptUser(UserModel userModel) {
+    public void onAcceptUser(final UserModel userModel) {
 
         if (getTeamModel().getTeamMembers().size() < 5) {
 
-            userModel.setJoined(true);
-            userModel.setTeamName(getTeamModel().getTeamId());
+            userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UserModel user = dataSnapshot.child(userModel.getRegNo()).getValue(UserModel.class);
+                    if (user.isJoined() || user.isLeader()){
+                        Toast.makeText(getContext(), "User is already part of another team!", Toast.LENGTH_SHORT).show();
+                        //TODO : Remove the user from pending requests
+                    } else {
+                        userModel.setJoined(true);
+                        userModel.setTeamName(getTeamModel().getTeamId());
 
-            getTeamModel().getMemberRequests().remove(userModel);
-            getTeamModel().getTeamMembers().add(userModel);
+
+                        getTeamModel().getMemberRequests().remove(userModel);
+                        getTeamModel().getTeamMembers().add(userModel);
 
 
-            reference.child("teams").child(getTeamModel().getTeamId()).setValue(getTeamModel());
-            reference.child("users").child(userModel.getRegNo()).setValue(userModel);
+                        reference.child("teams").child(getTeamModel().getTeamId()).setValue(getTeamModel());
+                        reference.child("users").child(userModel.getRegNo()).setValue(userModel);
 
-            updateUI();
+                        updateUI();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
         } else {
             Toast.makeText(getContext(), "Cannot add more members", Toast.LENGTH_SHORT).show();
         }

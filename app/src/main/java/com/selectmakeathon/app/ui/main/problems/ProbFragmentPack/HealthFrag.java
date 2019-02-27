@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Html;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -166,6 +167,12 @@ public class HealthFrag extends androidx.fragment.app.Fragment implements Proble
             holder.itemView.setActivated(isExpanded);
             final String id=dataList.get(position).getId();
             holder.details.setText(dataList.get(position).getDetails());
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                holder.details.setText(Html.fromHtml(dataList.get(position).getDetails(), Html.FROM_HTML_MODE_LEGACY));
+            } else {
+                holder.details.setText(Html.fromHtml(dataList.get(position).getDetails()));
+            }
 
             if (isExpanded)
                 previousExpandedPosition = position;

@@ -2,6 +2,7 @@ package com.selectmakeathon.app.ui.main.problems;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.Fragment;
 
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +34,9 @@ public class ProblemActivity extends AppCompatActivity {
     public String teamId;
     public boolean isExternal;
 
+    private RelativeLayout loadingLayout;
+    private ConstraintLayout containerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +46,14 @@ public class ProblemActivity extends AppCompatActivity {
         teamId = getIntent().getStringExtra("TEAM_ID");
         isExternal = getIntent().getBooleanExtra("IS_EXTERNAL", false);
 
+        loadingLayout = findViewById(R.id.problem_loading_container);
+        containerLayout = findViewById(R.id.problem_container);
+
         ImageView backButton = findViewById(R.id.problems_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                ProblemActivity.this.onBackPressed();
             }
         });
 
@@ -72,5 +80,14 @@ public class ProblemActivity extends AppCompatActivity {
         }
     }
 
+    public void startAnimation() {
+        loadingLayout.setVisibility(View.VISIBLE);
+        containerLayout.setVisibility(View.GONE);
+    }
+
+    public void stopAnimation() {
+        loadingLayout.setVisibility(View.GONE);
+        containerLayout.setVisibility(View.VISIBLE);
+    }
 
 }

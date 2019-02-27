@@ -60,9 +60,14 @@ public class EmergingFragment extends androidx.fragment.app.Fragment implements 
         mDatabaseReference=mDatabase.getReference();
         final ArrayList<ProblemStatements> problemStatements = new ArrayList<>();
 
+        ((ProblemActivity)getActivity()).startAnimation();
+
         mDatabaseReference.child("problems").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ((ProblemActivity)getActivity()).stopAnimation();
+
                 list=new ArrayList<ProblemStatements>();
                 templist=new ArrayList<ProblemStatements>();
                 try {

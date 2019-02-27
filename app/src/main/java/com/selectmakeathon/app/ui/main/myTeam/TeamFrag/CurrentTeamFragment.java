@@ -58,6 +58,7 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
     private UserModel in, outp;
     private RecyclerView mRecyclerView;
     private TextView TeamNameHolder;
+    private TextView deadlineText;
     private Button submitButton;
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -77,6 +78,7 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefEditor = prefs.edit();
+
 
         boolean isSubmitted = prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false);
 

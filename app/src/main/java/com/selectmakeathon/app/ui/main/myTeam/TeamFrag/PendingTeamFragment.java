@@ -100,10 +100,10 @@ public class PendingTeamFragment extends Fragment implements PendingMemberListen
 
         if (getTeamModel().getTeamMembers().size() < 5) {
 
-            userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            userReference.child(userModel.getRegNo()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    UserModel user = dataSnapshot.child(userModel.getRegNo()).getValue(UserModel.class);
+                    UserModel user = dataSnapshot.getValue(UserModel.class);
                     if (user.isJoined() || user.isLeader()){
                         Toast.makeText(getContext(), "The user is already part of another team!", Toast.LENGTH_LONG).show();
                         //TODO : Remove the user from pending requests

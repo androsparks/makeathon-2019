@@ -268,6 +268,7 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                        int x = 0;
                         if (userModel.isVitian() && !teamModel.getTeamLeader().isVitian()) {
                             showToast("VITians are not allowed to team with non VITians");
                             return;

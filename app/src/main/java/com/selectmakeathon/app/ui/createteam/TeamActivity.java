@@ -160,23 +160,28 @@ public class TeamActivity extends AppCompatActivity {
                     Toast.makeText(TeamActivity.this, "Team Already Exists, Please use a different name", Toast.LENGTH_LONG).show();
                 } else {
 
-                    teamLeader.setLeader(true);
-                    teamLeader.setJoined(true);
-                    teamLeader.setTeamName(teamId);
+                    try {
 
-                    mUserReference.child(teamLeader.getRegNo()).setValue(teamLeader);
-                    for(int i = 1; i < initialMembers.size(); i++){
-                        UserModel userModel = initialMembers.get(i);
+                        teamLeader.setLeader(true);
+                        teamLeader.setJoined(true);
+                        teamLeader.setTeamName(teamId);
 
-                        userModel.setJoined(true);
-                        userModel.setTeamName(teamId);
+                        mUserReference.child(teamLeader.getRegNo()).setValue(teamLeader);
+                        for (int i = 1; i < initialMembers.size(); i++) {
+                            UserModel userModel = initialMembers.get(i);
 
-                        putTeamMemberAsAdded(initialMembers.get(i), teamId);
-                        initialMembers.set(i, userModel);
+                            userModel.setJoined(true);
+                            userModel.setTeamName(teamId);
+
+                            putTeamMemberAsAdded(initialMembers.get(i), teamId);
+                            initialMembers.set(i, userModel);
+                        }
+                        TeamModel teamModel = new TeamModel(teamName, teamId, teamLeader, initialMembers, null, null, false);
+                        mTeamReference.child(teamId).setValue(teamModel);
+                        launchAfterFinish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    TeamModel teamModel = new TeamModel(teamName, teamId, teamLeader, initialMembers, null, null, false);
-                    mTeamReference.child(teamId).setValue(teamModel);
-                    launchAfterFinish();
                 }
             }
 

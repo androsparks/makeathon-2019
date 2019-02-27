@@ -266,6 +266,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
     @Override
     protected void onResume() {
         super.onResume();
+        updateFragment(HomeFragment.newInstance());
         updateDrawer();
     }
 

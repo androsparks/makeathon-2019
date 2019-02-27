@@ -268,6 +268,16 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                        if (userModel.isVitian() && !teamModel.getTeamLeader().isVitian()) {
+                            showToast("VITians are not allowed to team with non VITians");
+                            return;
+                        }
+
+                        if (!userModel.isVitian() && teamModel.getTeamLeader().isVitian()) {
+                            showToast("Non VITians are not allowed to team with VITians");
+                            return;
+                        }
+
                         boolean contains = false;
 
                         for (UserModel user : teamModel.getMemberRequests()) {
@@ -277,17 +287,22 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                             }
                         }
 
-                        if (contains) {
-                            showToast("Already Requested");
+                        if (userModel.isVitian() == teamModel.getTeamLeader().isVitian()) {
+                            if (contains) {
+                                showToast("Already Requested");
+                            } else {
+                                teamModel.getMemberRequests().add(userModel);
+                                reference.child("teams").child(teamModel.getTeamId()).setValue(teamModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        showToast("Requested Successfully");
+                                    }
+                                });
+                            }
                         } else {
-                            teamModel.getMemberRequests().add(userModel);
-                            reference.child("teams").child(teamModel.getTeamId()).setValue(teamModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    showToast("Requested Successfully");
-                                }
-                            });
+                            showToast("VITians and Non VITians are not allowed to be in same team");
                         }
+
                     }
                 })
                 .setNegativeButton("NO", new DialogInterface.OnClickListener() {

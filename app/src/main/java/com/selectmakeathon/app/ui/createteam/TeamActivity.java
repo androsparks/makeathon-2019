@@ -157,7 +157,7 @@ public class TeamActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(teamId)){
                     //Team Already Exists, take Action
-                    Toast.makeText(TeamActivity.this, "Team Already Exists, Please use a different name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeamActivity.this, "Team Already Exists, Please use a different name", Toast.LENGTH_LONG).show();
                 } else {
 
                     teamLeader.setLeader(true);
@@ -171,7 +171,7 @@ public class TeamActivity extends AppCompatActivity {
                         userModel.setJoined(true);
                         userModel.setTeamName(teamId);
 
-                        putTeamMemberAsAdded(initialMembers.get(i));
+                        putTeamMemberAsAdded(initialMembers.get(i), teamId);
                         initialMembers.set(i, userModel);
                     }
                     TeamModel teamModel = new TeamModel(teamName, teamId, teamLeader, initialMembers, null, null, false);
@@ -201,12 +201,13 @@ public class TeamActivity extends AppCompatActivity {
         updateMembersList();
     }
 
-    void putTeamMemberAsAdded(final UserModel acceptedMember){
+    void putTeamMemberAsAdded(final UserModel acceptedMember, final String teamId){
         mUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserModel thisMember = dataSnapshot.child(acceptedMember.getRegNo()).getValue(UserModel.class);
                 thisMember.setJoined(true);
+                thisMember.setTeamName(teamId);
                 mUserReference.child(thisMember.getRegNo()).setValue(thisMember);
             }
 

@@ -10,6 +10,7 @@
         android:id="@+id/image_team_search_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:foreground="@drawable/bg_ripple"
         android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -79,12 +80,12 @@
 
     <Button
         android:id="@+id/button_team_addteam"
-        android:layout_width="124dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/bg_yellow_curve"
         android:foreground="@drawable/bg_ripple"
-        android:text="add team"
+        android:text="create team"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/imageView17"
         app:layout_constraintEnd_toEndOf="parent"

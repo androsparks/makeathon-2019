@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class NoLeaderMemberAdapter extends RecyclerView.Adapter<NoLeaderMemberAdapter.NoLeaderMemberViewHolder> {
 
-    List<UserModel> noLeaderMemberList;
+    List<UserModel> noLeaderMemberList = new ArrayList<>();
 
     public NoLeaderMemberAdapter(List<UserModel> noLeaderMemberList) {
-        this.noLeaderMemberList = noLeaderMemberList;
+        if (noLeaderMemberList != null) {
+            this.noLeaderMemberList = noLeaderMemberList;
+        }
     }
 
     @NonNull
@@ -39,6 +41,7 @@ public class NoLeaderMemberAdapter extends RecyclerView.Adapter<NoLeaderMemberAd
 
     @Override
     public int getItemCount() {
+        if (noLeaderMemberList == null) return 0;
         return noLeaderMemberList.size();
     }
 

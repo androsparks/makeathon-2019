@@ -190,6 +190,13 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
                 finish();
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void showToast(String message) {

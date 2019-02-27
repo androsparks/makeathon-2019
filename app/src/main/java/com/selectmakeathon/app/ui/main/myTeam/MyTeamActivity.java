@@ -1,9 +1,11 @@
 package com.selectmakeathon.app.ui.main.myTeam;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -36,6 +38,7 @@ public class MyTeamActivity extends AppCompatActivity {
     private FrameLayout layoutNoLeader;
     private LinearLayout layoutLeader;
     private ImageView backButton;
+    private ImageView deleteButton;
 
     public String teamName;
     public TeamModel teamModel = new TeamModel();
@@ -65,6 +68,8 @@ public class MyTeamActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        deleteButton = findViewById(R.id.image_delete_team);
 
         /*TODO: Remove default values */
         teamName = prefs.getString(Constants.PREF_TEAM_ID, "team_null_proxy");
@@ -96,7 +101,13 @@ public class MyTeamActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     teamModel = dataSnapshot.getValue(TeamModel.class);
-                    teamDisplayName.setText(teamModel.getTeamName());
+
+                    if (teamModel.isSelected()) {
+                        teamDisplayName.setText("Congratulations !! " + teamModel.getTeamName() + " is selected for next round");
+                    } else {
+                        teamDisplayName.setText(teamModel.getTeamName());
+                    }
+
                     initViews();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -154,6 +165,50 @@ public class MyTeamActivity extends AppCompatActivity {
             layoutLeader.setVisibility(View.GONE);
             layoutNoLeader.setVisibility(View.VISIBLE);
         }
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new AlertDialog.Builder(MyTeamActivity.this)
+                        .setTitle("Delete Team")
+                        .setMessage("Are you sure you want to delete team")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                deleteTeam();
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .create().show();
+
+            }
+        });
+    }
+
+    private void deleteTeam() {
+
+        for (UserModel userModel : teamModel.getTeamMembers()) {
+
+            if (userModel.isLeader()) {
+                userModel.setLeader(false);
+            }
+            userModel.setJoined(false);
+            userModel.setTeamName("");
+
+            reference.child("users").child(userModel.getRegNo()).setValue(userModel);
+
+        }
+
+        reference.child("teams").child(teamModel.getTeamId()).removeValue();
+
+        finish();
+
     }
 
 

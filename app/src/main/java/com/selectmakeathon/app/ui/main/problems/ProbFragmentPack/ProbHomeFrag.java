@@ -83,8 +83,7 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backHome=new Intent(getActivity(), MainActivity.class);
-                startActivity(backHome);
+                ((ProblemActivity)getActivity()).finish();
             }
         });
 

@@ -189,7 +189,11 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
         reference.child("teams").child(getTeamModel().getTeamId()).setValue(getTeamModel());
         reference.child("users").child(userModel.getRegNo()).setValue(userModel);
 
-        adapter.setLeaderMemberList(getTeamModel().getTeamMembers());
+        try {
+            adapter.setLeaderMemberList(getTeamModel().getTeamMembers());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

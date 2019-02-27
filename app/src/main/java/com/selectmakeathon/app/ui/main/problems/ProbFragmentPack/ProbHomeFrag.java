@@ -25,6 +25,7 @@ import com.selectmakeathon.app.ui.main.MainActivity;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
 import com.selectmakeathon.app.util.CustomTransformerView;
+import com.squareup.picasso.Picasso;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
     private ArrayList<String> imageList=new ArrayList<String>();
     private static final String TAG = "ProbHomeFrag";
     private ImageView backButton;
+    private int ImageList[]=new int[]{R.drawable.artificial,R.drawable.emerging,R.drawable.energy,R.drawable.health,R.drawable.home,R.drawable.security};
 
 
     public ProbHomeFrag() {
@@ -53,7 +55,7 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mListAdapter = new ListAdapter(data);
+        mListAdapter = new ListAdapter(data,ImageList);
         cardStack.setAdapter(mListAdapter);
     }
 
@@ -103,7 +105,7 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
         data.add("Health Care");
         data.add("IoT and Automation");
         data.add("Safety and Security");
-        mListAdapter = new ListAdapter(data);
+        mListAdapter = new ListAdapter(data,ImageList);
         cardStack.setAdapter(mListAdapter);
         return view;
 
@@ -112,16 +114,21 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
     //Adapter Class
     public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         private ArrayList<String> dataList;
-        public ListAdapter(ArrayList<String> data) {
-            this.dataList = data;
+        private int displayImageList[];
+
+        public ListAdapter(ArrayList<String> dataList, int[] displayImageList) {
+            this.dataList = dataList;
+            this.displayImageList = displayImageList;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView textViewText;
+            ImageView displayImage;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 this.textViewText = (TextView) itemView.findViewById(R.id.TrackText);
+                this.displayImage=(ImageView)itemView.findViewById(R.id.TrackImage);
             }
         }
 
@@ -134,7 +141,7 @@ public class ProbHomeFrag extends androidx.fragment.app.Fragment {
 
         public void onBindViewHolder(ListAdapter.ViewHolder holder, final int position) {
             holder.textViewText.setText(dataList.get(position));
-
+            holder.displayImage.setImageResource(displayImageList[position]);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

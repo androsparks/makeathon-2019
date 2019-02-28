@@ -51,7 +51,6 @@ public class NoLeaderFragment extends androidx.fragment.app.Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //TODO: Use this
         List<UserModel> registeredMembers = getTeamModel().getTeamMembers();
         NoLeaderMemberAdapter adapter = new NoLeaderMemberAdapter(registeredMembers);
         noLeaderMemberRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -115,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:text="Explain the project"
+                        android:text="Explain the idea"
                         android:textAppearance="@android:style/TextAppearance.Material.Medium"
                         android:textColor="@color/colorAccent" />
 
@@ -303,7 +303,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:text="Idea Explanation"
+                        android:text="Idea explanation"
                         android:textAppearance="@android:style/TextAppearance.Material.Medium"
                         android:textColor="@color/colorAccent" />
 

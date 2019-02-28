@@ -3,6 +3,7 @@ package com.selectmakeathon.app.ui.main.myTeam;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.DialogInterface;
@@ -13,8 +14,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
@@ -45,6 +49,8 @@ public class MyTeamActivity extends AppCompatActivity {
     public String userName;
     public UserModel userModel = new UserModel();
 
+    private RelativeLayout loadingLayout;
+    private LinearLayout containerLayout;
 
     SharedPreferences prefs;
     SharedPreferences.Editor prefEditor;
@@ -72,8 +78,12 @@ public class MyTeamActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.image_delete_team);
 
         /*TODO: Remove default values */
-        teamName = prefs.getString(Constants.PREF_TEAM_ID, "team_null_proxy");
-        userName = prefs.getString(Constants.PREF_USER_ID, "16BCE0587");
+        teamName = prefs.getString(Constants.PREF_TEAM_ID, "");
+        userName = prefs.getString(Constants.PREF_USER_ID, "");
+
+        loadingLayout = findViewById(R.id.layout_myteam_loading_container);
+        containerLayout = findViewById(R.id.layout_myteam_main_container);
+        startAnimation();
 
         reference.child("users").child(userName).addValueEventListener(new ValueEventListener() {
             @Override
@@ -122,6 +132,8 @@ public class MyTeamActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+
+        stopAnimation();
 
         layoutNoLeader = findViewById(R.id.team_layout_is_no_leader);
         layoutLeader = findViewById(R.id.team_layout_isleader);
@@ -207,12 +219,37 @@ public class MyTeamActivity extends AppCompatActivity {
 
         }
 
-        reference.child("teams").child(teamModel.getTeamId()).removeValue();
+        if (prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false)) {
+            FirebaseStorage.getInstance()
+                    .getReference(teamModel.getTeamId())
+                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
 
-        finish();
+                }
+            });
+        }
+
+        prefEditor.putBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false).apply();
+        reference.child("teams").child(teamModel.getTeamId()).removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        finish();
+                    }
+                });
 
     }
 
+    public void startAnimation() {
+        loadingLayout.setVisibility(View.VISIBLE);
+        containerLayout.setVisibility(View.GONE);
+    }
+
+    public void stopAnimation() {
+        loadingLayout.setVisibility(View.GONE);
+        containerLayout.setVisibility(View.VISIBLE);
+    }
 
 }
 

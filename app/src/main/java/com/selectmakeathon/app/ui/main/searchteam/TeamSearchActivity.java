@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.TaskStackBuilder;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,9 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
     TextView memberCountStatic;
     CardView cardViewStatic;
     Button clearButtonStatic;
+
+    private RelativeLayout loadingLayout;
+    private ConstraintLayout containerLayout;
 
     TeamAdapter teamAdapter;
 
@@ -211,6 +216,10 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
     }
 
     private void initViews() {
+
+        loadingLayout = findViewById(R.id.search_team_loading_container);
+        containerLayout = findViewById(R.id.layout_search_team_container    );
+
         backButton = findViewById(R.id.image_team_search_back);
         buttonSearch = findViewById(R.id.image_team_search);
         inputQuery  = findViewById(R.id.input_team_query);
@@ -240,11 +249,13 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
     }
 
     public void startAnimation() {
-
+        loadingLayout.setVisibility(View.VISIBLE);
+        containerLayout.setVisibility(View.GONE);
     }
 
     public void stopAnimation() {
-
+        loadingLayout.setVisibility(View.GONE);
+        containerLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -83,10 +83,25 @@
                     android:gravity="center"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:text="TextView"
+                    android:text="Problem Statement - HL101"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_abstract_deadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_dashed"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:textColor="@color/colorAccent"
+                    tools:text="Deadline - 4th March" />
 
                 <LinearLayout
                     android:id="@+id/abstract_layout_edit"
@@ -193,7 +208,7 @@
                         android:foreground="@drawable/bg_ripple"
                         android:gravity="center"
                         android:padding="16dp"
-                        android:text="Image (Maximum 2 Mb)"
+                        android:text="Image (Maximum 2 MB)"
                         android:textColor="@color/colorAccent" />
 
                     <TextView
@@ -235,8 +250,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/abstract_rv_components"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:listitem="@layout/item_component" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/abstract_text_add_component"
@@ -249,6 +263,31 @@
                         android:padding="16dp"
                         android:text="Add Component (Max 15)"
                         android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="Mention other components with required quantity (if any)" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/abstract_input_other_components"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="16dp"
+                        android:textColorHint="@color/colorAccent"
+                        app:boxBackgroundMode="outline"
+                        app:boxStrokeColor="@color/colorAccent"
+                        app:hintTextColor="@color/colorAccent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Other components" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
@@ -264,7 +303,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:text="Explain the project"
+                        android:text="Idea Explanation"
                         android:textAppearance="@android:style/TextAppearance.Material.Medium"
                         android:textColor="@color/colorAccent" />
 
@@ -273,7 +312,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:text="About the abstract"
+                        android:text="Abstract"
                         android:textColor="@color/colorAccent" />
 
                     <TextView
@@ -363,8 +402,24 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/abstract_rv_components_static"
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/text_extra_components_title_static"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:listitem="@layout/item_component_static" />
+                        android:layout_margin="16dp"
+                        android:text="Extra components"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/text_extra_components_body_static"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="TextView" />
 
                 </LinearLayout>
 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +33,8 @@ import com.selectmakeathon.app.ui.main.searchteam.TeamSearchActivity;
 import com.selectmakeathon.app.util.Constants;
 
 //import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -48,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
 
     SharedPreferences prefs;
     SharedPreferences.Editor prefEditor;
+
+    private FrameLayout mainContainer;
+    private LottieAnimationView loadingAnimation;
+    private RelativeLayout loadingContainer;
 
     private DrawerLayout drawerLayout;
     private TextView buttonSignOut;
@@ -69,18 +76,17 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startAnimation();
-
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefEditor = prefs.edit();
 
         userName = prefs.getString(Constants.PREF_USER_ID, "");
 
         initViews();
-
         initAdapter();
 
-        updateFragment(HomeFragment.newInstance());
+        startAnimation();
+
+//        updateFragment(HomeFragment.newInstance());
 
         buttonSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
     private void updateUI() {
         stopAnimation();
 
-        updateFragment(HomeFragment.newInstance());
+//        updateFragment(HomeFragment.newInstance());
         updateDrawer();
 
         navUserName.setText(userModel.getName());
@@ -126,11 +132,13 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
     }
 
     private void startAnimation() {
-
+        mainContainer.setVisibility(View.GONE);
+        loadingContainer.setVisibility(View.VISIBLE);
     }
 
     private void stopAnimation() {
-
+        mainContainer.setVisibility(View.VISIBLE);
+        loadingContainer.setVisibility(View.GONE);
     }
 
     private void initAdapter() {
@@ -197,6 +205,9 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
     }
 
     private void initViews() {
+        mainContainer = findViewById(R.id.container_main);
+        loadingContainer = findViewById(R.id.layout_main_loading);
+
         drawerLayout = findViewById(R.id.drawer_layout);
         buttonSignOut = findViewById(R.id.main_text_signout);
         navigationView = findViewById(R.id.nav_view);
@@ -229,10 +240,19 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 1){
-                finish();
-            }
-            else {
+
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container_main);
+
+            if (fragment != null){
+
+                String fragClassName = fragment.getClass().getName();
+
+                if (fragClassName.equals(HomeFragment.class.getName())) {
+                    finish();
+                } else {
+                    super.onBackPressed();
+                }
+            } else {
                 super.onBackPressed();
             }
         }

@@ -11,5 +11,7 @@ public class Constants {
     public static final String EXTRA_PROBLEM_STATEMENT_ID = "com.selectmakeathon.app.EXTRA_PROBLEM_STATEMENT_ID";
 
     public static final String EXTERNAL_CONFIG_KEY = "external_enabled";
+    public static final String EXTERNAL_DATE_CONFIG_KEY = "external_date";
     public static final String INTERNAL_CONFIG_KEY = "internal_enabled";
+    public static final String INTERNAL_DATE_CONFIG_KEY = "internal_date";
 }

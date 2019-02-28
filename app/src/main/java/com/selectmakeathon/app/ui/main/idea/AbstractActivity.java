@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -67,6 +68,7 @@ public class AbstractActivity extends AppCompatActivity {
 
     private TextView abstractSubmitButton;
     private TextView textProbId;
+    private TextView textDeadline;
     private ImageView backButton;
 
     private LinearLayout layoutAbstractEdit;
@@ -79,6 +81,7 @@ public class AbstractActivity extends AppCompatActivity {
     private TextView textComponentsError;
     private RecyclerView rvComponents;
     private TextView buttonAddComponent;
+    private TextInputLayout inputOtherComponents;
 
     private LinearLayout layoutAbstractStatic;
     private TextView textAbstract;
@@ -87,6 +90,8 @@ public class AbstractActivity extends AppCompatActivity {
     private TextView textAttachment;
     private ImageView imageAttachmentStatic;
     private RecyclerView rvComponentsStatic;
+    private TextView textOtherComponentsTitleStatic;
+    private TextView textOtherComponentsBodyStatic;
 
     private FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -100,8 +105,9 @@ public class AbstractActivity extends AppCompatActivity {
     private boolean isExternalEnabled;
     private boolean isInternalEnabled;
     private boolean isExternal;
+    private String deadline;
 
-    private AbstractModel abstractModel = new AbstractModel();
+    private AbstractModel abstractModel;
     private String teamId;
     private ArrayList<String> components = new ArrayList<>();
     private Uri filePath;
@@ -129,8 +135,16 @@ public class AbstractActivity extends AppCompatActivity {
 
         problemId = getIntent().getStringExtra("probId");
         teamId = getIntent().getStringExtra("TEAM_ID");
-        teamId = "reverse_atlas"; //TODO: Remove this. Testing data.
         isExternal = getIntent().getBooleanExtra("IS_EXTERNAL", false);
+
+        if (problemId != null) {
+            reference
+                    .child("teams")
+                    .child(teamId)
+                    .child("abstract")
+                    .child("problemStatementId")
+                    .setValue(problemId);
+        }
 
         textProbId.setText(problemId);
 
@@ -306,13 +320,26 @@ public class AbstractActivity extends AppCompatActivity {
 
             filePath = data.getData();
 
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+            Cursor returnCursor = getContentResolver().query(filePath, null, null, null, null);
+            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+            returnCursor.moveToFirst();
+            String fileName = returnCursor.getString(nameIndex);
+            long size = returnCursor.getLong(sizeIndex);
 
+            if (size > 2000000) {
+                filePath = null;
                 imageAttachment.setVisibility(View.VISIBLE);
-                imageAttachment.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+                showToast("Image size should be less than 2MB");
+            } else {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+                    imageAttachment.setVisibility(View.VISIBLE);
+                    imageAttachment.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -321,10 +348,13 @@ public class AbstractActivity extends AppCompatActivity {
 
         if (abstractModel != null) {
 
+            textProbId.setText(abstractModel.getProblemStatementId());
+
             inputAbstract.getEditText().setText(abstractModel.getIdeaAbstract());
             inputUniqueness.getEditText().setText(abstractModel.getIdeaUniquness());
             inputUseCases.getEditText().setText(abstractModel.getIdeaUseCases());
             componentAdapter.setComponents(abstractModel.getComponents());
+            inputOtherComponents.getEditText().setText(abstractModel.getExtraComponents());
 
             if (abstractModel.getAttachmentUrl() != null) {
                 imageAttachment.setVisibility(View.VISIBLE);
@@ -335,6 +365,16 @@ public class AbstractActivity extends AppCompatActivity {
             textUniqueness.setText(abstractModel.getIdeaUniquness());
             textUseCases.setText(abstractModel.getIdeaUseCases());
             staticComponentsAdapter.setComponents(abstractModel.getComponents());
+
+            textOtherComponentsTitleStatic.setVisibility(View.GONE);
+            textOtherComponentsBodyStatic.setVisibility(View.GONE);
+            if (abstractModel.getExtraComponents() != null) {
+                if (!abstractModel.getExtraComponents().isEmpty()) {
+                    textOtherComponentsTitleStatic.setVisibility(View.VISIBLE);
+                    textOtherComponentsBodyStatic.setVisibility(View.VISIBLE);
+                    textOtherComponentsBodyStatic.setText(abstractModel.getExtraComponents());
+                }
+            }
 
             Picasso.get().load(abstractModel.getAttachmentUrl()).into(imageAttachmentStatic);
 
@@ -410,7 +450,7 @@ public class AbstractActivity extends AppCompatActivity {
         abstractModel.setIdeaUniquness(inputUniqueness.getEditText().getText().toString());
         abstractModel.setIdeaUseCases(inputUseCases.getEditText().getText().toString());
         abstractModel.setComponents(componentAdapter.getComponents());
-        abstractModel.setProblemStatementId(problemId);
+        abstractModel.setExtraComponents(inputOtherComponents.getEditText().getText().toString());
 
         reference.child("teams").child(teamId).child("abstract").setValue(abstractModel)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -460,6 +500,14 @@ public class AbstractActivity extends AppCompatActivity {
     private void updateConfig() {
         isExternalEnabled = firebaseRemoteConfig.getBoolean(Constants.EXTERNAL_CONFIG_KEY);
         isInternalEnabled = firebaseRemoteConfig.getBoolean(Constants.INTERNAL_CONFIG_KEY);
+
+        if (isExternal) {
+            deadline = firebaseRemoteConfig.getString(Constants.EXTERNAL_DATE_CONFIG_KEY);
+        } else {
+            deadline = firebaseRemoteConfig.getString(Constants.INTERNAL_DATE_CONFIG_KEY);
+        }
+
+        textDeadline.setText("Deadline - " + deadline);
     }
 
     private void updateUI() {
@@ -491,6 +539,7 @@ public class AbstractActivity extends AppCompatActivity {
 
         abstractSubmitButton = findViewById(R.id.abstract_button_submit);
         textProbId = findViewById(R.id.text_abstract_probid);
+        textDeadline = findViewById(R.id.text_abstract_deadline);
 
         layoutAbstractEdit = findViewById(R.id.abstract_layout_edit);
         inputAbstract = findViewById(R.id.abstract_input_abstract);
@@ -502,6 +551,7 @@ public class AbstractActivity extends AppCompatActivity {
         textComponentsError = findViewById(R.id.text_error_abstract_components);
         rvComponents = findViewById(R.id.abstract_rv_components);
         buttonAddComponent = findViewById(R.id.abstract_text_add_component);
+        inputOtherComponents = findViewById(R.id.abstract_input_other_components);
 
         layoutAbstractStatic = findViewById(R.id.abstract_layout_static);
         textAbstract = findViewById(R.id.abstract_text_abstract);
@@ -510,6 +560,8 @@ public class AbstractActivity extends AppCompatActivity {
         textAttachment = findViewById(R.id.abstract_text_attachment_static);
         imageAttachmentStatic = findViewById(R.id.abstract_image_static);
         rvComponentsStatic = findViewById(R.id.abstract_rv_components_static);
+        textOtherComponentsTitleStatic = findViewById(R.id.text_extra_components_title_static);
+        textOtherComponentsBodyStatic = findViewById(R.id.text_extra_components_body_static);
 
     }
 

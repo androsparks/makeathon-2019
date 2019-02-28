@@ -8,4 +8,12 @@
         <key>internal_enabled</key>
         <value>true</value>
     </entry>
+    <entry>
+        <key>external_date</key>
+        <value>4th March</value>
+    </entry>
+    <entry>
+        <key>internal_date</key>
+        <value>14th March</value>
+    </entry>
 </defaultsMap>

@@ -83,9 +83,9 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
         boolean isSubmitted = prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false);
 
         if (isSubmitted) {
-            submitButton.setText("Edit Abstract");
+            submitButton.setText("Edit Idea");
         } else {
-            submitButton.setText("Submit Abstract");
+            submitButton.setText("Submit Idea");
         }
         //System.out.println(getUserModel().isLeader());
         if(getUserModel().isLeader())
@@ -121,7 +121,7 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
 
                     if (isSubmitted) {
                         new AlertDialog.Builder(getContext())
-                                .setTitle("Edit Abstract")
+                                .setTitle("Edit Idea")
                                 .setMessage("Do you want to change problem statement?")
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override

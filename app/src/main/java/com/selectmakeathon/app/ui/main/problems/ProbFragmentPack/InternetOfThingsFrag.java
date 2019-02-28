@@ -64,13 +64,21 @@ public class InternetOfThingsFrag extends androidx.fragment.app.Fragment impleme
         mDatabaseReference=mDatabase.getReference();
         final ArrayList<ProblemStatements> problemStatements = new ArrayList<>();
 
-        ((ProblemActivity)getActivity()).startAnimation();
+        try {
+            ((ProblemActivity) getActivity()).startAnimation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         mDatabaseReference.child("problems").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                ((ProblemActivity)getActivity()).stopAnimation();
+                try {
+                    ((ProblemActivity) getActivity()).stopAnimation();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 list=new ArrayList<ProblemStatements>();
                 templist=new ArrayList<ProblemStatements>();

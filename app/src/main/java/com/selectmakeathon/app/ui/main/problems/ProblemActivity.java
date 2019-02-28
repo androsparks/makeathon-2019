@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +46,10 @@ public class ProblemActivity extends AppCompatActivity {
         toContinue = getIntent().getBooleanExtra("CONTINUE", false);
         teamId = getIntent().getStringExtra("TEAM_ID");
         isExternal = getIntent().getBooleanExtra("IS_EXTERNAL", false);
+
+        if (toContinue) {
+            Toast.makeText(this, "Please choose a problem statement", Toast.LENGTH_SHORT).show();
+        }
 
         loadingLayout = findViewById(R.id.problem_loading_container);
         containerLayout = findViewById(R.id.problem_container);

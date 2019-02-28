@@ -104,8 +104,10 @@ public class ComponentAdapter
         holder.countInc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                component.incrementCount();
-                holder.componentCount.setText(String.valueOf(component.getCount()));
+                if (component.getCount() < 10) {
+                    component.incrementCount();
+                    holder.componentCount.setText(String.valueOf(component.getCount()));
+                }
             }
         });
 

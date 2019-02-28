@@ -12,12 +12,13 @@ public class AbstractModel {
     private String attachmentUrl;
     private ArrayList<Component> components;
     private boolean isFinal;
+    private String extraComponents;
 
     public AbstractModel() {
 
     }
 
-    public AbstractModel(String problemStatementId, String ideaAbstract, String ideaUniquness, String ideaUseCases, String attachmentName, String attachmentUrl, ArrayList<Component> components, boolean isFinal) {
+    public AbstractModel(String problemStatementId, String ideaAbstract, String ideaUniquness, String ideaUseCases, String attachmentName, String attachmentUrl, ArrayList<Component> components, boolean isFinal, String extraComponents) {
         this.problemStatementId = problemStatementId;
         this.ideaAbstract = ideaAbstract;
         this.ideaUniquness = ideaUniquness;
@@ -26,6 +27,7 @@ public class AbstractModel {
         this.attachmentUrl = attachmentUrl;
         this.components = components;
         this.isFinal = isFinal;
+        this.extraComponents = extraComponents;
     }
 
     public String getProblemStatementId() {
@@ -90,5 +92,13 @@ public class AbstractModel {
 
     public void setFinal(boolean aFinal) {
         isFinal = aFinal;
+    }
+
+    public String getExtraComponents() {
+        return extraComponents;
+    }
+
+    public void setExtraComponents(String extraComponents) {
+        this.extraComponents = extraComponents;
     }
 }

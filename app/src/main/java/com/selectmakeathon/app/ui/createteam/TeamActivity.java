@@ -208,7 +208,11 @@ public class TeamActivity extends AppCompatActivity {
             initialMembers.add(teamLeader);
             initialMembers.add(newMember);
         } else {
-            initialMembers.add(newMember);
+            if (initialMembers.contains(newMember)) {
+                Toast.makeText(this, "This member is already a part of your team", Toast.LENGTH_SHORT).show();
+            } else {
+                initialMembers.add(newMember);
+            }
         }
         if (initialMembers.size() > 4) {
             findViewById(R.id.add_member_text_button).setVisibility(View.GONE);

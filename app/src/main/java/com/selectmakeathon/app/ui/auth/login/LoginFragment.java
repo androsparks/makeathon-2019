@@ -112,9 +112,14 @@ public class LoginFragment extends Fragment {
 
                     final String passwordHash = HashUtil.get_SHA_512_SecurePassword(password);
 
+                    AuthActivity.startAnimation();
+
                     usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            AuthActivity.stopAnimation();
+
                             if (dataSnapshot.hasChild(userName)) {
                                 if (dataSnapshot.child(userName).child("hashPassword")
                                         .getValue(String.class).equals(passwordHash)) {

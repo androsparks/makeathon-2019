@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.info.ContactUsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".ui.main.info.tabs.ContactUsFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/wave"

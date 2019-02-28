@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.signup.SignupFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ImageView
         android:id="@+id/signup_button_back"
         android:layout_width="wrap_content"
@@ -49,13 +47,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:textColorHint="@color/colorAccent"
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="@color/colorAccent"

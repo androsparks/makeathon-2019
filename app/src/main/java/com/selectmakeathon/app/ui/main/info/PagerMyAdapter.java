@@ -1,5 +1,9 @@
 package com.selectmakeathon.app.ui.main.info;
 
+import com.selectmakeathon.app.ui.main.info.tabs.AboutUsFragment;
+import com.selectmakeathon.app.ui.main.info.tabs.ContactUsFragment;
+import com.selectmakeathon.app.ui.main.info.tabs.FaqFragment;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

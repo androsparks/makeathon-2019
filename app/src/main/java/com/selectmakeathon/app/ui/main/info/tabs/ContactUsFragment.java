@@ -1,4 +1,4 @@
-package com.selectmakeathon.app.ui.main.info;
+package com.selectmakeathon.app.ui.main.info.tabs;
 
 
 import android.content.Intent;

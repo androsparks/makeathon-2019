@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.TaskStackBuilder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -36,6 +39,7 @@ import com.selectmakeathon.app.util.Constants;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -86,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
 
         startAnimation();
 
+        if (!isInternetAvailable(this)) {
+            Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+        }
+
 //        updateFragment(HomeFragment.newInstance());
 
         buttonSignOut.setOnClickListener(new View.OnClickListener() {
@@ -134,11 +142,17 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
     private void startAnimation() {
         mainContainer.setVisibility(View.GONE);
         loadingContainer.setVisibility(View.VISIBLE);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     private void stopAnimation() {
         mainContainer.setVisibility(View.VISIBLE);
         loadingContainer.setVisibility(View.GONE);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     private void initAdapter() {
@@ -321,5 +335,21 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
+    }
+
+    public boolean isInternetAvailable(Context context) {
+        final ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetworkInfo = connMgr.getActiveNetworkInfo();
+
+        if (activeNetworkInfo != null) { // connected to the internet
+
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                return true;
+            } else if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                return true;
+            }
+        }
+        return false;
     }
 }

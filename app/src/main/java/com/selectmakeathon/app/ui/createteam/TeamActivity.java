@@ -208,7 +208,16 @@ public class TeamActivity extends AppCompatActivity {
             initialMembers.add(teamLeader);
             initialMembers.add(newMember);
         } else {
-            if (initialMembers.contains(newMember)) {
+            boolean contains = false;
+
+            for (UserModel member : initialMembers) {
+                if (member.getRegNo().equals(newMember.getRegNo())) {
+                    contains = true;
+                    break;
+                }
+            }
+
+            if (contains) {
                 Toast.makeText(this, "This member is already a part of your team", Toast.LENGTH_SHORT).show();
             } else {
                 initialMembers.add(newMember);

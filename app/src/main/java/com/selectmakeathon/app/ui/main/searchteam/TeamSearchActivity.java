@@ -52,6 +52,7 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
     CardView cardViewStatic;
     Button clearButtonStatic;
 
+    ConstraintLayout emptyListPlaceholder;
     private RelativeLayout loadingLayout;
     private ConstraintLayout containerLayout;
 
@@ -218,7 +219,8 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
     private void initViews() {
 
         loadingLayout = findViewById(R.id.search_team_loading_container);
-        containerLayout = findViewById(R.id.layout_search_team_container    );
+        containerLayout = findViewById(R.id.layout_search_team_container);
+        emptyListPlaceholder = findViewById(R.id.layout_teamlist_placeholder);
 
         backButton = findViewById(R.id.image_team_search_back);
         buttonSearch = findViewById(R.id.image_team_search);
@@ -238,8 +240,16 @@ public class TeamSearchActivity extends AppCompatActivity implements OnTeamSelec
         stopAnimation();
 
         if (showRv) {
-            rvTeams.setVisibility(View.VISIBLE);
             teamStaticLayout.setVisibility(View.GONE);
+
+            if (teamModels.size() == 0) {
+                emptyListPlaceholder.setVisibility(View.VISIBLE);
+                rvTeams.setVisibility(View.GONE);
+            } else {
+                emptyListPlaceholder.setVisibility(View.GONE);
+                rvTeams.setVisibility(View.VISIBLE);
+            }
+
         } else {
             rvTeams.setVisibility(View.GONE);
             teamStaticLayout.setVisibility(View.VISIBLE);

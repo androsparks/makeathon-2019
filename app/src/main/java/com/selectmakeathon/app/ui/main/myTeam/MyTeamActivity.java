@@ -77,7 +77,6 @@ public class MyTeamActivity extends AppCompatActivity {
 
         deleteButton = findViewById(R.id.image_delete_team);
 
-        /*TODO: Remove default values */
         teamName = prefs.getString(Constants.PREF_TEAM_ID, "");
         userName = prefs.getString(Constants.PREF_USER_ID, "");
 

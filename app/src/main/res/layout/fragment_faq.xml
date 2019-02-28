@@ -211,7 +211,7 @@ Special prizes in healthcare track.
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="35dp"
-                android:text="What is the team size?"
+                android:text="What is the Team Size?"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
@@ -222,7 +222,7 @@ Special prizes in healthcare track.
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
-                android:text="A team can have 3 to 5 members "
+                android:text="3 to 5 members can be present in a team."
                 android:textSize="12sp" />
 
             <TextView
@@ -230,7 +230,7 @@ Special prizes in healthcare track.
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="35dp"
-                android:text="Do I need to be present at the venue at all time?"
+                android:text="When do we all have to be present at the venue?"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
@@ -249,7 +249,8 @@ Special prizes in healthcare track.
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="35dp"
-                android:text="Can I work on any other problem statement other than the given one?"
+                android:layout_marginRight="28dp"
+                android:text="Can I work on a problem statement that is not listed in the app?"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
@@ -260,7 +261,7 @@ Special prizes in healthcare track.
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
-                android:text="Participants can work only on the provided problem statements."
+                android:text="Participants have to pick a problem statement, provided by the Makeathon team"
                 android:textSize="12sp" />
 
             <TextView
@@ -268,7 +269,7 @@ Special prizes in healthcare track.
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="35dp"
-                android:text="How many times do I need to pitch my idea?"
+                android:text="When will we be pitching our ideas?"
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />

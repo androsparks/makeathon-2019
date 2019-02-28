@@ -116,7 +116,7 @@
         android:layout_marginBottom="32dp"
         android:foreground="@drawable/bg_ripple"
         android:padding="16dp"
-        android:text="Create or join team and submit abstract"
+        android:text="Create or join team and submit idea"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"

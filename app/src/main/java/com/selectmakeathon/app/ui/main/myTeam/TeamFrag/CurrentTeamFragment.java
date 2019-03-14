@@ -201,7 +201,7 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
 
 class CurrentTeamAdapter extends RecyclerView.Adapter<CurrentTeamAdapter.LeaderMemberViewHolder> {
 
-    List<UserModel> LeaderMemberList;
+    List<UserModel> LeaderMemberList = new ArrayList<>();
     DeleteUserListener listener;
 
     public CurrentTeamAdapter(List<UserModel> leaderMemberList, DeleteUserListener listener) {
@@ -210,8 +210,10 @@ class CurrentTeamAdapter extends RecyclerView.Adapter<CurrentTeamAdapter.LeaderM
     }
 
     public void setLeaderMemberList(List<UserModel> leaderMemberList) {
-        LeaderMemberList = leaderMemberList;
-        notifyDataSetChanged();
+        if (leaderMemberList != null) {
+            LeaderMemberList = leaderMemberList;
+            notifyDataSetChanged();
+        }
     }
 
     @NonNull
@@ -244,7 +246,11 @@ class CurrentTeamAdapter extends RecyclerView.Adapter<CurrentTeamAdapter.LeaderM
 
     @Override
     public int getItemCount() {
-        return LeaderMemberList.size();
+        try {
+            return LeaderMemberList.size();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     class LeaderMemberViewHolder extends RecyclerView.ViewHolder {

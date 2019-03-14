@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
+import com.selectmakeathon.app.model.AbstractModel;
 import com.selectmakeathon.app.model.ProblemStatements;
 import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
@@ -43,6 +44,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,7 +82,16 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
         prefEditor = prefs.edit();
 
 
-        boolean isSubmitted = prefs.getBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, false);
+        boolean isSubmitted;
+
+        try {
+            String asdf = getTeamModel().getAbstractModel().getIdeaAbstract();
+            isSubmitted = true;
+        } catch (Exception e) {
+            isSubmitted = false;
+        }
+
+        prefEditor.putBoolean(Constants.PREF_IS_ABSTRACT_SUBMITTED, isSubmitted).apply();
 
         if (isSubmitted) {
             submitButton.setText("Edit Idea");

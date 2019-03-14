@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.ui.main.MainActivity;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;

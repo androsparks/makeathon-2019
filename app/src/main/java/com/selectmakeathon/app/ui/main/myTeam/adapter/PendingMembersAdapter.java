@@ -46,8 +46,13 @@ public class PendingMembersAdapter extends RecyclerView.Adapter<PendingMembersAd
         final UserModel userModel = pendingUsers.get(position);
 
         if (userModel.isJoined()) {
-            pendingUsers.remove(position);
-            notifyItemRemoved(position);
+            try {
+                pendingUsers.remove(position);
+//            notifyItemRemoved(position);
+                notifyDataSetChanged();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         holder.userName.setText(userModel.getName());

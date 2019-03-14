@@ -101,9 +101,14 @@ public class HealthFrag extends androidx.fragment.app.Fragment implements Proble
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                mAdapter = new ListAdapter(list,HealthFrag.this,((ProblemActivity)getActivity()).toContinue);
-                statementRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
-                statementRecycle.setAdapter(mAdapter);
+
+                try {
+                    mAdapter = new ListAdapter(list,HealthFrag.this,((ProblemActivity)getActivity()).toContinue);
+                    statementRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
+                    statementRecycle.setAdapter(mAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

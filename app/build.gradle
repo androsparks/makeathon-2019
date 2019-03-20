@@ -61,6 +61,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.21"
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    //Chrome Custom Tab
+    implementation 'com.android.support:customtabs:28.0.0'
+
+    // ScratchView
+//    implementation 'com.github.cooltechworks:ScratchView:v1.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -24,12 +24,14 @@ import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.NavModel;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.ui.main.aboutteam.AboutTeamBottomSheetFragment;
 import com.selectmakeathon.app.ui.main.home.HomeFragment;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;
 import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
 import com.selectmakeathon.app.ui.main.rules.RulesFragment;
+import com.selectmakeathon.app.ui.main.scratch.ScratchFragment;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavAdapter;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavListener;
 import com.selectmakeathon.app.ui.main.searchteam.TeamSearchActivity;
@@ -71,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-    UserModel userModel;
-    String userName;
+    public UserModel userModel;
+    public String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         navUserId.setText(userModel.getRegNo());
     }
 
-    private void startAnimation() {
+    public void startAnimation() {
         mainContainer.setVisibility(View.GONE);
         loadingContainer.setVisibility(View.VISIBLE);
 
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
-    private void stopAnimation() {
+    public void stopAnimation() {
         mainContainer.setVisibility(View.VISIBLE);
         loadingContainer.setVisibility(View.GONE);
 
@@ -178,6 +180,14 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         navModels.add(new NavModel(
                 R.drawable.ic_info_black_24dp,
                 "Info"
+        ));
+        navModels.add(new NavModel(
+                R.drawable.ic_info_black_24dp,
+                "Scratch Card"
+        ));
+        navModels.add(new NavModel(
+                R.drawable.ic_info_black_24dp,
+                "Developers"
         ));
 
         adapter = new SideNavAdapter(this, navModels, this);
@@ -313,24 +323,33 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             Intent i = new Intent(this, ProblemActivity.class);
             i.putExtra("CONTINUE", false);
             startActivity(i);
-        }
-        else if (position == 2) {
+        } else if (position == 2) {
             Intent intent;
             if (userModel.isJoined()) {
                 intent = new Intent(this, MyTeamActivity.class);
             } else {
                 intent = new Intent(this, TeamSearchActivity.class);
             }
-          //  intent = new Intent(this, MyTeamActivity.class);
             startActivity(intent);
         } else if (position == 3) {
             updateFragment(RulesFragment.newInstance());
         } else if (position == 4) {
             Intent i = new Intent(this, InfoActivity.class);
             startActivity(i);
+        } else if (position == 5) {
+            updateFragment(ScratchFragment.newInstance(userModel.getRegNo()));
+        } else if (position == 6) {
+            AboutTeamBottomSheetFragment aboutTeamBottomSheetFragment
+                    = new AboutTeamBottomSheetFragment();
+            aboutTeamBottomSheetFragment.show(
+                    getSupportFragmentManager(),
+                    aboutTeamBottomSheetFragment.getTag()
+            );
         }
 
-        adapter.update(position);
+        if (position != 6) {
+            adapter.update(position);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

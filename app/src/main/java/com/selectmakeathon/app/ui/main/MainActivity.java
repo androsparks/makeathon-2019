@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +30,7 @@ import com.selectmakeathon.app.ui.main.aboutteam.AboutTeamBottomSheetFragment;
 import com.selectmakeathon.app.ui.main.home.HomeFragment;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;
+import com.selectmakeathon.app.ui.main.itinerary.ItineraryFragment;
 import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
 import com.selectmakeathon.app.ui.main.qa.QaForumActivity;
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
     private TeamModel teamModel;
 
     public static enum NavItem {
-        HOME, PROBLEMS, TEAM, RULES, INFO, QA, SCRATCH, DEV
+        HOME, PROBLEMS, TEAM, RULES, INFO, QA, SCRATCH, DEV, ITINERARY
     }
 
     @Override
@@ -227,6 +229,11 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
                     R.drawable.ic_info_black_24dp,
                     "QA Forum",
                     NavItem.QA
+            ));
+            navModels.add(new NavModel(
+                    R.drawable.ic_info_black_24dp,
+                    "Itinerary",
+                    NavItem.ITINERARY
             ));
         }
 
@@ -402,6 +409,9 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             case QA:
                 Intent qaIntent = new Intent(this, QaForumActivity.class);
                 startActivity(qaIntent);
+                break;
+            case ITINERARY:
+                updateFragment(ItineraryFragment.newInstance());
                 break;
         }
 

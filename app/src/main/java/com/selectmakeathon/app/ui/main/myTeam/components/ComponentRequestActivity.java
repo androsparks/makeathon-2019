@@ -2,6 +2,7 @@ package com.selectmakeathon.app.ui.main.myTeam.components;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,6 +66,7 @@ public class ComponentRequestActivity extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     teamModel = dataSnapshot.getValue(TeamModel.class);
+
                     aL=teamModel.getComponentRequests();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -79,7 +82,6 @@ public class ComponentRequestActivity extends AppCompatActivity{
 
             }
         });
-
 
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -124,6 +126,7 @@ public class ComponentRequestActivity extends AppCompatActivity{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(ComponentRequestActivity.this));
                 mAdapter = new ItemAdapter(components,teamId);
@@ -135,8 +138,6 @@ public class ComponentRequestActivity extends AppCompatActivity{
 
             }
         });
-
     }
-
 
 }

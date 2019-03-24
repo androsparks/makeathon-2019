@@ -12,12 +12,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
-        android:text="Choose Teammate"
+        android:text="Ask your question"
         android:textColor="@color/colorAccent"
         android:textSize="24dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/el_team_member_reg_no"
+        android:id="@+id/el_qa"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,17 +33,16 @@
         app:hintTextColor="@color/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_team_member_reg_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
-            android:hint="Member Registration Number"
+            android:hint="Enter question"
             android:inputType="textCapCharacters" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_team_member_add"
+        android:id="@+id/btn_qa_add"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +53,7 @@
         android:layout_marginBottom="24dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="Find and ADD"
+        android:text="Request Answer"
         android:textColor="@color/colorAccent" />
 
 </LinearLayout>

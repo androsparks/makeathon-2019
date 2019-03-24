@@ -126,7 +126,7 @@ class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 c.setCount(count);
 
 
-                // if button is clicked, close the custom dialog
+                // dialogbutton should add data to Firebase but fails to do so
                 dialogButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

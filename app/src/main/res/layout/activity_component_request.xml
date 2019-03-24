@@ -8,7 +8,8 @@
     android:id="@+id/coordinatorLayout"
     tools:context=".ui.main.myTeam.components.ComponentRequestActivity">
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_main"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <LinearLayout
         android:layout_width="match_parent"

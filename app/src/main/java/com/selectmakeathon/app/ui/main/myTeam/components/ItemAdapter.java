@@ -24,25 +24,29 @@ import com.selectmakeathon.app.model.ComponentRequestModel;
 import com.selectmakeathon.app.model.TeamModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private ArrayList<String> displaynow;
-    public ArrayList<ComponentRequestModel> list = new ArrayList<>();
+    public List<ComponentRequestModel> list=new ArrayList<>();
     private int count = 0;
     private int i = 0;
     private String teamId;
     TeamModel teamModel;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-
     public ItemAdapter(ArrayList<String> displaynow, String teamId) {
         this.displaynow = displaynow;
         this.teamId = teamId;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,7 +56,7 @@ class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     teamModel = dataSnapshot.getValue(TeamModel.class);
-                    teamModel.getComponentRequests(); //TODO: Use this
+                    list=teamModel.getComponentRequests(); //TODO: Use this
 
                 } catch (Exception e) {
 
@@ -140,6 +144,7 @@ class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                         }
                         if (!isPresent) {
                             teamModel.getComponentRequests().add(c);
+                            reference.child("teams").child(teamId).setValue(teamModel);
                             list.add(c);
                         }
                         dialog.dismiss();

@@ -24,6 +24,7 @@ import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.ui.main.idea.bottomsheet.ComponentsBottomSheetFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentRequestActivity extends AppCompatActivity{
 
@@ -32,8 +33,10 @@ public class ComponentRequestActivity extends AppCompatActivity{
     BottomSheetBehavior behavior;
     RecyclerView recyclerView,finarec;
     public ItemAdapter mAdapter;
+    private CompListAdapter mFAdapter;
 
-    private ArrayList<ComponentRequestModel> aL=new ArrayList<>();
+    private List<ComponentRequestModel> aL=new ArrayList<>();
+
     CompListAdapter mCompListAdapter;
 
     String teamId = "";
@@ -46,10 +49,37 @@ public class ComponentRequestActivity extends AppCompatActivity{
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_component_request);
+
         fab = findViewById(R.id.fab_component_request);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        finarec=(RecyclerView) findViewById(R.id.finalCompRec);
+
         final View bottomSheet = findViewById(R.id.bottom_sheet);
         behavior = BottomSheetBehavior.from(bottomSheet);
+
+        teamId = getIntent().getStringExtra("TEAM_ID");
+
+        reference.child("teams").child(teamId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                try {
+                    teamModel = dataSnapshot.getValue(TeamModel.class);
+                    aL=teamModel.getComponentRequests();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                finarec.setHasFixedSize(false);
+                finarec.setLayoutManager(new LinearLayoutManager(ComponentRequestActivity.this));
+                mFAdapter = new CompListAdapter(aL,teamId);
+                finarec.setAdapter(mFAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -67,7 +97,6 @@ public class ComponentRequestActivity extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ComponentRequestModel componentRequestModel = new ComponentRequestModel();
                 if (behavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 } else {
@@ -77,31 +106,11 @@ public class ComponentRequestActivity extends AppCompatActivity{
 //                String id = reference.push().getKey();
 //                componentRequestModel.setId(id);
 
-                teamModel.getComponentRequests().add(componentRequestModel);
-                reference.child("teams").child(teamId).setValue(teamModel);
             }
         });
-        teamId = getIntent().getStringExtra("TEAM_ID");
 
-        reference.child("teams").child(teamId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
-                    teamModel = dataSnapshot.getValue(TeamModel.class);
-                    teamModel.getComponentRequests(); //TODO: Use this
 
-                } catch (Exception e) {
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        finarec=(RecyclerView)findViewById(R.id.finalCompRec);
 
         reference.child("components").addValueEventListener(new ValueEventListener() {
             @Override

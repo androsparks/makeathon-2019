@@ -21,6 +21,7 @@ public class UserModel {
     private String teamName;
     private boolean isLeader;
     private boolean isJoined;
+    private String scratchUniqueKey;
 
     public UserModel() {
 
@@ -30,8 +31,7 @@ public class UserModel {
 
     }
 
-    public UserModel(String name, String email, String regNo, String hashPassword, String whatsNo, String phNo, boolean isVitian, String collegeName, boolean isHosteler, String hostelBlock, String roomNo, String branch, String gender, String skillSet, String teamName, boolean isLeader, boolean isJoined) {
-
+    public UserModel(String name, String email, String regNo, String hashPassword, String whatsNo, String phNo, boolean isVitian, String collegeName, boolean isHosteler, String hostelBlock, String roomNo, String branch, String gender, String skillSet, String teamName, boolean isLeader, boolean isJoined, String scratchUniqueKey) {
         this.name = name;
         this.email = email;
         this.regNo = regNo;
@@ -49,6 +49,7 @@ public class UserModel {
         this.teamName = teamName;
         this.isLeader = isLeader;
         this.isJoined = isJoined;
+        this.scratchUniqueKey = scratchUniqueKey;
     }
 
     public String getName() {
@@ -185,5 +186,13 @@ public class UserModel {
 
     public void setJoined(boolean joined) {
         isJoined = joined;
+    }
+
+    public String getScratchUniqueKey() {
+        return scratchUniqueKey;
+    }
+
+    public void setScratchUniqueKey(String scratchUniqueKey) {
+        this.scratchUniqueKey = scratchUniqueKey;
     }
 }

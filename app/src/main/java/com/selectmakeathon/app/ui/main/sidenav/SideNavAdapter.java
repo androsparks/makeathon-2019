@@ -43,7 +43,7 @@ public class SideNavAdapter extends RecyclerView.Adapter<SideNavAdapter.SideNavV
     @Override
     public void onBindViewHolder(@NonNull SideNavViewHolder holder, final int position) {
 
-        NavModel navModel = navModels.get(position);
+        final NavModel navModel = navModels.get(position);
 
         holder.navIcon.setImageResource(navModel.getIconId());
         holder.navText.setText(navModel.getText());
@@ -69,7 +69,7 @@ public class SideNavAdapter extends RecyclerView.Adapter<SideNavAdapter.SideNavV
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onNavItemSelected(position);
+                listener.onNavItemSelected(navModel.getNavItem(), position);
             }
         });
 

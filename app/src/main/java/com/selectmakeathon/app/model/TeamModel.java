@@ -2,6 +2,7 @@ package com.selectmakeathon.app.model;
 
 import android.icu.lang.UScript;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamModel {
@@ -13,9 +14,21 @@ public class TeamModel {
     private List<UserModel> memberRequests;
     private AbstractModel abstractModel;
     private boolean isSelected;
+    private List<ComponentRequestModel> componentRequests;
 
     public TeamModel() {
 
+    }
+
+    public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected, List<ComponentRequestModel> componentRequests) {
+        this.teamName = teamName;
+        this.teamId = teamId;
+        this.teamLeader = teamLeader;
+        this.teamMembers = teamMembers;
+        this.memberRequests = memberRequests;
+        this.abstractModel = abstractModel;
+        this.isSelected = isSelected;
+        this.componentRequests = componentRequests;
     }
 
     public TeamModel(String teamName, String teamId, UserModel teamLeader, List<UserModel> teamMembers, List<UserModel> memberRequests, AbstractModel abstractModel, boolean isSelected) {
@@ -26,6 +39,7 @@ public class TeamModel {
         this.memberRequests = memberRequests;
         this.abstractModel = abstractModel;
         this.isSelected = isSelected;
+        this.componentRequests = new ArrayList<>();
     }
 
     public String getTeamName() {
@@ -84,5 +98,15 @@ public class TeamModel {
         isSelected = selected;
     }
 
+    public List<ComponentRequestModel> getComponentRequests() {
+        if (componentRequests == null) {
+            componentRequests = new ArrayList<>();
+        }
+        return componentRequests;
+    }
+
+    public void setComponentRequests(List<ComponentRequestModel> componentRequests) {
+        this.componentRequests = componentRequests;
+    }
 }
 

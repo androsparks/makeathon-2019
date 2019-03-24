@@ -30,6 +30,7 @@ import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
 import com.selectmakeathon.app.ui.main.myTeam.adapter.NoLeaderMemberAdapter;
+import com.selectmakeathon.app.ui.main.myTeam.components.ComponentRequestActivity;
 import com.selectmakeathon.app.ui.main.problems.ProbFragmentPack.HealthFrag;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
 import com.selectmakeathon.app.util.Constants;
@@ -62,6 +63,7 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
     private TextView TeamNameHolder;
     private TextView deadlineText;
     private Button submitButton;
+    private Button componentButton;
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
     CurrentTeamAdapter adapter;
@@ -77,6 +79,7 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
         View view=inflater.inflate(R.layout.fragment_current_team, container, false);
         mRecyclerView = view.findViewById(R.id.ListMembers);
         submitButton = view.findViewById(R.id.btn_team_submit);
+        componentButton = view.findViewById(R.id.button_team_request_component);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         prefEditor = prefs.edit();
@@ -162,6 +165,17 @@ public class CurrentTeamFragment extends androidx.fragment.app.Fragment implemen
                         startActivity(intent);
                     }
                 }
+            }
+        });
+
+        componentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ComponentRequestActivity.class);
+                TeamModel teamModel = getTeamModel();
+                String teamId = teamModel.getTeamId();
+                intent.putExtra("TEAM_ID", teamId);
+                startActivity(intent);
             }
         });
     }

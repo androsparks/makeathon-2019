@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,14 +23,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.selectmakeathon.app.R;
 import com.selectmakeathon.app.model.NavModel;
+import com.selectmakeathon.app.model.TeamModel;
 import com.selectmakeathon.app.model.UserModel;
 import com.selectmakeathon.app.ui.auth.AuthActivity;
+import com.selectmakeathon.app.ui.main.aboutteam.AboutTeamBottomSheetFragment;
 import com.selectmakeathon.app.ui.main.home.HomeFragment;
 import com.selectmakeathon.app.ui.main.idea.AbstractActivity;
 import com.selectmakeathon.app.ui.main.info.InfoActivity;
+import com.selectmakeathon.app.ui.main.itinerary.ItineraryFragment;
 import com.selectmakeathon.app.ui.main.myTeam.MyTeamActivity;
 import com.selectmakeathon.app.ui.main.problems.ProblemActivity;
+import com.selectmakeathon.app.ui.main.qa.QaForumActivity;
 import com.selectmakeathon.app.ui.main.rules.RulesFragment;
+import com.selectmakeathon.app.ui.main.scratch.ScratchFragment;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavAdapter;
 import com.selectmakeathon.app.ui.main.sidenav.SideNavListener;
 import com.selectmakeathon.app.ui.main.searchteam.TeamSearchActivity;
@@ -71,8 +77,13 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-    UserModel userModel;
-    String userName;
+    public UserModel userModel;
+    public String userName;
+    private TeamModel teamModel;
+
+    public static enum NavItem {
+        HOME, PROBLEMS, TEAM, RULES, INFO, QA, SCRATCH, DEV, ITINERARY
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         userName = prefs.getString(Constants.PREF_USER_ID, "");
 
         initViews();
-        initAdapter();
 
         startAnimation();
 
@@ -103,20 +113,12 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
             }
         });
 
-        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-
-            @Override
-            public void onBackStackChanged() {
-                updateDrawer();
-            }
-        });
-
         reference.child("users").child(userName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     userModel = dataSnapshot.getValue(UserModel.class);
-                    updateUI();
+                    getTeamModel();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -129,9 +131,41 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         });
     }
 
+    private void getTeamModel() {
+        String teamId = userModel.getTeamName();
+
+        if (teamId != null && !teamId.isEmpty()) {
+            reference.child("teams").child(teamId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        teamModel = dataSnapshot.getValue(TeamModel.class);
+                        updateUI();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
     private void updateUI() {
         stopAnimation();
 
+
+        initAdapter();
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+
+            @Override
+            public void onBackStackChanged() {
+                updateDrawer();
+            }
+        });
 //        updateFragment(HomeFragment.newInstance());
         updateDrawer();
 
@@ -139,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         navUserId.setText(userModel.getRegNo());
     }
 
-    private void startAnimation() {
+    public void startAnimation() {
         mainContainer.setVisibility(View.GONE);
         loadingContainer.setVisibility(View.VISIBLE);
 
@@ -147,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
-    private void stopAnimation() {
+    public void stopAnimation() {
         mainContainer.setVisibility(View.VISIBLE);
         loadingContainer.setVisibility(View.GONE);
 
@@ -161,23 +195,52 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
 
         navModels.add(new NavModel(
                 R.drawable.ic_home_black_24dp,
-                "Home"
+                "Home",
+                NavItem.HOME
         ));
         navModels.add(new NavModel(
                 R.drawable.ic_format_list_bulleted_black_24dp,
-                "Problem Statements"
+                "Problem Statements",
+                NavItem.PROBLEMS
         ));
         navModels.add(new NavModel(
                 R.drawable.ic_people_black_24dp,
-                "Team"
+                "Team",
+                NavItem.TEAM
         ));
         navModels.add(new NavModel(
                 R.drawable.ic_script_text,
-                "Rules"
+                "Rules",
+                NavItem.RULES
         ));
         navModels.add(new NavModel(
                 R.drawable.ic_info_black_24dp,
-                "Info"
+                "Info",
+                NavItem.INFO
+        ));
+
+        if (teamModel.isSelected()) {
+            navModels.add(new NavModel(
+                    R.drawable.ic_info_black_24dp,
+                    "Scratch Card",
+                    NavItem.SCRATCH
+            ));
+            navModels.add(new NavModel(
+                    R.drawable.ic_info_black_24dp,
+                    "QA Forum",
+                    NavItem.QA
+            ));
+            navModels.add(new NavModel(
+                    R.drawable.ic_info_black_24dp,
+                    "Itinerary",
+                    NavItem.ITINERARY
+            ));
+        }
+
+        navModels.add(new NavModel(
+                R.drawable.ic_info_black_24dp,
+                "Developers",
+                NavItem.DEV
         ));
 
         adapter = new SideNavAdapter(this, navModels, this);
@@ -305,32 +368,86 @@ public class MainActivity extends AppCompatActivity implements SideNavListener {
     }
 
     @Override
-    public void onNavItemSelected(int position) {
+    public void onNavItemSelected(NavItem navItem, int position) {
 
-        if (position == 0) {
-            updateFragment(HomeFragment.newInstance());
-        } else if (position == 1) {
-            Intent i = new Intent(this, ProblemActivity.class);
-            i.putExtra("CONTINUE", false);
-            startActivity(i);
-        }
-        else if (position == 2) {
-            Intent intent;
-            if (userModel.isJoined()) {
-                intent = new Intent(this, MyTeamActivity.class);
-            } else {
-                intent = new Intent(this, TeamSearchActivity.class);
-            }
-          //  intent = new Intent(this, MyTeamActivity.class);
-            startActivity(intent);
-        } else if (position == 3) {
-            updateFragment(RulesFragment.newInstance());
-        } else if (position == 4) {
-            Intent i = new Intent(this, InfoActivity.class);
-            startActivity(i);
+        switch (navItem) {
+            case HOME:
+                updateFragment(HomeFragment.newInstance());
+                break;
+            case PROBLEMS:
+                Intent i = new Intent(this, ProblemActivity.class);
+                i.putExtra("CONTINUE", false);
+                startActivity(i);
+                break;
+            case TEAM:
+                Intent intent;
+                if (userModel.isJoined()) {
+                    intent = new Intent(this, MyTeamActivity.class);
+                } else {
+                    intent = new Intent(this, TeamSearchActivity.class);
+                }
+                startActivity(intent);
+                break;
+            case RULES:
+                updateFragment(RulesFragment.newInstance());
+                break;
+            case INFO:
+                Intent infoIntent = new Intent(this, InfoActivity.class);
+                startActivity(infoIntent);
+                break;
+            case SCRATCH:
+                updateFragment(ScratchFragment.newInstance(userModel.getRegNo()));
+                break;
+            case DEV:
+                AboutTeamBottomSheetFragment aboutTeamBottomSheetFragment
+                        = new AboutTeamBottomSheetFragment();
+                aboutTeamBottomSheetFragment.show(
+                        getSupportFragmentManager(),
+                        aboutTeamBottomSheetFragment.getTag()
+                );
+                break;
+            case QA:
+                Intent qaIntent = new Intent(this, QaForumActivity.class);
+                startActivity(qaIntent);
+                break;
+            case ITINERARY:
+                updateFragment(ItineraryFragment.newInstance());
+                break;
         }
 
-        adapter.update(position);
+//        if (navItem == NavItem.HOME) {
+//            updateFragment(HomeFragment.newInstance());
+//        } else if (navItem == NavItem.PROBLEMS) {
+//            Intent i = new Intent(this, ProblemActivity.class);
+//            i.putExtra("CONTINUE", false);
+//            startActivity(i);
+//        } else if (position == 2) {
+//            Intent intent;
+//            if (userModel.isJoined()) {
+//                intent = new Intent(this, MyTeamActivity.class);
+//            } else {
+//                intent = new Intent(this, TeamSearchActivity.class);
+//            }
+//            startActivity(intent);
+//        } else if (position == 3) {
+//            updateFragment(RulesFragment.newInstance());
+//        } else if (position == 4) {
+//            Intent i = new Intent(this, InfoActivity.class);
+//            startActivity(i);
+//        } else if (position == 5) {
+//            updateFragment(ScratchFragment.newInstance(userModel.getRegNo()));
+//        } else if (position == 6) {
+//            AboutTeamBottomSheetFragment aboutTeamBottomSheetFragment
+//                    = new AboutTeamBottomSheetFragment();
+//            aboutTeamBottomSheetFragment.show(
+//                    getSupportFragmentManager(),
+//                    aboutTeamBottomSheetFragment.getTag()
+//            );
+//        }
+
+        if (navItem != NavItem.DEV) {
+            adapter.update(position);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

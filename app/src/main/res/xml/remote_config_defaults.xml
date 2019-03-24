@@ -16,4 +16,8 @@
         <key>internal_date</key>
         <value>14th March</value>
     </entry>
+    <entry>
+        <key>scratch_enabled</key>
+        <value>false</value>
+    </entry>
 </defaultsMap>

@@ -164,7 +164,6 @@ public class ArtificialFrag extends androidx.fragment.app.Fragment implements Pr
 
         public ArtificialFrag.ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.problem_statement_card, parent, false);
-
             ArtificialFrag.ListAdapter.ViewHolder viewHolder = new ArtificialFrag.ListAdapter.ViewHolder(view);
             return viewHolder;
         }

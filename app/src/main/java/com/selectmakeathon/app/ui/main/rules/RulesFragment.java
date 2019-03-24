@@ -42,7 +42,7 @@ public class RulesFragment extends androidx.fragment.app.Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        navIcon = view.findViewById(R.id.frag_rules_nav_icon);
+        navIcon = view.findViewById(R.id.frag_itinerary_nav_icon);
 
         navIcon.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.selectmakeathon.app.ui.main.rules;
+package com.selectmakeathon.app.ui.main.itinerary;
 
 
 import android.app.Fragment;
@@ -18,24 +18,24 @@ import androidx.annotation.Nullable;
  * A simple {@link Fragment} subclass.
  */
 
-public class RulesFragment extends androidx.fragment.app.Fragment {
+public class ItineraryFragment extends androidx.fragment.app.Fragment {
 
 
     private ImageView navIcon;
 
-    public RulesFragment() {
+    public ItineraryFragment() {
         // Required empty public constructor
     }
 
-    public static RulesFragment newInstance() {
-        return new RulesFragment();
+    public static ItineraryFragment newInstance() {
+        return new ItineraryFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rules, container, false);
+        return inflater.inflate(R.layout.fragment_iternary_details, container, false);
     }
 
     @Override

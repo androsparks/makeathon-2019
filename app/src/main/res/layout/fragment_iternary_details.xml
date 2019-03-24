@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.itinerary.ItineraryFragment">
+
+    <ImageView
+        android:id="@+id/frag_itinerary_nav_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/bg_ripple"
+        android:padding="16dp"
+        android:src="@drawable/ic_menu_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/wave"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frag_itinerary_nav_icon"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:id="@+id/mainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/rulesHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="ITINERARY"
+                android:textColor="@color/colorAccent"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/date25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="March 25th"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="17:00 Hrs - Check-In"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="18:00 Hrs - Inaugural ceremony"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="19:30 Hrs - Component form submission"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="20:00 Hrs - Making Begins"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="20:30 Hrs - Dinner"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="Making continues overnight"/>
+
+            <TextView
+                android:id="@+id/date26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="March 26th"
+                android:textColor="#fff"
+                android:textSize="20dp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="08:00 Hrs - Breakfast"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="11:30 Hrs - Milestone check - 1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="13:00 Hrs - Lunch"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="18:00 Hrs - Snacks"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="20:00 Hrs - Dinner"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="21:00 Hrs - Milestone check - 2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="Making continues overnight"/>
+
+            <TextView
+                android:id="@+id/date27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="28dp"
+                android:text="March 27th"
+                android:textColor="#fff"
+                android:textSize="20dp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="08:00 Hrs - Making Ends"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="08:15 Hrs - Breakfast"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="09:00 Hrs - Qualifier Round"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="13:00 Hrs - Lunch"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="14:00 Hrs - Final presentation"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="15sp"
+                android:text="16:00 Hrs - Price distribution and Valedictoy"/>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wave"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_margin="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_waves"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_long_logo"
+        app:layout_constraintBottom_toBottomOf="@+id/frag_itinerary_nav_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frag_itinerary_nav_icon" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

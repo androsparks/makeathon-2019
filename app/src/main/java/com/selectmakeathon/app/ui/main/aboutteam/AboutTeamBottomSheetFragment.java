@@ -58,19 +58,23 @@ public class AboutTeamBottomSheetFragment extends RoundedBottomSheetDialogFragme
         ));
 
         devModels.add(new DevModel(
-                "Sparsh Srivastava", "UI/UX Designer", R.drawable.ic_android, "https://www.linkedin.com/in/sparshsri/"
+                "Sparsh Srivastava", "Android Developer", R.drawable.ic_android, "https://www.linkedin.com/in/sparshsri/"
         ));
 
         devModels.add(new DevModel(
-                "Sanil", "Android Developer", R.drawable.ic_android, "https://www.example.com/"
+                "Sanil Chawla", "Android Developer", R.drawable.ic_android, "https://www.linkedin.com/in/sanil-chawla-532497157/"
         ));
 
         devModels.add(new DevModel(
-                "Samarth Nayyar", "UI/UX Designer", R.drawable.ic_behance, "https://www.example.com/"
+                "Rahul J Trivedi", "Android Developer", R.drawable.ic_android, "https://www.linkedin.com/in/rahul-trivedi-7b82a8173"
         ));
 
         devModels.add(new DevModel(
-                "Yaswant Narayan", "Android Developer", R.drawable.ic_android, "https://www.example.com/"
+                "Shubham Giri", "Android Developer", R.drawable.ic_android, "https://www.linkedin.com/in/shubham-giri-a62a8816a"
+        ));
+
+        devModels.add(new DevModel(
+                "Dhawal Gupta", "Android Developer", R.drawable.ic_android, "https://www.linkedin.com/in/dhawal-gupta-045074183/"
         ));
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_dev_info);

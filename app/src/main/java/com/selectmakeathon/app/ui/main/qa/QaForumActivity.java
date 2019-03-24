@@ -2,6 +2,7 @@ package com.selectmakeathon.app.ui.main.qa;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class QaForumActivity extends AppCompatActivity {
     UserModel userModel;
     static SendQaInterface sendQaInterface;
     BottomSheetDialogFragment bottomSheetDialogFragment;
+    RecyclerView qaRecyclerView;
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
     @Override
@@ -65,6 +67,7 @@ public class QaForumActivity extends AppCompatActivity {
                     QaModel model = snapshot.getValue(QaModel.class);
                     qaModelList.add(model);
                 }
+                setAdapter(qaModelList);
 
             }
 
@@ -86,6 +89,7 @@ public class QaForumActivity extends AppCompatActivity {
 
     private void initViews() {
         fab = findViewById(R.id.fab_add_question);
+        qaRecyclerView = findViewById(R.id.rv_qa_forum);
     }
 
     private void fetchUser(String userId) {
@@ -113,8 +117,9 @@ public class QaForumActivity extends AppCompatActivity {
         qaReference.child(qaModel.getId()).setValue(qaModel);
     }
 
-    private void setAdapter(){
-
+    private void setAdapter(List<QaModel> qaModels){
+        QaAdapter adapter = new QaAdapter(qaModels);
+        qaRecyclerView.setAdapter(adapter);
     }
 
     public static SendQaInterface getSendQaInterface() {
